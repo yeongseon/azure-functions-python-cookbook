@@ -51,3 +51,11 @@ make docs
 ## Direction
 
 The cookbook is intentionally content-first. It is not a separate CLI tool yet. The goal is to make recipes discoverable first, and only add deeper CLI integration after the recipe catalog and example quality are stable.
+
+
+## Disclaimer
+
+This project is an independent community project and is not affiliated with,
+endorsed by, or maintained by Microsoft.
+
+Azure and Azure Functions are trademarks of Microsoft Corporation.
