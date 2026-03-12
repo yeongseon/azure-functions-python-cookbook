@@ -31,7 +31,6 @@ markdown_extensions:
   - pymdownx.tabbed
   - pymdownx.details
   - pymdownx.inlinehilite
-  - pymdownx.emoji
 
 plugins:
   - search
