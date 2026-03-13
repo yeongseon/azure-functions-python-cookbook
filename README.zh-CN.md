@@ -58,6 +58,14 @@ make docs
 - 设计原则: `DESIGN.md`
 - 贡献指南: `CONTRIBUTING.md`
 
+## Ecosystem
+
+- [azure-functions-validation](https://github.com/yeongseon/azure-functions-validation) — 请求与响应校验
+- [azure-functions-openapi](https://github.com/yeongseon/azure-functions-openapi) — OpenAPI 与 Swagger UI
+- [azure-functions-logging](https://github.com/yeongseon/azure-functions-logging) — 结构化日志
+- [azure-functions-doctor](https://github.com/yeongseon/azure-functions-doctor) — 诊断 CLI
+- [azure-functions-scaffold](https://github.com/yeongseon/azure-functions-scaffold) — 项目脚手架
+
 ## Disclaimer
 
 本项目是一个独立的社区项目，不隶属于 Microsoft，也不受其认可或维护。

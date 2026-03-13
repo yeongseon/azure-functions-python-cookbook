@@ -58,6 +58,14 @@ make docs
 - 설계 원칙: `DESIGN.md`
 - 기여 가이드: `CONTRIBUTING.md`
 
+## Ecosystem
+
+- [azure-functions-validation](https://github.com/yeongseon/azure-functions-validation) — 요청 및 응답 검증
+- [azure-functions-openapi](https://github.com/yeongseon/azure-functions-openapi) — OpenAPI 및 Swagger UI
+- [azure-functions-logging](https://github.com/yeongseon/azure-functions-logging) — 구조화된 로깅
+- [azure-functions-doctor](https://github.com/yeongseon/azure-functions-doctor) — 진단 CLI
+- [azure-functions-scaffold](https://github.com/yeongseon/azure-functions-scaffold) — 프로젝트 스캐폴딩
+
 ## Disclaimer
 
 본 프로젝트는 독립적인 커뮤니티 프로젝트이며, Microsoft와 제휴하거나 Microsoft의 보증 또는 지원을 받지 않습니다.
