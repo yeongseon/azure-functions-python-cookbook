@@ -23,6 +23,8 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
+    "azure-functions",
+    "azure-functions-openapi",
     "bandit==1.9.4",
     "build",
     "coverage",

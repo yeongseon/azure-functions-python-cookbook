@@ -1,0 +1,1 @@
+"""Example Azure Functions projects."""
