@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.1.1] - 2026-03-14
+
+### Added
+
+- Unified tooling: Ruff (lint + format), pre-commit hooks, standardized Makefile
+- Comprehensive documentation overhaul (MkDocs site with standardized nav)
+- Translated README files (Korean, Japanese, Chinese)
+- Standardized documentation quality across ecosystem
+- GitHub Pages docs workflow (`.github/workflows/docs.yml`)
+- 5 runnable example projects with smoke tests
 
 ## [0.1.0] - 2026-03-08
 

@@ -2,12 +2,18 @@
 
 All notable changes to the Azure Functions Python Cookbook project will be documented in this file. This project adheres to Semantic Versioning.
 
-## [Unreleased]
+## [0.1.1] - 2026-03-14
 
-The unreleased section contains changes that have been committed to the main branch but have not yet been included in a formal release.
+This release captures the tooling unification, documentation overhaul, and docs deployment infrastructure applied across the ecosystem.
 
 ### Added
-- No changes yet.
+
+- Unified tooling: Ruff (lint + format), pre-commit hooks, standardized Makefile
+- Comprehensive documentation overhaul (MkDocs site with standardized nav)
+- Translated README files (Korean, Japanese, Chinese)
+- Standardized documentation quality across ecosystem
+- GitHub Pages docs workflow (`.github/workflows/docs.yml`)
+- 5 runnable example projects with smoke tests
 
 ## [0.1.0] - 2026-03-08
 
