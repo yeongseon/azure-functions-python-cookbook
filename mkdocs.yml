@@ -8,27 +8,45 @@ theme:
   name: material
   features:
     - navigation.tabs
+    - navigation.sections
     - content.code.copy
 
 nav:
   - Home: index.md
-  - Recipes: recipes.md
-  - Architecture: architecture.md
-  - Roadmap: roadmap.md
+  - Getting Started:
+      - Installation: installation.md
+      - Getting Started: getting-started.md
+  - Recipes:
+      - Overview: recipes/index.md
+      - HTTP API Basic: recipes/http-api-basic.md
+      - HTTP API with OpenAPI: recipes/http-api-openapi.md
+      - GitHub Webhook: recipes/github-webhook.md
+      - Queue Worker: recipes/queue-worker.md
+      - Timer Job: recipes/timer-job.md
+  - User Guide:
+      - Usage: usage.md
+      - Architecture: architecture.md
+      - Roadmap: roadmap.md
+  - Contributing:
+      - Development: development.md
+      - Testing: testing.md
+      - Guidelines: contributing.md
+  - Troubleshooting: troubleshooting.md
+  - FAQ: faq.md
   - Security: security.md
   - Changelog: changelog.md
-  - Contributing: contributing.md
 
 markdown_extensions:
   - admonition
-  - codehilite
   - toc:
       permalink: true
       toc_depth: 3
   - tables
   - pymdownx.superfences
-  - pymdownx.highlight
-  - pymdownx.tabbed
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.details
   - pymdownx.inlinehilite
 

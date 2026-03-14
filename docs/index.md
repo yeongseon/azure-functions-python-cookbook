@@ -1,106 +1,122 @@
 # Azure Functions Python Cookbook
 
-The Azure Functions Python Cookbook is a pattern catalog for the Python v2 programming model. It is designed for engineers who need implementation-ready guidance, not just feature summaries. Each recipe captures a complete path from trigger design to production hardening.
+Practical, production-oriented recipes for building Azure Functions with the
+Python v2 programming model.
 
-## What This Repository Provides
+!!! info "What this project is"
+    This repository is a cookbook and pattern catalog.
+    It is not a runtime library you install as application dependency.
 
-- Recipe-first documentation for HTTP APIs, webhooks, queue workers, and timer jobs.
-- Python v2 decorator examples built around `func.FunctionApp()`.
-- Practical validation patterns using `pydantic.BaseModel`.
-- Architecture notes that explain operational tradeoffs, not only syntax.
+## Why this cookbook exists
 
-## Quick Start
+Azure Functions documentation is broad, but many teams still need concrete,
+copy-adapt-run patterns for common workloads. This cookbook focuses on that
+gap by pairing clear recipe narratives with runnable examples.
 
-The example below is a runnable minimal HTTP function using the v2 model. Put this in `function_app.py` in a standard Azure Functions Python app.
+## What you get
 
-```python
-import json
+- Trigger-focused recipes for real workloads (HTTP, webhook, queue, timer)
+- Runnable sample apps under `examples/`
+- Production considerations in every recipe
+- Consistent structure for learning, implementation, and contribution
 
-import azure.functions as func
-from pydantic import BaseModel
+## Recipe cards
 
+### HTTP API Basic
 
-class HelloRequest(BaseModel):
-    name: str
+- Trigger: HTTP
+- Best for: minimal CRUD APIs and route handling
+- Learn more: [HTTP API Basic](recipes/http-api-basic.md)
 
+### HTTP API with OpenAPI
 
-class HelloResponse(BaseModel):
-    message: str
+- Trigger: HTTP
+- Best for: contract-first docs and Swagger UI
+- Learn more: [HTTP API with OpenAPI](recipes/http-api-openapi.md)
 
+### GitHub Webhook
 
-app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
+- Trigger: HTTP
+- Best for: secure signed event ingestion from GitHub
+- Learn more: [GitHub Webhook](recipes/github-webhook.md)
 
+### Queue Worker
 
-@app.route(route="hello", methods=["POST"])
-def hello(req: func.HttpRequest) -> func.HttpResponse:
-    try:
-        payload = HelloRequest.model_validate_json(req.get_body())
-    except Exception:
-        return func.HttpResponse("Invalid JSON body", status_code=400)
+- Trigger: Queue
+- Best for: asynchronous background processing
+- Learn more: [Queue Worker](recipes/queue-worker.md)
 
-    response = HelloResponse(message=f"Hello, {payload.name}")
-    return func.HttpResponse(
-        response.model_dump_json(),
-        mimetype="application/json",
-        status_code=200,
-    )
+### Timer Job
+
+- Trigger: Timer
+- Best for: scheduled maintenance and periodic automation
+- Learn more: [Timer Job](recipes/timer-job.md)
+
+## Quick start
+
+```bash
+git clone https://github.com/yeongseon/azure-functions-python-cookbook.git
+cd azure-functions-python-cookbook
+python -m venv .venv
+source .venv/bin/activate
 ```
 
-Run locally:
+Run one example:
 
-1. Install dependencies with `pip install -r requirements.txt`.
-2. Start the host with `func start`.
-3. Send a request to `http://localhost:7071/api/hello`.
-
-You can test the endpoint with a short Python script:
-
-```python
-import json
-import urllib.request
-
-import azure.functions as func
-from pydantic import BaseModel
-
-
-class TestRequest(BaseModel):
-    name: str
-
-
-payload = TestRequest(name="cookbook-user").model_dump_json().encode("utf-8")
-request = urllib.request.Request(
-    url="http://localhost:7071/api/hello",
-    data=payload,
-    method="POST",
-    headers={"Content-Type": "application/json"},
-)
-
-with urllib.request.urlopen(request, timeout=30) as response:
-    body = response.read().decode("utf-8")
-    print(json.loads(body))
+```bash
+cd examples/http_api_basic
+pip install -r requirements.txt
+func start
 ```
 
-## Recipe Navigation
+Then test:
 
-- Read the full catalog in `docs/recipes.md`.
-- Start with `recipes/http-api-basic.md` for foundational HTTP patterns.
-- Move to `recipes/http-api-openapi.md` when API contracts and docs matter.
-- Use `recipes/github-webhook.md` for signed external event ingestion.
-- Use `recipes/queue-worker.md` for asynchronous workload isolation.
-- Use `recipes/timer-job.md` for periodic workflows.
+```bash
+curl http://localhost:7071/api/items
+```
 
-## Ecosystem Projects
+## Recommended learning path
 
-- `azure-functions-scaffold`: project generation from known patterns.
-- `azure-functions-validation`: request and payload validation helpers.
-- `azure-functions-openapi`: OpenAPI generation for function routes.
-- `azure-functions-logging`: structured logs for operations and diagnostics.
-- `azure-functions-doctor`: local environment and configuration checks.
+1. [Installation](installation.md)
+2. [Getting Started](getting-started.md)
+3. [Recipes Overview](recipes/index.md)
+4. Pick one deep-dive recipe page
+5. Run the matching `examples/<name>` project
+6. Validate with [Testing](testing.md)
 
-## Documentation Standards
+## Repository map
 
-This cookbook keeps examples explicit and production-oriented:
+```text
+docs/       Documentation site pages and recipe deep-dives
+recipes/    Source recipe narratives and template contract
+examples/   Runnable Azure Functions app implementations
+```
 
-- Prefer typed request and response models.
-- Use deterministic trigger code and clear status codes.
-- Keep operational concerns visible: retries, idempotency, monitoring, and security.
-- Align every recipe with runnable Python v2 code paths.
+## Ecosystem projects
+
+These companion projects integrate well with cookbook patterns:
+
+- `azure-functions-scaffold` -> project bootstrap from known templates
+- `azure-functions-validation` -> request/response validation helpers
+- `azure-functions-openapi` -> generated API contracts and Swagger UI
+- `azure-functions-logging` -> structured telemetry and diagnostics
+- `azure-functions-doctor` -> local environment diagnosis
+
+## Contributing and quality
+
+If you want to improve recipes or examples:
+
+- Use [Development](development.md) for workflow
+- Use [Testing](testing.md) before submitting changes
+- Follow [Contributing Guidelines](contributing.md)
+
+## Additional references
+
+- Pattern model and boundaries: [Architecture](architecture.md)
+- Planned expansion: [Roadmap](roadmap.md)
+- Common failures and fixes: [Troubleshooting](troubleshooting.md)
+- Frequently asked questions: [FAQ](faq.md)
+
+!!! tip
+    The fastest path to value is: pick one recipe, run its example, then adapt
+    for your production constraints.
