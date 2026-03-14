@@ -16,7 +16,15 @@ binding_blueprint = func.Blueprint()
     queue_name="work-items",
     connection="StorageConnection",
 )
-def enqueue_via_binding(req: func.HttpRequest) -> str:
+def enqueue_via_binding(
+    req: func.HttpRequest,
+    output_message: func.Out[str],
+) -> func.HttpResponse:
     payload = build_payload(req)
     payload["method"] = "binding"
-    return json.dumps(payload)
+    output_message.set(json.dumps(payload))
+    return func.HttpResponse(
+        body=json.dumps(payload),
+        mimetype="application/json",
+        status_code=200,
+    )
