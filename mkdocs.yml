@@ -65,7 +65,9 @@ nav:
           - Local Run and Direct Invoke: recipes/local-run-and-direct-invoke.md
   - User Guide:
       - Usage: usage.md
+      - Configuration: configuration.md
       - Architecture: architecture.md
+      - API Reference: api.md
       - Roadmap: roadmap.md
   - Contributing:
       - Development: development.md
