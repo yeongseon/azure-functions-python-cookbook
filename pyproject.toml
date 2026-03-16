@@ -1,6 +1,7 @@
 [project]
 name = "azure-functions-python-cookbook"
 description = "Practical recipes and examples for Azure Functions Python"
+keywords = ["azure-functions", "azure", "python", "v2", "cookbook", "recipes", "examples", "serverless"]
 authors = [{ name = "Yeongseon Choe", email = "yeongseon.choe@gmail.com" }]
 license = { text = "MIT" }
 readme = "README.md"
