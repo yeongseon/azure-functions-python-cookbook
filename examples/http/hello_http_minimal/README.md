@@ -14,7 +14,7 @@ Minimal HTTP-triggered Azure Function that returns a greeting.
 cd examples/http/hello_http_minimal
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

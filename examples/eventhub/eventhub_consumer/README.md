@@ -14,7 +14,7 @@ Event Hub-triggered Azure Function for near real-time telemetry stream processin
 cd examples/eventhub/eventhub_consumer
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

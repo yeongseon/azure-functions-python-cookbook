@@ -16,7 +16,7 @@ The user endpoints use an in-memory dictionary for quick CRUD examples.
 ## Run locally
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 func start
 ```
 

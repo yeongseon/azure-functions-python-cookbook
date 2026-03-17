@@ -22,14 +22,14 @@ Included tools:
 - `function_app.py`: MCP JSON-RPC endpoint (`POST /api/mcp`)
 - `host.json`: Functions host configuration
 - `local.settings.json.example`: local runtime settings template
-- `requirements.txt`: Python dependencies (`azure-functions`)
+- `pyproject.toml`: Python dependencies
 
 ## Run Locally
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

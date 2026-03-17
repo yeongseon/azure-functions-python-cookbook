@@ -22,6 +22,6 @@ This recipe shows two related resilience patterns:
 ## Run locally
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 func start
 ```

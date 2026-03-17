@@ -14,7 +14,7 @@ Durable Functions orchestration retrying a flaky activity.
 cd examples/durable/durable_retry_pattern
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

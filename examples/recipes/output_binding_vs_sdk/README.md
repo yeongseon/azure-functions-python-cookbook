@@ -15,7 +15,7 @@ Both endpoints accept `POST` JSON with an optional `task` field and enqueue to `
 ## Run locally
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 func start
 ```
 

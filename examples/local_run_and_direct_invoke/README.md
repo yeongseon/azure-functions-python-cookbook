@@ -13,14 +13,14 @@ The HTTP function is `greet`, available at `GET/POST /api/greet`.
 - `invoke.py`: direct invocation script using `azure.functions.HttpRequest`
 - `host.json`: Functions host config
 - `local.settings.json.example`: local environment template
-- `requirements.txt`: Python dependencies (`azure-functions`)
+- `pyproject.toml`: Python dependencies
 
 ## Option 1: Run with Azure Functions Host
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

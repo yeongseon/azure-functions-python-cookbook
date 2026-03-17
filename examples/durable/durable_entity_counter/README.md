@@ -14,7 +14,7 @@ Durable Entity example managing counter state.
 cd examples/durable/durable_entity_counter
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

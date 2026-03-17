@@ -14,7 +14,7 @@ Timer-triggered Azure Function that runs a scheduled maintenance job every 5 min
 cd examples/timer/timer_cron_job
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

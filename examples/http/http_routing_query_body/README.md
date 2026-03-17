@@ -15,7 +15,7 @@ HTTP CRUD and search example showing route params, query strings, JSON body pars
 cd examples/http/http_routing_query_body
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

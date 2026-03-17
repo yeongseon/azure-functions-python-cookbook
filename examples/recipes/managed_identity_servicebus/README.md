@@ -14,6 +14,6 @@ The `__fullyQualifiedNamespace` suffix enables identity-based binding resolution
 ## Run locally
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 func start
 ```

@@ -14,7 +14,7 @@ Queue-triggered Azure Function that parses and processes task messages.
 cd examples/queue/queue_consumer
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

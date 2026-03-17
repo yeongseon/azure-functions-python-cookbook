@@ -14,7 +14,7 @@ Blob-triggered Azure Function that processes uploaded files from `uploads/{name}
 cd examples/blob/blob_upload_processor
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

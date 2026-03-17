@@ -14,7 +14,7 @@ HTTP-triggered Azure Function that validates JSON and enqueues tasks to Storage 
 cd examples/queue/queue_producer
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

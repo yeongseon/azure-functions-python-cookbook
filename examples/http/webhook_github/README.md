@@ -15,7 +15,7 @@ GitHub webhook receiver example with HMAC-SHA256 signature verification.
 cd examples/http/webhook_github
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

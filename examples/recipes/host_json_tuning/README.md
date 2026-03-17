@@ -71,6 +71,6 @@ Performance impact:
 ## Run locally
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 func start
 ```

@@ -93,6 +93,6 @@ Each example corresponds to a recipe under `recipes/`.
 
 ```bash
 cd examples/http/hello_http_minimal
-pip install -r requirements.txt
+pip install -e .
 func start
 ```

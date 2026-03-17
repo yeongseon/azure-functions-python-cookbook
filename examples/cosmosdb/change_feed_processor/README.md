@@ -14,7 +14,7 @@ Cosmos DB change feed-triggered Azure Function for downstream synchronization.
 cd examples/cosmosdb/change_feed_processor
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

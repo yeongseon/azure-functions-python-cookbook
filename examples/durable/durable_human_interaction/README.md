@@ -14,7 +14,7 @@ Durable Functions workflow waiting for an external approval event with timeout.
 cd examples/durable/durable_human_interaction
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```

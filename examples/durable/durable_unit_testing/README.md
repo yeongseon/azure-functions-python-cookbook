@@ -14,7 +14,7 @@ Durable Functions sample focused on mock-based orchestrator unit testing.
 cd examples/durable/durable_unit_testing
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 cp local.settings.json.example local.settings.json
 func start
 ```
