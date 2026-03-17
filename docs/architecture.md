@@ -4,6 +4,59 @@
 
 The cookbook is a documentation-focused repository that standardizes how Azure Functions Python v2 patterns are explained. The architecture is intentionally simple: recipe source documents define the contract, published docs curate the reader journey, and runnable examples demonstrate execution behavior.
 
+## Ecosystem Overview
+
+The cookbook is part of a broader three-project ecosystem. Each project has a distinct role, and they are designed to compose together.
+
+```mermaid
+graph TD
+    DEV(["👨‍💻 Developer"])
+
+    subgraph Ecosystem["Azure Functions Python Ecosystem"]
+        CB["📚 azure-functions-python-cookbook\nRecipe catalog & examples"]
+        SC["🔧 azure-functions-scaffold\nafs new · afs add"]
+        VAL["✅ azure-functions-validation\n@validate_http decorator"]
+    end
+
+    PROJ["🗂️ Generated Project\nfunction_app.py\napp/functions/\ntests/"]
+
+    DEV -- "1. learn patterns" --> CB
+    CB -- "template reference" --> SC
+    DEV -- "2. afs new my-api\n   --template http\n   --with-validation" --> SC
+    SC -- "3. scaffold project" --> PROJ
+    SC -- "--with-validation" --> VAL
+    VAL -- "runtime integration" --> PROJ
+    DEV -- "4. func start / publish" --> PROJ
+```
+
+### Project Roles
+
+| Project | Role | Key API |
+|---------|------|---------|
+| **cookbook** | Recipe catalog — shows *what* to build and *why* | `docs/`, `examples/`, `recipes/` |
+| **scaffold** | CLI that generates projects from cookbook-aligned templates | `afs new`, `afs add` |
+| **validation** | Runtime decorator that enforces HTTP input contracts | `@validate_http` |
+
+### Developer Flow
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant CB as Cookbook
+    participant SC as Scaffold CLI
+    participant VAL as Validation
+    participant AZ as Azure Functions
+
+    Dev->>CB: browse recipes (e.g. HTTP API)
+    CB-->>Dev: example code + architecture guidance
+    Dev->>SC: afs new my-api --template http --with-validation
+    SC-->>Dev: project generated
+    Dev->>VAL: apply @validate_http to handlers
+    Dev->>AZ: func start  /  func publish
+    AZ-->>Dev: function running
+```
+
+
 ## Layer Model
 
 The architecture has three layers with clear responsibilities:
@@ -14,101 +67,93 @@ The architecture has three layers with clear responsibilities:
 
 This separation allows recipe depth to grow without making onboarding pages noisy.
 
-## Repository Structure Example
+## Repository Structure
 
-Use a structure that preserves one recipe-to-example mapping and keeps documentation discoverable.
+Each recipe maps to exactly one example. This one-to-one mapping keeps documentation discoverable and validation tractable.
 
-```python
-from pathlib import Path
+```mermaid
+flowchart TD
+    subgraph Cookbook["azure-functions-python-cookbook"]
+        R["recipes/\n*.md"]
+        D["docs/\n*.md"]
+        E["examples/\n*/"]
+    end
 
-import azure.functions as func
-from pydantic import BaseModel
-
-
-class RepositoryLayout(BaseModel):
-    root: str
-    docs: list[str]
-    recipes: list[str]
-    examples: list[str]
-
-
-layout = RepositoryLayout(
-    root=str(Path(".")),
-    docs=["index.md", "recipes.md", "architecture.md", "contributing.md"],
-    recipes=[
-        "http-api-basic.md",
-        "http-api-openapi.md",
-        "github-webhook.md",
-        "queue-worker.md",
-        "timer-job.md",
-    ],
-    examples=["http-api-basic/", "http-api-openapi/", "github-webhook/", "queue-worker/", "timer-job/"],
-)
-
-app = func.FunctionApp()
-_ = app
-print(layout.model_dump())
+    R -- "1:1 mapping" --> E
+    D -- "aggregates" --> R
+    E -- "validates claims in" --> R
 ```
 
 ## Function App Composition
 
-A recipe should present code in composition units that can be split later with Blueprints, while still starting from a single `FunctionApp` entry point.
+Start with a single `FunctionApp` entry point. Split into Blueprints only when modules grow beyond a manageable size.
+
+```mermaid
+flowchart LR
+    FA["function_app.py\nFunctionApp()"]
+    B1["Blueprint\nhttp.py"]
+    B2["Blueprint\nqueue.py"]
+    B3["Blueprint\ntimer.py"]
+
+    FA -- "register_blueprint" --> B1
+    FA -- "register_blueprint" --> B2
+    FA -- "register_blueprint" --> B3
+```
+
+A minimal single-file app:
 
 ```python
 import azure.functions as func
-from pydantic import BaseModel
 
-
-class AppMetadata(BaseModel):
-    service: str
-    version: str
-
-
-metadata = AppMetadata(service="cookbook-sample", version="1.0.0")
 app = func.FunctionApp(http_auth_level=func.AuthLevel.FUNCTION)
 
 
 @app.route(route="health", methods=["GET"])
 def health(_: func.HttpRequest) -> func.HttpResponse:
-    return func.HttpResponse(metadata.model_dump_json(), mimetype="application/json", status_code=200)
+    return func.HttpResponse('{"status": "ok"}', mimetype="application/json", status_code=200)
 ```
 
-## Module Layout Example
+## Module Layout
 
-A production recipe can scale from one file to multiple modules while preserving the v2 decorator model.
+A production recipe separates trigger wiring, business logic, schemas, and observability.
 
-```python
-from dataclasses import dataclass
+```mermaid
+flowchart TD
+    FunctionApp["function_app.py"]
 
-import azure.functions as func
-from pydantic import BaseModel
+    subgraph app/
+        F["functions/\ntrigger handlers"]
+        S["services/\nbusiness logic"]
+        SC["schemas/\nPydantic models"]
+        C["core/\nlogging · config"]
+    end
 
-
-class HttpContract(BaseModel):
-    route: str
-    methods: list[str]
-
-
-@dataclass(slots=True)
-class ModulePlan:
-    entrypoint: str
-    modules: list[str]
-    contract: HttpContract
-
-
-plan = ModulePlan(
-    entrypoint="function_app.py",
-    modules=["handlers/http.py", "handlers/queue.py", "handlers/timer.py"],
-    contract=HttpContract(route="jobs", methods=["POST"]),
-)
-
-app = func.FunctionApp()
-_ = (app, plan)
+    FunctionApp --> F
+    F --> S
+    F --> SC
+    S --> C
 ```
 
 ## Trigger Isolation Pattern
 
-Each trigger should have one focused function and one payload model. This keeps validation local and limits blast radius during changes.
+Each trigger owns one handler and one payload model. Keeps validation local and limits blast radius.
+
+```mermaid
+flowchart LR
+    QT["Queue Trigger"]
+    TT["Timer Trigger"]
+    QP["QueuePayload\n(Pydantic)"]
+    TP["TimerPayload\n(Pydantic)"]
+    PJ["process_job()"]
+    RT["run_timer()"]
+
+    QT --> PJ
+    TT --> RT
+    PJ -- "validates" --> QP
+    RT -- "builds" --> TP
+```
+
+Queue trigger example:
 
 ```python
 import json
@@ -129,28 +174,6 @@ app = func.FunctionApp()
 def process_job(msg: func.QueueMessage) -> None:
     payload = QueuePayload.model_validate(json.loads(msg.get_body().decode("utf-8")))
     print(payload.task_id, payload.kind)
-```
-
-```python
-import datetime
-
-import azure.functions as func
-from pydantic import BaseModel
-
-
-class TimerPayload(BaseModel):
-    name: str
-    fired_at: str
-
-
-app = func.FunctionApp()
-
-
-@app.timer_trigger(schedule="0 */15 * * * *", arg_name="timer", run_on_startup=False, use_monitor=True)
-def run_timer(timer: func.TimerRequest) -> None:
-    _ = timer
-    payload = TimerPayload(name="refresh-cache", fired_at=datetime.datetime.now(datetime.UTC).isoformat())
-    print(payload.model_dump_json())
 ```
 
 ## Operational Contracts
