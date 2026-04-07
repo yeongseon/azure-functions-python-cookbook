@@ -17,6 +17,9 @@ Each recipe is paired with a runnable project in `examples/`.
 | [HTTP Routing, Query & Body](http-routing-query-body.md) | Intermediate | Full CRUD with route params, query strings, and JSON body parsing |
 | [HTTP Auth Levels](http-auth-levels.md) | Beginner | ANONYMOUS, FUNCTION, and ADMIN auth level comparison |
 | [Webhook (GitHub)](webhook-github.md) | Intermediate | HMAC-SHA256 signature verification and event dispatch |
+| [EasyAuth Claims](auth-easyauth-claims.md) | Intermediate | EasyAuth principal extraction with role-based access control |
+| [JWT Bearer Validation](auth-jwt-validation.md) | Intermediate | JWT Bearer token validation with claim-based access control |
+| [Multi-Tenant Auth](auth-multitenant.md) | Intermediate | Multi-tenant access control with tenant allowlist |
 
 ## Timer
 

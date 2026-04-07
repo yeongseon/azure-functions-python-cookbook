@@ -12,12 +12,12 @@ from app.services.tenant_service import (
 
 def _make_principal(
     claims: list[dict[str, str]] | None = None,
-    user_id: str = "user-1",
-    identity_provider: str = "aad",
+    auth_typ: str = "aad",
 ) -> dict[str, object]:
     return {
-        "identityProvider": identity_provider,
-        "userId": user_id,
+        "auth_typ": auth_typ,
+        "name_typ": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+        "role_typ": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
         "claims": claims or [],
     }
 
@@ -31,7 +31,7 @@ def test_decode_client_principal_valid() -> None:
     encoded = _encode_principal(principal)
     result = decode_client_principal(encoded)
     assert result is not None
-    assert result["userId"] == "user-1"
+    assert result["auth_typ"] == "aad"
 
 
 def test_decode_client_principal_none() -> None:
@@ -40,6 +40,18 @@ def test_decode_client_principal_none() -> None:
 
 def test_decode_client_principal_invalid() -> None:
     assert decode_client_principal("not-valid!!!") is None
+
+
+def test_decode_client_principal_non_dict() -> None:
+    """Non-dict JSON (e.g. array) should return None."""
+    encoded = base64.b64encode(json.dumps([1, 2, 3]).encode()).decode()
+    assert decode_client_principal(encoded) is None
+
+
+def test_decode_client_principal_string_json() -> None:
+    """A base64-encoded JSON string should return None."""
+    encoded = base64.b64encode(b'"just-a-string"').decode()
+    assert decode_client_principal(encoded) is None
 
 
 def test_extract_tenant_id_with_tid() -> None:
@@ -57,6 +69,15 @@ def test_extract_tenant_id_with_long_form() -> None:
 def test_extract_tenant_id_missing() -> None:
     principal = _make_principal(claims=[{"typ": "name", "val": "Alice"}])
     assert extract_tenant_id(principal) is None
+
+
+def test_extract_tenant_id_non_dict_claim() -> None:
+    """Non-dict claim entries should be safely skipped."""
+    principal: dict[str, object] = {
+        "auth_typ": "aad",
+        "claims": ["not-a-dict", {"typ": "tid", "val": "tenant-abc"}],
+    }
+    assert extract_tenant_id(principal) == "tenant-abc"
 
 
 def test_parse_allowed_tenants() -> None:
@@ -86,9 +107,14 @@ def test_is_tenant_allowed_empty_list() -> None:
 
 
 def test_get_data_response() -> None:
-    principal = _make_principal()
+    principal = _make_principal(
+        claims=[
+            {"typ": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "val": "user-1"},
+        ]
+    )
     body, status = get_data_response(principal, "tenant-abc")
     assert status == 200
     assert body["tenant_id"] == "tenant-abc"
     assert body["user_id"] == "user-1"
+    assert body["identity_provider"] == "aad"
     assert body["message"] == "Access granted."

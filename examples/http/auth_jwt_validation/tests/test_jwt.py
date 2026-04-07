@@ -22,6 +22,11 @@ def test_extract_bearer_token_empty_token() -> None:
     assert extract_bearer_token("Bearer ") is None
 
 
+def test_extract_bearer_token_lowercase_bearer() -> None:
+    """Lowercase 'bearer' prefix should not be accepted (case-sensitive)."""
+    assert extract_bearer_token("bearer abc123") is None
+
+
 def test_has_claim_present() -> None:
     claims = {"sub": "user-1", "email": "alice@example.com"}
     assert has_claim(claims, "sub") is True
@@ -33,12 +38,25 @@ def test_has_claim_missing() -> None:
 
 
 def test_has_claim_with_expected_value_match() -> None:
-    claims = {"email_verified": "true"}
-    assert has_claim(claims, "email_verified", "true") is True
+    claims = {"roles": "api.read"}
+    assert has_claim(claims, "roles", "api.read") is True
 
 
 def test_has_claim_with_expected_value_mismatch() -> None:
-    claims = {"email_verified": "false"}
+    claims = {"roles": "api.write"}
+    assert has_claim(claims, "roles", "api.read") is False
+
+
+def test_has_claim_with_boolean_true() -> None:
+    """Boolean True claim should match string 'true'."""
+    claims = {"email_verified": True}
+    assert has_claim(claims, "email_verified", "true") is True
+
+
+def test_has_claim_with_boolean_false() -> None:
+    """Boolean False claim should match string 'false'."""
+    claims = {"email_verified": False}
+    assert has_claim(claims, "email_verified", "false") is True
     assert has_claim(claims, "email_verified", "true") is False
 
 
@@ -51,15 +69,15 @@ def test_get_profile_response() -> None:
     assert "iat" not in body["claims"]
 
 
-def test_get_protected_response_with_verified_email() -> None:
-    claims = {"sub": "user-1", "email_verified": "true"}
+def test_get_protected_response_with_required_role() -> None:
+    claims = {"sub": "user-1", "roles": "api.read"}
     body, status = get_protected_response(claims)
     assert status == 200
     assert body["message"] == "Access granted to protected resource."
 
 
-def test_get_protected_response_without_verified_email() -> None:
-    claims = {"sub": "user-1", "email_verified": "false"}
+def test_get_protected_response_wrong_role() -> None:
+    claims = {"sub": "user-1", "roles": "api.write"}
     body, status = get_protected_response(claims)
     assert status == 403
     assert "Forbidden" in body["error"]

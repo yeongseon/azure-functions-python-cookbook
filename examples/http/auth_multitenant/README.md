@@ -43,7 +43,7 @@ func start
 
 ```bash
 # Encode a test principal with tenant ID
-PRINCIPAL=$(echo -n '{"identityProvider":"aad","userId":"user-1","claims":[{"typ":"tid","val":"tenant-id-1"},{"typ":"name","val":"Alice"}]}' | base64)
+PRINCIPAL=$(echo -n '{"auth_typ":"aad","name_typ":"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name","role_typ":"http://schemas.microsoft.com/ws/2008/06/identity/claims/role","claims":[{"typ":"tid","val":"tenant-id-1"},{"typ":"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier","val":"user-1"},{"typ":"name","val":"Alice"}]}' | base64)
 
 # Access tenant-scoped data (tenant-id-1 is in the allowlist)
 curl -s "http://localhost:7071/api/auth/data" \

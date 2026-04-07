@@ -15,8 +15,15 @@ class Claim(TypedDict):
 
 
 class Principal(TypedDict):
-    identityProvider: str
-    userId: str
+    """Azure App Service EasyAuth client principal.
+
+    Matches the ``X-MS-CLIENT-PRINCIPAL`` header structure described at
+    https://learn.microsoft.com/azure/app-service/configure-authentication-user-identities
+    """
+
+    auth_typ: str
+    name_typ: str
+    role_typ: str
     claims: list[Claim]
 
 
@@ -34,13 +41,12 @@ def json_response(body: object, status_code: int = 200) -> func.HttpResponse:
     )
 
 
-_json_response = json_response
-
-
 def decode_client_principal(header_value: str | None) -> Principal | None:
     """Decode the X-MS-CLIENT-PRINCIPAL header from base64 JSON.
 
     Returns the parsed principal dict, or None if the header is missing or invalid.
+    The expected JSON structure contains ``auth_typ``, ``name_typ``, ``role_typ``
+    and a ``claims`` array of ``{"typ": ..., "val": ...}`` objects.
     """
     if not header_value:
         return None
@@ -54,10 +60,12 @@ def decode_client_principal(header_value: str | None) -> Principal | None:
 
     parsed = cast(dict[str, object], parsed_obj)
 
-    identity_provider = parsed.get("identityProvider")
-    user_id = parsed.get("userId")
+    auth_typ = parsed.get("auth_typ", "")
+    name_typ = parsed.get("name_typ", "")
+    role_typ = parsed.get("role_typ", "")
     raw_claims = parsed.get("claims", [])
-    if not isinstance(identity_provider, str) or not isinstance(user_id, str):
+
+    if not isinstance(auth_typ, str):
         return None
     if not isinstance(raw_claims, list):
         return None
@@ -73,8 +81,9 @@ def decode_client_principal(header_value: str | None) -> Principal | None:
             claims.append({"typ": typ, "val": val})
 
     return {
-        "identityProvider": identity_provider,
-        "userId": user_id,
+        "auth_typ": auth_typ,
+        "name_typ": name_typ if isinstance(name_typ, str) else "",
+        "role_typ": role_typ if isinstance(role_typ, str) else "",
         "claims": claims,
     }
 
@@ -91,6 +100,14 @@ def extract_claims(principal: Principal) -> dict[str, str]:
         if typ:
             claims[typ] = val
     return claims
+
+
+def get_claim_value(principal: Principal, claim_type: str) -> str | None:
+    """Get the first value for a claim type, or None if not found."""
+    for claim in principal.get("claims", []):
+        if claim.get("typ") == claim_type:
+            return claim.get("val", "")
+    return None
 
 
 def get_roles(principal: Principal) -> list[str]:
@@ -122,7 +139,7 @@ def require_role(role: str) -> Callable[[HandlerT], HandlerT]:
         @wraps(handler)
         def wrapper(principal: Principal) -> ServiceResponse:
             if not has_role(principal, role):
-                return {"error": "Forbidden. Role 'admin' is required."}, 403
+                return {"error": f"Forbidden. Role '{role}' is required."}, 403
             return handler(principal)
 
         return cast(HandlerT, wrapper)
@@ -135,8 +152,12 @@ def get_user_claims_response(principal: Principal) -> ServiceResponse:
     claims = extract_claims(principal)
     roles = get_roles(principal)
     return {
-        "identity_provider": principal.get("identityProvider", "unknown"),
-        "user_id": principal.get("userId", "unknown"),
+        "identity_provider": principal.get("auth_typ", "unknown"),
+        "user_id": get_claim_value(
+            principal,
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+        )
+        or "unknown",
         "claims": claims,
         "roles": roles,
     }, 200
@@ -150,5 +171,9 @@ def get_admin_response(principal: Principal) -> ServiceResponse:
     """
     return {
         "message": "Welcome, admin!",
-        "user_id": principal.get("userId", "unknown"),
+        "user_id": get_claim_value(
+            principal,
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+        )
+        or "unknown",
     }, 200

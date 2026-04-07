@@ -24,10 +24,12 @@ def decode_client_principal(header_value: str | None) -> dict[str, Any] | None:
         return None
     try:
         decoded = base64.b64decode(header_value)
-        return json.loads(decoded)
+        parsed: object = json.loads(decoded)
     except (ValueError, json.JSONDecodeError):
         return None
-
+    if not isinstance(parsed, dict):
+        return None
+    return parsed
 
 def extract_tenant_id(principal: dict[str, Any]) -> str | None:
     """Extract the tenant ID from the principal claims.
@@ -36,10 +38,12 @@ def extract_tenant_id(principal: dict[str, Any]) -> str | None:
     ``http://schemas.microsoft.com/identity/claims/tenantid``.
     """
     for claim in principal.get("claims", []):
+        if not isinstance(claim, dict):
+            continue
         typ = claim.get("typ", "")
         if typ in ("tid", "http://schemas.microsoft.com/identity/claims/tenantid"):
             val = claim.get("val", "")
-            if val:
+            if isinstance(val, str) and val:
                 return val
     return None
 
@@ -62,6 +66,15 @@ def is_tenant_allowed(tenant_id: str, allowed_tenants: list[str]) -> bool:
     return tenant_id in allowed_tenants
 
 
+def _get_claim_value(principal: dict[str, Any], claim_type: str) -> str | None:
+    """Get the first value for a claim type, or None if not found."""
+    for claim in principal.get("claims", []):
+        if isinstance(claim, dict) and claim.get("typ") == claim_type:
+            val = claim.get("val", "")
+            return val if isinstance(val, str) else None
+    return None
+
+
 def get_data_response(
     principal: dict[str, Any], tenant_id: str
 ) -> tuple[dict[str, Any], int]:
@@ -69,6 +82,10 @@ def get_data_response(
     return {
         "message": "Access granted.",
         "tenant_id": tenant_id,
-        "user_id": principal.get("userId", "unknown"),
-        "identity_provider": principal.get("identityProvider", "unknown"),
+        "user_id": _get_claim_value(
+            principal,
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+        )
+        or "unknown",
+        "identity_provider": principal.get("auth_typ", "unknown"),
     }, 200

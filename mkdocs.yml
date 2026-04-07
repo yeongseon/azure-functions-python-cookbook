@@ -30,6 +30,9 @@ nav:
           - HTTP Routing, Query, and Body: recipes/http-routing-query-body.md
           - HTTP Auth Levels: recipes/http-auth-levels.md
           - GitHub Webhook: recipes/webhook-github.md
+          - EasyAuth Claims: recipes/auth-easyauth-claims.md
+          - JWT Bearer Validation: recipes/auth-jwt-validation.md
+          - Multi-Tenant Auth: recipes/auth-multitenant.md
       - Timer:
           - Timer Cron Job: recipes/timer-cron-job.md
       - Queue:

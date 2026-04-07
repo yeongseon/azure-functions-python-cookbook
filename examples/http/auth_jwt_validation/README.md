@@ -22,7 +22,7 @@ Set in `local.settings.json` under `Values`. Copy `local.settings.json.example` 
 
 - Extracting Bearer tokens from the `Authorization` header
 - Validating JWTs against Azure AD JWKS endpoint using RS256
-- Claim-based access control (checking `email_verified` claim)
+- Claim-based access control (checking `roles` claim for `api.read`)
 - Returning 401 for missing/invalid tokens and 403 for insufficient claims
 
 ## Run Locally
@@ -53,7 +53,8 @@ curl -s "http://localhost:7071/api/auth/profile" \
     "claims": {
         "sub": "abc123",
         "name": "Alice",
-        "email": "alice@example.com"
+        "email": "alice@example.com",
+        "roles": "api.read"
     }
 }
 ```

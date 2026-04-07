@@ -50,7 +50,7 @@ def validate_jwt(
         )
 
     try:
-        jwks_client = PyJWKClient(jwks_uri)
+        jwks_client = PyJWKClient(jwks_uri, cache_keys=True)
         signing_key = jwks_client.get_signing_key_from_jwt(token)
         decoded = jwt.decode(
             token,
@@ -66,11 +66,17 @@ def validate_jwt(
 
 
 def has_claim(claims: dict[str, Any], claim_name: str, expected_value: str | None = None) -> bool:
-    """Check whether claims contain a specific claim with an optional expected value."""
+    """Check whether claims contain a specific claim with an optional expected value.
+
+    Handles both string and boolean claim values by normalizing to string comparison.
+    """
     if claim_name not in claims:
         return False
     if expected_value is not None:
-        return str(claims[claim_name]) == expected_value
+        val = claims[claim_name]
+        if isinstance(val, bool):
+            return str(val).lower() == expected_value.lower()
+        return str(val) == expected_value
     return True
 
 
@@ -106,9 +112,12 @@ def get_profile_response(claims: dict[str, Any]) -> tuple[dict[str, Any], int]:
     }, 200
 
 
-@require_claim("email_verified", "true")
+@require_claim("roles", "api.read")
 def get_protected_response(claims: dict[str, Any]) -> tuple[dict[str, Any], int]:
-    """Build the response body for the /auth/protected endpoint."""
+    """Build the response body for the /auth/protected endpoint.
+
+    Requires the ``roles`` claim to contain ``api.read``.
+    """
     return {
         "message": "Access granted to protected resource.",
         "subject": claims.get("sub", "unknown"),

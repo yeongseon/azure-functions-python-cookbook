@@ -953,16 +953,16 @@ class TestAuthEasyAuth:
         raw = base64.b64encode(
             json.dumps(
                 {
-                    "identityProvider": "aad",
-                    "userId": "user-1",
+                    "auth_typ": "aad",
+                    "name_typ": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+                    "role_typ": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
                     "claims": [{"typ": "name", "val": "Alice"}],
                 }
             ).encode()
         ).decode()
         principal = svc.decode_client_principal(raw)
         assert principal is not None
-        assert principal["identityProvider"] == "aad"
-        assert principal["userId"] == "user-1"
+        assert principal["auth_typ"] == "aad"
 
     def test_decode_client_principal_none(self) -> None:
         _load_example_module("http/auth_easyauth")
@@ -974,8 +974,9 @@ class TestAuthEasyAuth:
         _load_example_module("http/auth_easyauth")
         svc = _import_service("http/auth_easyauth", "app.services.auth_service")
         principal = {
-            "identityProvider": "aad",
-            "userId": "user-1",
+            "auth_typ": "aad",
+            "name_typ": "",
+            "role_typ": "",
             "claims": [
                 {"typ": "name", "val": "Alice"},
                 {"typ": "email", "val": "alice@example.com"},
@@ -989,8 +990,9 @@ class TestAuthEasyAuth:
         _load_example_module("http/auth_easyauth")
         svc = _import_service("http/auth_easyauth", "app.services.auth_service")
         principal = {
-            "identityProvider": "aad",
-            "userId": "user-1",
+            "auth_typ": "aad",
+            "name_typ": "",
+            "role_typ": "",
             "claims": [{"typ": "roles", "val": "admin"}, {"typ": "roles", "val": "reader"}],
         }
         roles = svc.get_roles(principal)
@@ -1001,8 +1003,9 @@ class TestAuthEasyAuth:
         _load_example_module("http/auth_easyauth")
         svc = _import_service("http/auth_easyauth", "app.services.auth_service")
         principal = {
-            "identityProvider": "aad",
-            "userId": "user-1",
+            "auth_typ": "aad",
+            "name_typ": "",
+            "role_typ": "",
             "claims": [{"typ": "roles", "val": "admin"}],
         }
         assert svc.has_role(principal, "admin") is True
@@ -1012,21 +1015,31 @@ class TestAuthEasyAuth:
         _load_example_module("http/auth_easyauth")
         svc = _import_service("http/auth_easyauth", "app.services.auth_service")
         principal = {
-            "identityProvider": "aad",
-            "userId": "user-1",
-            "claims": [{"typ": "name", "val": "Alice"}, {"typ": "roles", "val": "admin"}],
+            "auth_typ": "aad",
+            "name_typ": "",
+            "role_typ": "",
+            "claims": [
+                {"typ": "name", "val": "Alice"},
+                {"typ": "roles", "val": "admin"},
+                {
+                    "typ": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+                    "val": "user-1",
+                },
+            ],
         }
         body, status = svc.get_user_claims_response(principal)
         assert status == 200
         assert body["user_id"] == "user-1"
+        assert body["identity_provider"] == "aad"
         assert "admin" in body["roles"]
 
     def test_get_admin_response_with_role(self) -> None:
         _load_example_module("http/auth_easyauth")
         svc = _import_service("http/auth_easyauth", "app.services.auth_service")
         principal = {
-            "identityProvider": "aad",
-            "userId": "user-1",
+            "auth_typ": "aad",
+            "name_typ": "",
+            "role_typ": "",
             "claims": [{"typ": "roles", "val": "admin"}],
         }
         body, status = svc.get_admin_response(principal)
@@ -1037,8 +1050,9 @@ class TestAuthEasyAuth:
         _load_example_module("http/auth_easyauth")
         svc = _import_service("http/auth_easyauth", "app.services.auth_service")
         principal = {
-            "identityProvider": "aad",
-            "userId": "user-1",
+            "auth_typ": "aad",
+            "name_typ": "",
+            "role_typ": "",
             "claims": [{"typ": "name", "val": "Alice"}],
         }
         body, status = svc.get_admin_response(principal)
@@ -1073,8 +1087,15 @@ class TestAuthJwtValidation:
     def test_has_claim_present(self) -> None:
         _load_example_module("http/auth_jwt_validation")
         svc = _import_service("http/auth_jwt_validation", "app.services.jwt_service")
-        claims = {"sub": "user-1", "email_verified": "true"}
+        claims = {"sub": "user-1", "roles": "api.read"}
         assert svc.has_claim(claims, "sub") is True
+        assert svc.has_claim(claims, "roles", "api.read") is True
+        assert svc.has_claim(claims, "roles", "api.write") is False
+
+    def test_has_claim_boolean(self) -> None:
+        _load_example_module("http/auth_jwt_validation")
+        svc = _import_service("http/auth_jwt_validation", "app.services.jwt_service")
+        claims = {"email_verified": True}
         assert svc.has_claim(claims, "email_verified", "true") is True
         assert svc.has_claim(claims, "email_verified", "false") is False
 
@@ -1097,7 +1118,7 @@ class TestAuthJwtValidation:
     def test_get_protected_response_with_claim(self) -> None:
         _load_example_module("http/auth_jwt_validation")
         svc = _import_service("http/auth_jwt_validation", "app.services.jwt_service")
-        claims = {"sub": "user-1", "email_verified": "true"}
+        claims = {"sub": "user-1", "roles": "api.read"}
         body, status = svc.get_protected_response(claims)
         assert status == 200
         assert body["message"] == "Access granted to protected resource."
@@ -1130,15 +1151,16 @@ class TestAuthMultitenant:
         raw = base64.b64encode(
             json.dumps(
                 {
-                    "identityProvider": "aad",
-                    "userId": "user-1",
+                    "auth_typ": "aad",
+                    "name_typ": "",
+                    "role_typ": "",
                     "claims": [{"typ": "tid", "val": "tenant-1"}],
                 }
             ).encode()
         ).decode()
         principal = svc.decode_client_principal(raw)
         assert principal is not None
-        assert principal["identityProvider"] == "aad"
+        assert principal["auth_typ"] == "aad"
 
     def test_decode_client_principal_none(self) -> None:
         _load_example_module("http/auth_multitenant")
@@ -1175,7 +1197,17 @@ class TestAuthMultitenant:
     def test_get_data_response(self) -> None:
         _load_example_module("http/auth_multitenant")
         svc = _import_service("http/auth_multitenant", "app.services.tenant_service")
-        principal = {"identityProvider": "aad", "userId": "user-1", "claims": []}
+        principal = {
+            "auth_typ": "aad",
+            "name_typ": "",
+            "role_typ": "",
+            "claims": [
+                {
+                    "typ": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+                    "val": "user-1",
+                },
+            ],
+        }
         body, status = svc.get_data_response(principal, "tenant-1")
         assert status == 200
         assert body["tenant_id"] == "tenant-1"

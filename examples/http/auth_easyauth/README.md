@@ -12,7 +12,7 @@ EasyAuth principal extraction with role-based access control for Azure Functions
 ## What It Demonstrates
 
 - Decoding the `X-MS-CLIENT-PRINCIPAL` header (base64-encoded JSON)
-- Extracting user claims, identity provider, and user ID
+- Extracting user claims, identity provider, and user ID from the claims array
 - Role-based access control using the `roles` claim
 - Returning 401 for unauthenticated requests and 403 for unauthorized requests
 
@@ -35,7 +35,7 @@ func start
 
 ```bash
 # Encode a test principal
-PRINCIPAL=$(echo -n '{"identityProvider":"aad","userId":"user-1","claims":[{"typ":"name","val":"Alice"},{"typ":"roles","val":"admin"}]}' | base64)
+PRINCIPAL=$(echo -n '{"auth_typ":"aad","name_typ":"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name","role_typ":"http://schemas.microsoft.com/ws/2008/06/identity/claims/role","claims":[{"typ":"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier","val":"user-1"},{"typ":"name","val":"Alice"},{"typ":"roles","val":"admin"}]}' | base64)
 
 # Get user claims
 curl -s "http://localhost:7071/api/auth/me" \
@@ -47,6 +47,7 @@ curl -s "http://localhost:7071/api/auth/me" \
     "identity_provider": "aad",
     "user_id": "user-1",
     "claims": {
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier": "user-1",
         "name": "Alice",
         "roles": "admin"
     },
