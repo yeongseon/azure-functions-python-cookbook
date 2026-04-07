@@ -1,16 +1,27 @@
 # API Reference
 
-`azure-functions-python-cookbook` is a documentation and example project. It does not export a public Python API.
+`azure-functions-python-cookbook` is a **content-first cookbook**, not a runtime library. There is no public Python API to import or install as a dependency.
 
 ## What this project provides
 
-- **Recipes** — Standalone Azure Functions examples under `docs/recipes/`.
-- **Concepts** — In-depth explanations under `docs/concepts/`.
-- **Source examples** — Runnable code under `src/azure_functions_python_cookbook/`.
+- **Recipes** — 28 production-ready pattern documents under `recipes/` and `docs/recipes/`.
+- **Concepts** — In-depth explanations of cross-cutting topics under `docs/concepts/`.
+- **Runnable examples** — 28 executable Azure Functions projects under `examples/`, organized by trigger category.
+
+!!! info "This is not a pip package"
+    While the repository uses `pyproject.toml` for development tooling (linting, testing, docs), it is **not** intended to be installed as a runtime dependency in your application. You consume it by reading recipes and copying example patterns into your own projects.
 
 ## Using the examples
 
-Each recipe is a self-contained module. Copy the relevant handler into your own Functions app:
+Each example is a self-contained Azure Functions project. Clone the repo, navigate to an example, and run it:
+
+```bash
+cd examples/http/hello_http_minimal
+pip install -e .
+func start
+```
+
+Copy the relevant handler pattern into your own Functions app:
 
 ```python
 # Example: minimal HTTP handler from hello-http-minimal recipe
@@ -21,16 +32,20 @@ app = func.FunctionApp()
 @app.function_name(name="hello")
 @app.route(route="hello", methods=["GET"], auth_level=func.AuthLevel.ANONYMOUS)
 def hello(req: func.HttpRequest) -> func.HttpResponse:
-    return func.HttpResponse("Hello, world!")
+    name = req.params.get("name", "world")
+    return func.HttpResponse(f"Hello, {name}!")
 ```
 
-## Public package symbol
+## Package metadata
+
+The `src/azure_functions_python_cookbook/` directory contains only package metadata used by the build system:
 
 ```python
 from azure_functions_python_cookbook import __version__
+# __version__ = "0.1.2"
 ```
 
-`__version__` is the only exported symbol. It follows [Semantic Versioning](https://semver.org/).
+This is used internally for versioning and is **not** a public API.
 
 ## Related Documents
 

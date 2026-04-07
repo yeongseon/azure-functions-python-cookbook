@@ -46,11 +46,12 @@ func start
 
 Example names:
 
-- `http_api_basic`
-- `http_api_openapi`
-- `github_webhook`
-- `queue_worker`
-- `timer_job`
+- `http/hello_http_minimal`
+- `http/http_routing_query_body`
+- `http/webhook_github`
+- `queue/queue_consumer`
+- `timer/timer_cron_job`
+- ... and 23 more (see [Recipes Overview](recipes/index.md))
 
 ## What is the difference between recipes and examples?
 
@@ -63,11 +64,13 @@ Use both together. Recipes explain intent; examples prove execution.
 
 Start from trigger and operational requirement:
 
-- Simple HTTP API -> HTTP API Basic
-- HTTP API + contract docs -> HTTP API with OpenAPI
+- Simple HTTP endpoint -> Hello HTTP Minimal
+- Full CRUD API -> HTTP Routing, Query & Body
 - Signed GitHub events -> GitHub Webhook
-- Async background work -> Queue Worker
-- Periodic scheduled tasks -> Timer Job
+- Async queue processing -> Queue Consumer
+- Periodic scheduled tasks -> Timer Cron Job
+- Blob processing -> Blob Upload Processor
+- Multi-step workflows -> Durable Hello Sequence
 
 ## Where is the recipe template for adding new patterns?
 
@@ -91,14 +94,15 @@ baseline code stays readable.
 
 ## Does the cookbook cover Durable Functions?
 
-Not in the initial five core recipes. See [Roadmap](roadmap.md) for future
-expansion areas.
+Yes! The cookbook includes 7 Durable Functions recipes covering orchestration
+chaining, fan-out/fan-in, human interaction, entity state, retry patterns,
+determinism gotchas, and unit testing. See the [Durable Functions
+recipes](recipes/index.md#durable-functions) for the full list.
 
 ## Is OpenAPI support built into Azure Functions Python?
 
-In this repository, OpenAPI capabilities are demonstrated through the
-`azure-functions-openapi` ecosystem package used in
-`examples/http_api_openapi`.
+OpenAPI is available through the companion `azure-functions-openapi`
+ecosystem package for Azure Functions Python projects.
 
 ## How do I test queue and timer recipes quickly?
 

@@ -1,4 +1,5 @@
 site_name: Azure Functions Python Cookbook
+site_url: https://yeongseon.github.io/azure-functions-python-cookbook/
 site_description: Practical recipes and examples for Azure Functions Python
 site_author: Yeongseon Choe
 repo_url: https://github.com/yeongseon/azure-functions-python-cookbook

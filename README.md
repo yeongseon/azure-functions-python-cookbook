@@ -1,6 +1,8 @@
 # Azure Functions Python Cookbook
 
 [![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://github.com/yeongseon/azure-functions-python-cookbook)
+[![CI](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/ci-smoke.yml/badge.svg)](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/ci-smoke.yml)
+[![Docs](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/docs.yml/badge.svg)](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/docs.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Read this in: [한국어](README.ko.md) | [日本語](README.ja.md) | [简体中文](README.zh-CN.md)
@@ -35,6 +37,9 @@ This repository is content-first. It is not a CLI tool.
 | HTTP Routing, Query, and Body | Beginner | Route params, query strings, JSON body, status codes |
 | HTTP Auth Levels | Beginner | Anonymous, Function, and Admin auth levels |
 | GitHub Webhook | Intermediate | HMAC-SHA256 signature verification |
+| EasyAuth Claims | Intermediate | EasyAuth principal extraction with role-based access control |
+| JWT Bearer Validation | Intermediate | JWT Bearer token validation with claim-based access control |
+| Multi-Tenant Auth | Intermediate | Multi-tenant access control with tenant allowlist |
 
 ### Timer
 
@@ -115,7 +120,7 @@ Each recipe lives under `recipes/` with a matching runnable project in `examples
 ## Repository Layout
 
 ```text
-recipes/           Curated recipe documents (28 recipes)
+recipes/           Curated recipe documents (31 recipes)
 examples/          Runnable example projects organized by category
   http/            HTTP trigger examples
   timer/           Timer trigger examples
@@ -146,7 +151,10 @@ make docs
 - Design principles: `DESIGN.md`
 - Contributing guide: `CONTRIBUTING.md`
 
-## Ecosystem
+## Ecosystem (Optional)
+
+These companion packages are **optional accelerators** — the cookbook works fully standalone.
+Use them when your project grows and you need additional infrastructure:
 
 - [azure-functions-validation](https://github.com/yeongseon/azure-functions-validation) — Request and response validation
 - [azure-functions-openapi](https://github.com/yeongseon/azure-functions-openapi) — OpenAPI and Swagger UI

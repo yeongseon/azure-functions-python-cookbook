@@ -7,6 +7,12 @@ This example shows two local testing workflows for an Azure Functions Python app
 
 The HTTP function is `greet`, available at `GET/POST /api/greet`.
 
+## Prerequisites
+
+- Python 3.10+
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
+- [Azurite](https://learn.microsoft.com/azure/storage/common/storage-use-azurite) (local Storage emulator)
+
 ## Files
 
 - `function_app.py`: function definition and request handling

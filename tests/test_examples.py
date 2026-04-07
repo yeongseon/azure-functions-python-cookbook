@@ -931,3 +931,252 @@ class TestLocalRunAndDirectInvoke:
         )
         response = fn.greet(req)
         assert response.status_code == 400
+
+
+# ---------------------------------------------------------------------------
+# HTTP — auth_easyauth
+# ---------------------------------------------------------------------------
+
+
+class TestAuthEasyAuth:
+    """Smoke tests for examples/http/auth_easyauth."""
+
+    def test_module_loads(self) -> None:
+        module = _load_example_module("http/auth_easyauth")
+        assert hasattr(module, "app")
+
+    def test_decode_client_principal_valid(self) -> None:
+        import base64
+
+        _load_example_module("http/auth_easyauth")
+        svc = _import_service("http/auth_easyauth", "app.services.auth_service")
+        raw = base64.b64encode(
+            json.dumps(
+                {
+                    "identityProvider": "aad",
+                    "userId": "user-1",
+                    "claims": [{"typ": "name", "val": "Alice"}],
+                }
+            ).encode()
+        ).decode()
+        principal = svc.decode_client_principal(raw)
+        assert principal is not None
+        assert principal["identityProvider"] == "aad"
+        assert principal["userId"] == "user-1"
+
+    def test_decode_client_principal_none(self) -> None:
+        _load_example_module("http/auth_easyauth")
+        svc = _import_service("http/auth_easyauth", "app.services.auth_service")
+        assert svc.decode_client_principal(None) is None
+        assert svc.decode_client_principal("") is None
+
+    def test_extract_claims(self) -> None:
+        _load_example_module("http/auth_easyauth")
+        svc = _import_service("http/auth_easyauth", "app.services.auth_service")
+        principal = {
+            "identityProvider": "aad",
+            "userId": "user-1",
+            "claims": [
+                {"typ": "name", "val": "Alice"},
+                {"typ": "email", "val": "alice@example.com"},
+            ],
+        }
+        claims = svc.extract_claims(principal)
+        assert claims["name"] == "Alice"
+        assert claims["email"] == "alice@example.com"
+
+    def test_get_roles(self) -> None:
+        _load_example_module("http/auth_easyauth")
+        svc = _import_service("http/auth_easyauth", "app.services.auth_service")
+        principal = {
+            "identityProvider": "aad",
+            "userId": "user-1",
+            "claims": [{"typ": "roles", "val": "admin"}, {"typ": "roles", "val": "reader"}],
+        }
+        roles = svc.get_roles(principal)
+        assert "admin" in roles
+        assert "reader" in roles
+
+    def test_has_role(self) -> None:
+        _load_example_module("http/auth_easyauth")
+        svc = _import_service("http/auth_easyauth", "app.services.auth_service")
+        principal = {
+            "identityProvider": "aad",
+            "userId": "user-1",
+            "claims": [{"typ": "roles", "val": "admin"}],
+        }
+        assert svc.has_role(principal, "admin") is True
+        assert svc.has_role(principal, "superuser") is False
+
+    def test_get_user_claims_response(self) -> None:
+        _load_example_module("http/auth_easyauth")
+        svc = _import_service("http/auth_easyauth", "app.services.auth_service")
+        principal = {
+            "identityProvider": "aad",
+            "userId": "user-1",
+            "claims": [{"typ": "name", "val": "Alice"}, {"typ": "roles", "val": "admin"}],
+        }
+        body, status = svc.get_user_claims_response(principal)
+        assert status == 200
+        assert body["user_id"] == "user-1"
+        assert "admin" in body["roles"]
+
+    def test_get_admin_response_with_role(self) -> None:
+        _load_example_module("http/auth_easyauth")
+        svc = _import_service("http/auth_easyauth", "app.services.auth_service")
+        principal = {
+            "identityProvider": "aad",
+            "userId": "user-1",
+            "claims": [{"typ": "roles", "val": "admin"}],
+        }
+        body, status = svc.get_admin_response(principal)
+        assert status == 200
+        assert body["message"] == "Welcome, admin!"
+
+    def test_get_admin_response_without_role(self) -> None:
+        _load_example_module("http/auth_easyauth")
+        svc = _import_service("http/auth_easyauth", "app.services.auth_service")
+        principal = {
+            "identityProvider": "aad",
+            "userId": "user-1",
+            "claims": [{"typ": "name", "val": "Alice"}],
+        }
+        body, status = svc.get_admin_response(principal)
+        assert status == 403
+
+
+# ---------------------------------------------------------------------------
+# HTTP — auth_jwt_validation
+# ---------------------------------------------------------------------------
+
+
+class TestAuthJwtValidation:
+    """Smoke tests for examples/http/auth_jwt_validation."""
+
+    def test_module_loads(self) -> None:
+        module = _load_example_module("http/auth_jwt_validation")
+        assert hasattr(module, "app")
+
+    def test_extract_bearer_token_valid(self) -> None:
+        _load_example_module("http/auth_jwt_validation")
+        svc = _import_service("http/auth_jwt_validation", "app.services.jwt_service")
+        assert svc.extract_bearer_token("Bearer abc123") == "abc123"
+
+    def test_extract_bearer_token_missing(self) -> None:
+        _load_example_module("http/auth_jwt_validation")
+        svc = _import_service("http/auth_jwt_validation", "app.services.jwt_service")
+        assert svc.extract_bearer_token(None) is None
+        assert svc.extract_bearer_token("") is None
+        assert svc.extract_bearer_token("Basic abc") is None
+        assert svc.extract_bearer_token("Bearer ") is None
+
+    def test_has_claim_present(self) -> None:
+        _load_example_module("http/auth_jwt_validation")
+        svc = _import_service("http/auth_jwt_validation", "app.services.jwt_service")
+        claims = {"sub": "user-1", "email_verified": "true"}
+        assert svc.has_claim(claims, "sub") is True
+        assert svc.has_claim(claims, "email_verified", "true") is True
+        assert svc.has_claim(claims, "email_verified", "false") is False
+
+    def test_has_claim_missing(self) -> None:
+        _load_example_module("http/auth_jwt_validation")
+        svc = _import_service("http/auth_jwt_validation", "app.services.jwt_service")
+        claims = {"sub": "user-1"}
+        assert svc.has_claim(claims, "email") is False
+
+    def test_get_profile_response(self) -> None:
+        _load_example_module("http/auth_jwt_validation")
+        svc = _import_service("http/auth_jwt_validation", "app.services.jwt_service")
+        claims = {"sub": "user-1", "name": "Alice", "email": "alice@example.com", "iat": 123}
+        body, status = svc.get_profile_response(claims)
+        assert status == 200
+        assert body["subject"] == "user-1"
+        assert body["name"] == "Alice"
+        assert "iat" not in body["claims"]
+
+    def test_get_protected_response_with_claim(self) -> None:
+        _load_example_module("http/auth_jwt_validation")
+        svc = _import_service("http/auth_jwt_validation", "app.services.jwt_service")
+        claims = {"sub": "user-1", "email_verified": "true"}
+        body, status = svc.get_protected_response(claims)
+        assert status == 200
+        assert body["message"] == "Access granted to protected resource."
+
+    def test_get_protected_response_without_claim(self) -> None:
+        _load_example_module("http/auth_jwt_validation")
+        svc = _import_service("http/auth_jwt_validation", "app.services.jwt_service")
+        claims = {"sub": "user-1"}
+        body, status = svc.get_protected_response(claims)
+        assert status == 403
+
+
+# ---------------------------------------------------------------------------
+# HTTP — auth_multitenant
+# ---------------------------------------------------------------------------
+
+
+class TestAuthMultitenant:
+    """Smoke tests for examples/http/auth_multitenant."""
+
+    def test_module_loads(self) -> None:
+        module = _load_example_module("http/auth_multitenant")
+        assert hasattr(module, "app")
+
+    def test_decode_client_principal_valid(self) -> None:
+        import base64
+
+        _load_example_module("http/auth_multitenant")
+        svc = _import_service("http/auth_multitenant", "app.services.tenant_service")
+        raw = base64.b64encode(
+            json.dumps(
+                {
+                    "identityProvider": "aad",
+                    "userId": "user-1",
+                    "claims": [{"typ": "tid", "val": "tenant-1"}],
+                }
+            ).encode()
+        ).decode()
+        principal = svc.decode_client_principal(raw)
+        assert principal is not None
+        assert principal["identityProvider"] == "aad"
+
+    def test_decode_client_principal_none(self) -> None:
+        _load_example_module("http/auth_multitenant")
+        svc = _import_service("http/auth_multitenant", "app.services.tenant_service")
+        assert svc.decode_client_principal(None) is None
+        assert svc.decode_client_principal("") is None
+
+    def test_extract_tenant_id(self) -> None:
+        _load_example_module("http/auth_multitenant")
+        svc = _import_service("http/auth_multitenant", "app.services.tenant_service")
+        principal = {"claims": [{"typ": "tid", "val": "tenant-1"}]}
+        assert svc.extract_tenant_id(principal) == "tenant-1"
+
+    def test_extract_tenant_id_missing(self) -> None:
+        _load_example_module("http/auth_multitenant")
+        svc = _import_service("http/auth_multitenant", "app.services.tenant_service")
+        principal = {"claims": [{"typ": "name", "val": "Alice"}]}
+        assert svc.extract_tenant_id(principal) is None
+
+    def test_parse_allowed_tenants(self) -> None:
+        _load_example_module("http/auth_multitenant")
+        svc = _import_service("http/auth_multitenant", "app.services.tenant_service")
+        assert svc.parse_allowed_tenants("") == []
+        assert svc.parse_allowed_tenants("a,b,c") == ["a", "b", "c"]
+        assert svc.parse_allowed_tenants(" a , b ") == ["a", "b"]
+
+    def test_is_tenant_allowed(self) -> None:
+        _load_example_module("http/auth_multitenant")
+        svc = _import_service("http/auth_multitenant", "app.services.tenant_service")
+        assert svc.is_tenant_allowed("tenant-1", ["tenant-1", "tenant-2"]) is True
+        assert svc.is_tenant_allowed("tenant-3", ["tenant-1", "tenant-2"]) is False
+        assert svc.is_tenant_allowed("tenant-1", []) is False
+
+    def test_get_data_response(self) -> None:
+        _load_example_module("http/auth_multitenant")
+        svc = _import_service("http/auth_multitenant", "app.services.tenant_service")
+        principal = {"identityProvider": "aad", "userId": "user-1", "claims": []}
+        body, status = svc.get_data_response(principal, "tenant-1")
+        assert status == 200
+        assert body["tenant_id"] == "tenant-1"
+        assert body["user_id"] == "user-1"

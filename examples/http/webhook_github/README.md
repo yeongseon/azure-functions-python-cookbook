@@ -2,6 +2,20 @@
 
 GitHub webhook receiver example with HMAC-SHA256 signature verification.
 
+## Prerequisites
+
+- Python 3.10+
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
+- [Azurite](https://learn.microsoft.com/azure/storage/common/storage-use-azurite) (local Storage emulator)
+
+## Environment Variables
+
+| Variable | Purpose | Example |
+|----------|---------|---------|
+| `GITHUB_WEBHOOK_SECRET` | Shared secret for HMAC-SHA256 signature verification | `my-webhook-secret` |
+
+Set in `local.settings.json` under `Values`. Copy `local.settings.json.example` as a starting template.
+
 ## What It Demonstrates
 
 - Anonymous webhook endpoint at `POST /api/github/webhook`

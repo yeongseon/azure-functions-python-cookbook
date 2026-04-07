@@ -38,67 +38,48 @@ make docs
 
 ## Testing recipe examples locally
 
-### HTTP API Basic
+### Hello HTTP Minimal
 
 ```bash
-cd examples/http_api_basic
-pip install -r requirements.txt
+cd examples/http/hello_http_minimal
+pip install -e .
 func start
 ```
 
 Smoke checks:
 
 ```bash
-curl http://localhost:7071/api/items
-curl http://localhost:7071/api/items/1
-curl -X POST http://localhost:7071/api/items -H "Content-Type: application/json" -d '{"name":"Paper","category":"office"}'
-curl -X DELETE http://localhost:7071/api/items/1
+curl http://localhost:7071/api/hello
+curl "http://localhost:7071/api/hello?name=Azure"
 ```
-
-### HTTP API with OpenAPI
-
-```bash
-cd examples/http_api_openapi
-pip install -r requirements.txt
-func start
-```
-
-Smoke checks:
-
-```bash
-curl http://localhost:7071/api/products
-curl http://localhost:7071/api/openapi.json
-```
-
-Manual UI check: `http://localhost:7071/api/docs`.
 
 ### GitHub Webhook
 
 ```bash
-cd examples/github_webhook
-pip install -r requirements.txt
+cd examples/http/webhook_github
+pip install -e .
 func start
 ```
 
 Set `GITHUB_WEBHOOK_SECRET`, then send signed and unsigned test payloads.
 Expected behavior: unsigned or invalid signatures return `401`.
 
-### Queue Worker
+### Queue Consumer
 
 ```bash
-cd examples/queue_worker
-pip install -r requirements.txt
+cd examples/queue/queue_consumer
+pip install -e .
 func start
 ```
 
 Run Azurite and enqueue JSON messages into `work-items`.
 Verify logs show dequeue count, JSON parsing, and task completion.
 
-### Timer Job
+### Timer Cron Job
 
 ```bash
-cd examples/timer_job
-pip install -r requirements.txt
+cd examples/timer/timer_cron_job
+pip install -e .
 func start
 ```
 

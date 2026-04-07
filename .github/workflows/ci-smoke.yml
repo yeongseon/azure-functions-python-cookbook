@@ -1,0 +1,72 @@
+name: Smoke Tests (Example Validation)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: Smoke tests (import validation)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.10"
+
+      - name: Install Hatch and dependencies via Makefile
+        run: |
+          pip install hatch
+          make install
+
+      - name: Run smoke tests (import all examples)
+        run: hatch run pytest -v -m smoke tests/e2e/
+
+  e2e-http:
+    name: E2E HTTP examples (func host)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.10"
+
+      - name: Set up Node.js (for Azurite)
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "20"
+
+      - name: Install Azure Functions Core Tools
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+          sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+          sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list'
+          sudo apt-get update
+          sudo apt-get install -y azure-functions-core-tools-4
+
+      - name: Install Azurite
+        run: npm install -g azurite
+
+      - name: Install Hatch and dependencies via Makefile
+        run: |
+          pip install hatch
+          make install
+
+      - name: Run E2E HTTP tests
+        run: hatch run pytest -v -m e2e tests/e2e/test_http_examples.py
+        timeout-minutes: 10

@@ -2,6 +2,12 @@
 
 Durable Entity example managing counter state.
 
+## Prerequisites
+
+- Python 3.10+
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
+- [Azurite](https://learn.microsoft.com/azure/storage/common/storage-use-azurite) (local Storage emulator)
+
 ## What It Demonstrates
 
 - Entity trigger with `add`, `reset`, and `get` operations

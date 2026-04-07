@@ -2,6 +2,12 @@
 
 Timer-triggered Azure Function that runs a scheduled maintenance job every 5 minutes.
 
+## Prerequisites
+
+- Python 3.10+
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
+- [Azurite](https://learn.microsoft.com/azure/storage/common/storage-use-azurite) (local Storage emulator)
+
 ## What It Demonstrates
 
 - NCRONTAB schedule expression with six fields (`0 */5 * * * *`)

@@ -1,0 +1,70 @@
+name: Recipe Request
+description: Suggest a new recipe for the cookbook
+labels: ["enhancement", "recipe-request"]
+body:
+  - type: textarea
+    id: recipe_description
+    attributes:
+      label: Recipe Description
+      description: Describe the recipe you'd like to see in the cookbook.
+      placeholder: A step-by-step example of how to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use Case / Motivation
+      description: Why would this recipe be useful? What problem does it solve?
+      placeholder: This would help developers...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: azure_services
+    attributes:
+      label: Azure Services Involved
+      description: Which Azure services are involved in this recipe?
+      options:
+        - label: HTTP Trigger
+        - label: Timer Trigger
+        - label: Queue Storage
+        - label: Blob Storage
+        - label: Service Bus
+        - label: Event Hub
+        - label: Cosmos DB
+        - label: Durable Functions
+        - label: Other
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Complexity Estimate
+      description: How complex would this recipe be?
+      options:
+        - Beginner
+        - Intermediate
+        - Advanced
+    validations:
+      required: true
+
+  - type: dropdown
+    id: willing_to_contribute
+    attributes:
+      label: Willing to Contribute?
+      description: Would you like to help implement this recipe?
+      options:
+        - "Yes"
+        - "No"
+        - "Maybe"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information, links, or references.
+      placeholder: Links to documentation, similar examples, etc.
+    validations:
+      required: false

@@ -34,11 +34,11 @@ Use this quick map:
 
 | Need | Recipe | Example |
 | --- | --- | --- |
-| Basic REST endpoints | `recipes/http-api-basic.md` | `examples/http_api_basic` |
-| Swagger/OpenAPI docs | `recipes/http-api-openapi.md` | `examples/http_api_openapi` |
-| GitHub event ingestion | `recipes/github-webhook.md` | `examples/github_webhook` |
-| Async background processing | `recipes/queue-worker.md` | `examples/queue_worker` |
-| Scheduled maintenance jobs | `recipes/timer-job.md` | `examples/timer_job` |
+| Basic HTTP endpoint | `recipes/hello-http-minimal.md` | `examples/http/hello_http_minimal` |
+| Full CRUD with routing | `recipes/http-routing-query-body.md` | `examples/http/http_routing_query_body` |
+| GitHub event ingestion | `recipes/webhook-github.md` | `examples/http/webhook_github` |
+| Async queue processing | `recipes/queue-consumer.md` | `examples/queue/queue_consumer` |
+| Scheduled jobs | `recipes/timer-cron-job.md` | `examples/timer/timer_cron_job` |
 
 ## 3) Read the recipe first
 
@@ -55,50 +55,36 @@ Each recipe describes:
 
 ## 4) Run the matching example
 
-### HTTP API Basic
+### Hello HTTP Minimal
 
 ```bash
-cd examples/http_api_basic
-pip install -r requirements.txt
+cd examples/http/hello_http_minimal
+pip install -e .
 func start
 ```
 
 Test endpoints:
 
 ```bash
-curl http://localhost:7071/api/items
-curl "http://localhost:7071/api/items?category=electronics"
-curl http://localhost:7071/api/items/1
-curl -X POST http://localhost:7071/api/items -H "Content-Type: application/json" -d '{"name":"Notebook","category":"office"}'
-curl -X DELETE http://localhost:7071/api/items/1
+curl http://localhost:7071/api/hello
+curl "http://localhost:7071/api/hello?name=Azure"
 ```
-
-### HTTP API with OpenAPI
-
-```bash
-cd examples/http_api_openapi
-pip install -r requirements.txt
-func start
-```
-
-- Open Swagger UI: `http://localhost:7071/api/docs`
-- Open spec JSON: `http://localhost:7071/api/openapi.json`
 
 ### GitHub Webhook Receiver
 
 ```bash
-cd examples/github_webhook
-pip install -r requirements.txt
+cd examples/http/webhook_github
+pip install -e .
 func start
 ```
 
 Set `GITHUB_WEBHOOK_SECRET` before receiving signed webhook traffic.
 
-### Queue Worker
+### Queue Consumer
 
 ```bash
-cd examples/queue_worker
-pip install -r requirements.txt
+cd examples/queue/queue_consumer
+pip install -e .
 func start
 ```
 
@@ -110,11 +96,11 @@ azurite --queuePort 10001
 
 Set local storage connection to `UseDevelopmentStorage=true`.
 
-### Timer Job
+### Timer Cron Job
 
 ```bash
-cd examples/timer_job
-pip install -r requirements.txt
+cd examples/timer/timer_cron_job
+pip install -e .
 func start
 ```
 

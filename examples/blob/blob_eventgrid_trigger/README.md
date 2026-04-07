@@ -2,6 +2,12 @@
 
 Blob-triggered Azure Function configured for Event Grid source notifications.
 
+## Prerequisites
+
+- Python 3.10+
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
+- [Azurite](https://learn.microsoft.com/azure/storage/common/storage-use-azurite) (local Storage emulator)
+
 ## What It Demonstrates
 
 - Blob trigger with `source="EventGrid"`

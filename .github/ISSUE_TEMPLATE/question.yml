@@ -1,0 +1,39 @@
+name: Question
+description: Ask a question about using the cookbook
+labels: ["question"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What's your question?
+      placeholder: I'm trying to...
+    validations:
+      required: true
+
+  - type: input
+    id: recipe_name
+    attributes:
+      label: Which Recipe?
+      description: Is this related to a specific recipe?
+      placeholder: e.g., HTTP Trigger with Authentication
+    validations:
+      required: false
+
+  - type: textarea
+    id: what_tried
+    attributes:
+      label: What Have You Tried?
+      description: What have you already attempted?
+      placeholder: I've tried...
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other information that might help us understand your question.
+      placeholder: Include code snippets, error messages, or relevant details
+    validations:
+      required: false

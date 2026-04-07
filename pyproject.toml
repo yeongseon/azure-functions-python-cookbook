@@ -79,6 +79,9 @@ include = [
 [tool.hatch.version]
 path = "src/azure_functions_python_cookbook/__init__.py"
 
+# NOTE: This project is a content-first cookbook (recipes + examples), not a runtime library.
+# The publish config below exists for potential future recipe-index or utility distribution.
+# There is no published PyPI package today. See docs/api.md for details.
 [tool.hatch.publish.index]
 default = "pypi"
 

@@ -2,6 +2,12 @@
 
 This recipe demonstrates host-level dynamic concurrency:
 
+## Prerequisites
+
+- Python 3.10+
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
+- [Azurite](https://learn.microsoft.com/azure/storage/common/storage-use-azurite) (local Storage emulator)
+
 - `dynamicConcurrencyEnabled=true`
 - `snapshotPersistenceEnabled=true`
 
@@ -29,6 +35,10 @@ settings when external systems need protection.
 ## Run locally
 
 ```bash
+cd examples/recipes/concurrency_tuning
+python -m venv .venv
+source .venv/bin/activate
 pip install -e .
+cp local.settings.json.example local.settings.json
 func start
 ```

@@ -15,8 +15,8 @@ gap by pairing clear recipe narratives with runnable examples.
 
 ## What you get
 
-- Trigger-focused recipes for real workloads (HTTP, webhook, queue, timer)
-- Runnable sample apps under `examples/`
+- **28 recipes** across 11 categories: HTTP, Timer, Queue, Blob, Service Bus, Event Hub, Cosmos DB, Durable Functions, AI, Patterns, and Local Development
+- **28 runnable example projects** under `examples/`, organized by trigger category
 - Production considerations in every recipe
 - Consistent structure for learning, implementation, and contribution
 
@@ -90,7 +90,7 @@ func start
 Then test:
 
 ```bash
-curl http://localhost:7071/api/items
+curl http://localhost:7071/api/hello
 ```
 
 ## Recommended learning path
@@ -99,7 +99,7 @@ curl http://localhost:7071/api/items
 2. [Getting Started](getting-started.md)
 3. [Recipes Overview](recipes/index.md)
 4. Pick one deep-dive recipe page
-5. Run the matching `examples/<name>` project
+5. Run the matching `examples/<category>/<name>` project
 6. Validate with [Testing](testing.md)
 
 ## Repository map
@@ -112,13 +112,13 @@ examples/   Runnable Azure Functions app implementations
 
 ## Ecosystem projects
 
-These companion projects integrate well with cookbook patterns:
+These companion projects are **optional accelerators** — the cookbook works independently without them:
 
-- `azure-functions-scaffold` -> project bootstrap from known templates
-- `azure-functions-validation` -> request/response validation helpers
-- `azure-functions-openapi` -> generated API contracts and Swagger UI
-- `azure-functions-logging` -> structured telemetry and diagnostics
-- `azure-functions-doctor` -> local environment diagnosis
+- [`azure-functions-scaffold`](https://github.com/yeongseon/azure-functions-scaffold) — project bootstrap from known templates
+- [`azure-functions-validation`](https://github.com/yeongseon/azure-functions-validation) — request/response validation helpers
+- [`azure-functions-openapi`](https://github.com/yeongseon/azure-functions-openapi) — generated API contracts and Swagger UI
+- [`azure-functions-logging`](https://github.com/yeongseon/azure-functions-logging) — structured telemetry and diagnostics
+- [`azure-functions-doctor`](https://github.com/yeongseon/azure-functions-doctor) — local environment diagnosis
 
 ## Contributing and quality
 

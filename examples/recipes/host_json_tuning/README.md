@@ -2,6 +2,11 @@
 
 This recipe focuses on host-level tuning using a timer trigger plus a richly configured `host.json`.
 
+## Prerequisites
+
+- Python 3.10+
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
+- [Azurite](https://learn.microsoft.com/azure/storage/common/storage-use-azurite) (local Storage emulator)
 ## Logging
 
 - `logging.logLevel.default`: baseline verbosity
@@ -71,6 +76,10 @@ Performance impact:
 ## Run locally
 
 ```bash
+cd examples/recipes/host_json_tuning
+python -m venv .venv
+source .venv/bin/activate
 pip install -e .
+cp local.settings.json.example local.settings.json
 func start
 ```

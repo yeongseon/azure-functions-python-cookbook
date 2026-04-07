@@ -78,11 +78,23 @@ azure-functions-python-cookbook/
   docs/                 Published documentation site content
   recipes/              Source recipe documents (pattern narratives)
   examples/             Runnable Azure Functions sample apps
-    http_api_basic/
-    http_api_openapi/
-    github_webhook/
-    queue_worker/
-    timer_job/
+    http/               HTTP trigger examples
+      hello_http_minimal/
+      http_routing_query_body/
+      http_auth_levels/
+      webhook_github/
+    timer/              Timer trigger examples
+      timer_cron_job/
+    queue/              Queue trigger examples
+      queue_producer/
+      queue_consumer/
+    blob/               Blob trigger examples
+    servicebus/         Service Bus examples
+    eventhub/           Event Hub examples
+    cosmosdb/           Cosmos DB examples
+    durable/            Durable Functions examples
+    ai/                 AI integration examples
+    recipes/            Pattern examples
   src/                  Internal package metadata and tooling support
   tests/                Repository test suite
   mkdocs.yml            Documentation site navigation and config
@@ -92,15 +104,15 @@ azure-functions-python-cookbook/
 ## Run a First Example
 
 ```bash
-cd examples/http_api_basic
-pip install -r requirements.txt
+cd examples/http/hello_http_minimal
+pip install -e .
 func start
 ```
 
 Then call:
 
 ```bash
-curl http://localhost:7071/api/items
+curl http://localhost:7071/api/hello
 ```
 
 ## What to Read Next

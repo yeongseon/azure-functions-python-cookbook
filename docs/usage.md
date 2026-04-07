@@ -19,21 +19,29 @@ Use the repository in this order:
 
 Current recipes:
 
-- `http-api-basic`
-- `http-api-openapi`
-- `github-webhook`
-- `queue-worker`
-- `timer-job`
+**HTTP** (7 recipes): hello-http-minimal, http-routing-query-body, http-auth-levels, webhook-github, auth-easyauth-claims, auth-jwt-validation, auth-multitenant
+**Timer** (1): timer-cron-job
+**Queue** (2): queue-producer, queue-consumer
+**Blob** (2): blob-upload-processor, blob-eventgrid-trigger
+**Service Bus** (1): servicebus-worker
+**Event Hub** (1): eventhub-consumer
+**Cosmos DB** (1): change-feed-processor
+**Patterns** (7): blueprint-modular-app, retry-and-idempotency, output-binding-vs-sdk, managed-identity-storage, managed-identity-servicebus, host-json-tuning, concurrency-tuning
+**Durable Functions** (7): durable-hello-sequence, durable-fan-out-fan-in, durable-human-interaction, durable-entity-counter, durable-retry-pattern, durable-determinism-gotchas, durable-unit-testing
+**AI** (1): mcp-server-example
+**Local Development** (1): local-run-and-direct-invoke
 
 Each recipe targets a specific trigger style and operational concern.
 
 | Recipe | Trigger | Focus |
 | --- | --- | --- |
-| HTTP API Basic | HTTP | Route design, request handling, CRUD baseline |
-| HTTP API with OpenAPI | HTTP | API contract generation and Swagger UX |
-| GitHub Webhook | HTTP | Signature validation, event routing |
-| Queue Worker | Queue | Async processing, retries, message safety |
-| Timer Job | Timer | Scheduled execution, deterministic periodic tasks |
+| Hello HTTP Minimal | HTTP | Simplest GET endpoint |
+| HTTP Routing, Query & Body | HTTP | Route params, query strings, JSON body |
+| Queue Consumer | Queue | Message processing with retry semantics |
+| Timer Cron Job | Timer | NCRONTAB scheduled execution |
+| Blob Upload Processor | Blob | Polling-based blob trigger |
+| Service Bus Worker | Service Bus | Correlation ID tracking and dead-letter |
+| Durable Hello Sequence | Durable | Activity chaining pattern |
 
 ## Recipe format contract
 
@@ -53,11 +61,12 @@ This consistent section contract keeps pages easy to scan and compare.
 
 Each recipe has a runnable app under `examples/`:
 
-- `recipes/http-api-basic.md` -> `examples/http_api_basic`
-- `recipes/http-api-openapi.md` -> `examples/http_api_openapi`
-- `recipes/github-webhook.md` -> `examples/github_webhook`
-- `recipes/queue-worker.md` -> `examples/queue_worker`
-- `recipes/timer-job.md` -> `examples/timer_job`
+- `recipes/hello-http-minimal.md` -> `examples/http/hello_http_minimal`
+- `recipes/http-routing-query-body.md` -> `examples/http/http_routing_query_body`
+- `recipes/webhook-github.md` -> `examples/http/webhook_github`
+- `recipes/queue-consumer.md` -> `examples/queue/queue_consumer`
+- `recipes/timer-cron-job.md` -> `examples/timer/timer_cron_job`
+- ... and 26 more. See [Recipes Overview](recipes/index.md) for the full list.
 
 !!! tip
     Keep docs and example code aligned in the same pull request.

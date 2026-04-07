@@ -12,6 +12,9 @@ function app ready for `func start`.
 | `examples/http/http_routing_query_body` | Route params, query strings, JSON body, status codes |
 | `examples/http/http_auth_levels` | Anonymous, Function, and Admin auth levels |
 | `examples/http/webhook_github` | GitHub webhook with HMAC-SHA256 verification |
+| `examples/http/auth_easyauth` | EasyAuth principal extraction with role-based access control |
+| `examples/http/auth_jwt_validation` | JWT Bearer token validation with claim-based access control |
+| `examples/http/auth_multitenant` | Multi-tenant access control with tenant allowlist |
 
 ## Timer
 

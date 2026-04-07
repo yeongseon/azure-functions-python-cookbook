@@ -2,6 +2,12 @@
 
 HTTP CRUD and search example showing route params, query strings, JSON body parsing, and status codes.
 
+## Prerequisites
+
+- Python 3.10+
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
+- [Azurite](https://learn.microsoft.com/azure/storage/common/storage-use-azurite) (local Storage emulator)
+
 ## What It Demonstrates
 
 - `GET /api/users`, `GET /api/users/{user_id}` for list and lookup

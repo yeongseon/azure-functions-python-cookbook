@@ -6,6 +6,12 @@ using a standard HTTP trigger and JSON-RPC 2.0 messages.
 Because `azure-functions-extension-mcp` may not be broadly available yet, this project
 shows how to implement the MCP surface directly in `function_app.py` with no extra MCP package.
 
+## Prerequisites
+
+- Python 3.10+
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
+- [Azurite](https://learn.microsoft.com/azure/storage/common/storage-use-azurite) (local Storage emulator)
+
 ## What This Example Implements
 
 - `initialize`: protocol handshake and server capabilities
