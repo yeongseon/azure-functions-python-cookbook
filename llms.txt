@@ -1,0 +1,74 @@
+# azure-functions-python-cookbook
+
+> Practical recipes and examples for Azure Functions Python v2.
+
+## Package Info
+
+- Repository: https://github.com/yeongseon/azure-functions-python-cookbook
+- Version: 0.1.2
+- Python: >=3.10, <3.15
+- License: MIT
+- Docs: https://yeongseon.github.io/azure-functions-python-cookbook/
+
+## What It Provides
+
+Content-first cookbook for Azure Functions Python v2 with curated recipe docs and matching runnable
+examples. This repository documents practical trigger patterns and architecture decisions; it does not
+provide a runtime API library.
+
+## Recipe Categories
+
+- HTTP: request/response, routing, auth, webhook, and multi-tenant patterns
+- Timer: scheduled jobs with NCRONTAB and timezone behavior
+- Queue: producer/consumer messaging with Azure Storage Queue
+- Blob: blob processing via polling and Event Grid triggers
+- Service Bus: enterprise queue processing pattern
+- Event Hub: stream ingestion and event processing
+- Cosmos DB: change feed-triggered processing
+- Patterns: blueprints, retries, idempotency, identity, and performance tuning
+- Durable Functions: orchestrations, entities, retries, determinism, and testing
+- AI: MCP server recipe on Azure Functions
+- Local Dev: local run and direct invocation workflow
+
+## Trigger Patterns Covered
+
+- HTTP
+- Timer
+- Queue
+- Blob
+- Service Bus
+- Event Hub
+- Cosmos DB
+- Durable Functions
+
+## Quick Start
+
+```bash
+git clone https://github.com/yeongseon/azure-functions-python-cookbook.git
+cd azure-functions-python-cookbook
+make install
+make check-all
+```
+
+## Documentation
+
+- Product requirements: `PRD.md`
+- Design principles: `DESIGN.md`
+- Contributing guide: `CONTRIBUTING.md`
+- Published docs: https://yeongseon.github.io/azure-functions-python-cookbook/
+
+## Ecosystem
+
+Part of **Azure Functions Python DX Toolkit**:
+
+| Package | Role |
+| --- | --- |
+| [azure-functions-openapi](https://github.com/yeongseon/azure-functions-openapi) | OpenAPI spec generation and Swagger UI |
+| [azure-functions-validation](https://github.com/yeongseon/azure-functions-validation) | Request/response validation and serialization |
+| [azure-functions-db](https://github.com/yeongseon/azure-functions-db) | Database bindings for SQL, PostgreSQL, MySQL, SQLite, and Cosmos DB |
+| [azure-functions-langgraph](https://github.com/yeongseon/azure-functions-langgraph) | LangGraph deployment adapter for Azure Functions |
+| [azure-functions-scaffold](https://github.com/yeongseon/azure-functions-scaffold) | Project scaffolding CLI |
+| [azure-functions-logging](https://github.com/yeongseon/azure-functions-logging) | Structured logging and observability |
+| [azure-functions-doctor](https://github.com/yeongseon/azure-functions-doctor) | Pre-deploy diagnostic CLI |
+| [azure-functions-durable-graph](https://github.com/yeongseon/azure-functions-durable-graph) | Manifest-first graph runtime with Durable Functions *(experimental)* |
+| **azure-functions-python-cookbook** | Recipes and examples |
