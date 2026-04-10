@@ -151,17 +151,21 @@ make docs
 - Design principles: `DESIGN.md`
 - Contributing guide: `CONTRIBUTING.md`
 
-## Ecosystem (Optional)
+## Ecosystem
 
-These companion packages are **optional accelerators** — the cookbook works fully standalone.
-Use them when your project grows and you need additional infrastructure:
+This package is part of the **Azure Functions Python DX Toolkit**.
 
-- [azure-functions-validation](https://github.com/yeongseon/azure-functions-validation) — Request and response validation
-- [azure-functions-openapi](https://github.com/yeongseon/azure-functions-openapi) — OpenAPI and Swagger UI
-- [azure-functions-logging](https://github.com/yeongseon/azure-functions-logging) — Structured logging
-- [azure-functions-doctor](https://github.com/yeongseon/azure-functions-doctor) — Diagnostic CLI
-- [azure-functions-scaffold](https://github.com/yeongseon/azure-functions-scaffold) — Project scaffolding
-
+| Package | Role |
+|---------|------|
+| [azure-functions-openapi](https://github.com/yeongseon/azure-functions-openapi) | OpenAPI spec generation and Swagger UI |
+| [azure-functions-validation](https://github.com/yeongseon/azure-functions-validation) | Request/response validation and serialization |
+| [azure-functions-db](https://github.com/yeongseon/azure-functions-db) | Database bindings for SQL, PostgreSQL, MySQL, SQLite, and Cosmos DB |
+| [azure-functions-langgraph](https://github.com/yeongseon/azure-functions-langgraph) | LangGraph deployment adapter for Azure Functions |
+| [azure-functions-scaffold](https://github.com/yeongseon/azure-functions-scaffold) | Project scaffolding CLI |
+| [azure-functions-logging](https://github.com/yeongseon/azure-functions-logging) | Structured logging and observability |
+| [azure-functions-doctor](https://github.com/yeongseon/azure-functions-doctor) | Pre-deploy diagnostic CLI |
+| [azure-functions-durable-graph](https://github.com/yeongseon/azure-functions-durable-graph) | Manifest-first graph runtime with Durable Functions *(experimental)* |
+| **azure-functions-python-cookbook** | Recipes and examples |
 ## Disclaimer
 
 This project is an independent community project and is not affiliated with,
