@@ -1,0 +1,213 @@
+# azure-functions-python-cookbook — Full LLM Reference
+
+> Practical recipes and examples for Azure Functions Python v2.
+
+## Package Info
+
+- Repository: https://github.com/yeongseon/azure-functions-python-cookbook
+- Version: 0.1.2
+- Python: >=3.10, <3.15
+- License: MIT
+- Docs: https://yeongseon.github.io/azure-functions-python-cookbook/
+- Azure Functions programming model: v2
+
+## What It Provides
+
+This repository is a content-first cookbook for Azure Functions Python v2. It provides recipe documents
+and runnable examples across common trigger types and architecture patterns. It is not a runtime package
+with a public API surface.
+
+## How To Use This Cookbook
+
+```bash
+git clone https://github.com/yeongseon/azure-functions-python-cookbook.git
+cd azure-functions-python-cookbook
+make install
+make check-all
+```
+
+Use this flow:
+
+1. Pick a scenario from the recipe inventory.
+2. Read the recipe in `recipes/`.
+3. Run and adapt the matching project in `examples/`.
+
+## Trigger Patterns Covered
+
+- HTTP
+- Timer
+- Queue
+- Blob
+- Service Bus
+- Event Hub
+- Cosmos DB
+- Durable Functions
+
+## Recipe Categories
+
+- HTTP: request/response, routing, auth, and webhook patterns
+- Timer: scheduled workflows with NCRONTAB
+- Queue: producer/consumer messaging on Storage Queue
+- Blob: upload/event-driven blob processing
+- Service Bus: enterprise queue workers
+- Event Hub: stream event consumers
+- Cosmos DB: change feed processing
+- Patterns: blueprints, retries, idempotency, identity, host/concurrency tuning
+- Durable Functions: orchestrations, entities, retries, determinism, testing
+- AI: MCP server recipe
+- Local Development: local host run and direct invocation
+
+## Full Recipe Inventory
+
+### HTTP
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| Hello HTTP Minimal | Beginner | Smallest possible HTTP trigger |
+| HTTP Routing, Query, and Body | Beginner | Route params, query strings, JSON body, status codes |
+| HTTP Auth Levels | Beginner | Anonymous, Function, and Admin auth levels |
+| GitHub Webhook | Intermediate | HMAC-SHA256 signature verification |
+| EasyAuth Claims | Intermediate | EasyAuth principal extraction with role-based access control |
+| JWT Bearer Validation | Intermediate | JWT Bearer token validation with claim-based access control |
+| Multi-Tenant Auth | Intermediate | Multi-tenant access control with tenant allowlist |
+
+### Timer
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| Timer Cron Job | Beginner | NCRONTAB expressions, timezone, catch-up |
+
+### Queue
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| Queue Producer | Beginner | HTTP trigger with Queue output binding |
+| Queue Consumer | Beginner | Queue trigger message processing |
+
+### Blob
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| Blob Upload Processor | Intermediate | Polling-based blob trigger |
+| Blob Event Grid Trigger | Intermediate | Event Grid-based blob trigger (faster) |
+
+### Service Bus
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| Service Bus Worker | Intermediate | Service Bus queue trigger |
+
+### Event Hub
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| Event Hub Consumer | Intermediate | Event Hub stream processing |
+
+### Cosmos DB
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| Change Feed Processor | Intermediate | Cosmos DB change feed trigger |
+
+### Patterns
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| Blueprint Modular App | Intermediate | Modular function apps with Blueprints |
+| Retry and Idempotency | Intermediate | Retry policies and idempotency patterns |
+| Output Binding vs SDK | Intermediate | Side-by-side binding vs SDK client comparison |
+| Managed Identity (Storage) | Advanced | Identity-based Storage connection |
+| Managed Identity (Service Bus) | Advanced | Identity-based Service Bus connection |
+| host.json Tuning | Advanced | host.json configuration guide |
+| Concurrency Tuning | Advanced | Dynamic concurrency for Queue/Blob/Service Bus |
+
+### Durable Functions
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| Hello Sequence | Beginner | Activity chaining pattern |
+| Fan-Out / Fan-In | Intermediate | Parallel activity execution |
+| Human Interaction | Intermediate | External events with timeout |
+| Entity Counter | Intermediate | Durable entity state management |
+| Retry Pattern | Intermediate | Activity retry with RetryOptions |
+| Determinism Gotchas | Advanced | Orchestrator determinism rules |
+| Unit Testing | Intermediate | Mock-based orchestrator testing |
+
+### AI
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| MCP Server | Advanced | Model Context Protocol server on Azure Functions |
+
+### Local Development
+
+| Recipe | Difficulty | Description |
+| --- | --- | --- |
+| Local Run and Direct Invoke | Beginner | func start vs direct Python invocation |
+
+## Repository Layout
+
+```text
+recipes/           Curated recipe documents (31 recipes)
+examples/          Runnable example projects organized by category
+  http/            HTTP trigger examples
+  timer/           Timer trigger examples
+  queue/           Queue trigger examples
+  blob/            Blob trigger examples
+  servicebus/      Service Bus trigger examples
+  eventhub/        Event Hub trigger examples
+  cosmosdb/        Cosmos DB trigger examples
+  recipes/         Pattern and recipe examples
+  durable/         Durable Functions examples
+  ai/              AI integration examples
+docs/              Published documentation
+```
+
+## Development Commands
+
+```bash
+make install
+make check-all
+make docs
+```
+
+## Design Principles
+
+From `DESIGN.md`:
+
+1. Start from a developer problem, not from a library feature.
+2. Keep recipes focused on one use case and one architectural story.
+3. Pair each recipe with an example that can evolve into a scaffold starter later.
+4. Preserve independence from the other repositories at the documentation level.
+
+## Product Requirements Highlights
+
+From `PRD.md`:
+
+- Goal: help developers discover and start real Azure Functions Python solutions through curated recipes.
+- Core value per recipe: what to build, what architecture to use, and how to start from a working baseline.
+- Example-first philosophy: recipes should get developers from zero to a running function quickly.
+- This repository is a cookbook with runnable examples, not a standalone runtime API package.
+
+## Documentation
+
+- Product requirements: `PRD.md`
+- Design principles: `DESIGN.md`
+- Contributing guide: `CONTRIBUTING.md`
+- Published docs: https://yeongseon.github.io/azure-functions-python-cookbook/
+
+## Ecosystem Integration
+
+Part of **Azure Functions Python DX Toolkit**:
+
+| Package | Role |
+| --- | --- |
+| [azure-functions-openapi](https://github.com/yeongseon/azure-functions-openapi) | OpenAPI spec generation and Swagger UI |
+| [azure-functions-validation](https://github.com/yeongseon/azure-functions-validation) | Request/response validation and serialization |
+| [azure-functions-db](https://github.com/yeongseon/azure-functions-db) | Database bindings for SQL, PostgreSQL, MySQL, SQLite, and Cosmos DB |
+| [azure-functions-langgraph](https://github.com/yeongseon/azure-functions-langgraph) | LangGraph deployment adapter for Azure Functions |
+| [azure-functions-scaffold](https://github.com/yeongseon/azure-functions-scaffold) | Project scaffolding CLI |
+| [azure-functions-logging](https://github.com/yeongseon/azure-functions-logging) | Structured logging and observability |
+| [azure-functions-doctor](https://github.com/yeongseon/azure-functions-doctor) | Pre-deploy diagnostic CLI |
+| [azure-functions-durable-graph](https://github.com/yeongseon/azure-functions-durable-graph) | Manifest-first graph runtime with Durable Functions *(experimental)* |
+| **azure-functions-python-cookbook** | Recipes and examples |
