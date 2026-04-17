@@ -33,7 +33,7 @@ graph TD
 
 | Project | Role | Key API |
 |---------|------|---------|
-| **cookbook** | Recipe catalog — shows *what* to build and *why* | `docs/`, `examples/`, `recipes/` |
+| **cookbook** | Recipe catalog — shows *what* to build and *why* | `docs/`, `docs/patterns/`, `examples/` |
 | **scaffold** | CLI that generates projects from cookbook-aligned templates | `afs new`, `afs add` |
 | **validation** | Runtime decorator that enforces HTTP input contracts | `@validate_http` |
 
@@ -61,7 +61,7 @@ sequenceDiagram
 
 The architecture has three layers with clear responsibilities:
 
-- `recipes/`: canonical implementation narratives and trigger-specific guidance.
+- `docs/patterns/`: canonical implementation narratives and trigger-specific guidance.
 - `docs/`: reader-friendly pages that aggregate patterns and provide onboarding.
 - `examples/`: runnable projects that validate recipe claims in code.
 
@@ -74,7 +74,7 @@ Each recipe maps to exactly one example. This one-to-one mapping keeps documenta
 ```mermaid
 flowchart TD
     subgraph Cookbook["azure-functions-cookbook-python"]
-        R["recipes/\n*.md"]
+        R["docs/patterns/\n**/*.md"]
         D["docs/\n*.md"]
         E["examples/\n*/"]
     end

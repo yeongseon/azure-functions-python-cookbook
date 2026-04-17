@@ -106,12 +106,12 @@ def _json_response(payload: dict[str, Any], status_code: int) -> func.HttpRespon
     response={202: dict[str, Any]},
     tags=["async-jobs"],
 )
-@validate_http(body=JobSubmissionRequest)
 @app.queue_output(
     arg_name="job_message",
     queue_name=QUEUE_NAME,
     connection="AzureWebJobsStorage",
 )
+@validate_http(body=JobSubmissionRequest)
 def submit_job(
     req: func.HttpRequest,
     body: JobSubmissionRequest,

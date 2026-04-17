@@ -28,7 +28,7 @@ Set in `local.settings.json` under `Values`. Copy `local.settings.json.example` 
 ## Run Locally
 
 ```bash
-cd examples/http/auth_jwt_validation
+cd examples/apis-and-ingress/auth_jwt_validation
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

@@ -1,6 +1,6 @@
 # Managed Identity Service Bus
 
-> **Trigger**: HTTP | **State**: stateless | **Guarantee**: at-most-once | **Difficulty**: intermediate
+> **Trigger**: Service Bus | **State**: stateless | **Guarantee**: at-least-once | **Difficulty**: intermediate
 
 ## Overview
 The `examples/security-and-tenancy/managed_identity_servicebus/` recipe shows a Service Bus queue trigger using

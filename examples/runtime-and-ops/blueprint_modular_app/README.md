@@ -22,7 +22,7 @@ The user endpoints use an in-memory dictionary for quick CRUD examples.
 ## Run locally
 
 ```bash
-cd examples/recipes/blueprint_modular_app
+cd examples/runtime-and-ops/blueprint_modular_app
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

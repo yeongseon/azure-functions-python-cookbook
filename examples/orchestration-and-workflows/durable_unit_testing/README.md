@@ -17,7 +17,7 @@ Durable Functions sample focused on mock-based orchestrator unit testing.
 ## Run Locally
 
 ```bash
-cd examples/durable/durable_unit_testing
+cd examples/orchestration-and-workflows/durable_unit_testing
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .
@@ -28,6 +28,6 @@ func start
 ## Run Unit Test
 
 ```bash
-cd examples/durable/durable_unit_testing
+cd examples/orchestration-and-workflows/durable_unit_testing
 python -m pytest test_orchestrator.py
 ```

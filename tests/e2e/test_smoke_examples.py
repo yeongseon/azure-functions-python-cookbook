@@ -67,6 +67,18 @@ class TestTimerCronJobSmoke:
         assert hasattr(module, "app")
 
 
+class TestDurableTimerReminderSmoke:
+    def test_module_imports(self) -> None:
+        module = import_function_app("scheduled-and-background/durable_timer_reminder")
+        assert hasattr(module, "app")
+
+
+class TestQueueScheduledDispatchSmoke:
+    def test_module_imports(self) -> None:
+        module = import_function_app("scheduled-and-background/queue_scheduled_dispatch")
+        assert hasattr(module, "app")
+
+
 # ---------------------------------------------------------------------------
 # Managed Identity
 # ---------------------------------------------------------------------------
@@ -120,4 +132,46 @@ class TestRetryAndIdempotencySmoke:
 class TestMcpServerSmoke:
     def test_module_imports(self) -> None:
         module = import_function_app("ai-and-agents/mcp_server_example")
+        assert hasattr(module, "app")
+
+
+class TestSignalRGroupChatSmoke:
+    def test_module_imports(self) -> None:
+        module = import_function_app("realtime/signalr_group_chat")
+        assert hasattr(module, "app")
+
+
+class TestWebsocketProxySmoke:
+    def test_module_imports(self) -> None:
+        module = import_function_app("realtime/websocket_proxy")
+        assert hasattr(module, "app")
+
+
+class TestBlobThumbnailGeneratorSmoke:
+    def test_module_imports(self) -> None:
+        module = import_function_app("blob-and-file-triggers/blob_thumbnail_generator")
+        assert hasattr(module, "app")
+
+
+class TestBlobCsvToTableSmoke:
+    def test_module_imports(self) -> None:
+        module = import_function_app("blob-and-file-triggers/blob_csv_to_table")
+        assert hasattr(module, "app")
+
+
+class TestApimFunctionBackendSmoke:
+    def test_module_imports(self) -> None:
+        module = import_function_app("apis-and-ingress/apim_function_backend")
+        assert hasattr(module, "app")
+
+
+class TestClaimCheckPatternSmoke:
+    def test_module_imports(self) -> None:
+        module = import_function_app("messaging-and-pubsub/claim_check_pattern")
+        assert hasattr(module, "app")
+
+
+class TestDurableSingletonMonitorSmoke:
+    def test_module_imports(self) -> None:
+        module = import_function_app("orchestration-and-workflows/durable_singleton_monitor")
         assert hasattr(module, "app")

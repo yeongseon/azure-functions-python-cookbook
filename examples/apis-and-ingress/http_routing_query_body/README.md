@@ -18,7 +18,7 @@ HTTP CRUD and search example showing route params, query strings, JSON body pars
 ## Run Locally
 
 ```bash
-cd examples/http/http_routing_query_body
+cd examples/apis-and-ingress/http_routing_query_body
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

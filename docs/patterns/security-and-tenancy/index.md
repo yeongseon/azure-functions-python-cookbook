@@ -4,7 +4,7 @@ Use this category for identity-first integration and tenant-aware isolation. The
 
 | Recipe | Trigger | Difficulty |
 | --- | --- | --- |
-| [Managed Identity Storage](./managed-identity-storage.md) | HTTP + Azure Storage via managed identity | Intermediate |
-| [Managed Identity Service Bus](./managed-identity-servicebus.md) | Service Bus via managed identity | Intermediate |
+| [Managed Identity Storage](./managed-identity-storage.md) | Queue trigger + Azure Storage via managed identity | Intermediate |
+| [Managed Identity Service Bus](./managed-identity-servicebus.md) | Service Bus trigger via managed identity | Intermediate |
 | [Secretless Key Vault](./secretless-keyvault.md) | HTTP + Key Vault + managed identity | Intermediate |
 | [Tenant Isolation](./tenant-isolation.md) | HTTP + tenant context | Advanced |

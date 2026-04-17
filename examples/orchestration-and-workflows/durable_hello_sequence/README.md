@@ -17,7 +17,7 @@ Durable Functions orchestrator chaining activities in sequence.
 ## Run Locally
 
 ```bash
-cd examples/durable/durable_hello_sequence
+cd examples/orchestration-and-workflows/durable_hello_sequence
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

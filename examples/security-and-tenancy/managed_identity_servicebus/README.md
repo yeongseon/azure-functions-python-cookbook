@@ -32,7 +32,7 @@ The `__fullyQualifiedNamespace` suffix enables identity-based binding resolution
 ## Run Locally
 
 ```bash
-cd examples/recipes/managed_identity_servicebus
+cd examples/security-and-tenancy/managed_identity_servicebus
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

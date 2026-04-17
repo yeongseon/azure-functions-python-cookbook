@@ -17,7 +17,7 @@ Blob-triggered Azure Function that processes uploaded files from `uploads/{name}
 ## Run Locally
 
 ```bash
-cd examples/blob/blob_upload_processor
+cd examples/blob-and-file-triggers/blob_upload_processor
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

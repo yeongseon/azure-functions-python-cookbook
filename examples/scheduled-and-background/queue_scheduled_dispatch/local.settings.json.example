@@ -1,0 +1,8 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "SCHEDULED_DISPATCHES_JSON": "[{\"job_id\":\"dispatch-100\",\"scheduled_for\":\"2026-04-17T12:00:00+00:00\",\"destination\":\"reminder-emails\",\"payload\":{\"recipient\":\"ada@example.com\"}}]"
+  }
+}

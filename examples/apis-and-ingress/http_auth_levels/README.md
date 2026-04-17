@@ -17,7 +17,7 @@ HTTP trigger example that demonstrates anonymous, function-key, and admin-key en
 ## Run Locally
 
 ```bash
-cd examples/http/http_auth_levels
+cd examples/apis-and-ingress/http_auth_levels
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

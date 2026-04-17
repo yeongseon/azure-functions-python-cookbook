@@ -69,7 +69,6 @@ include = [
     "/src",
     "/tests",
     "/docs",
-    "/recipes",
     "/examples",
     "/README.md",
     "/Makefile",

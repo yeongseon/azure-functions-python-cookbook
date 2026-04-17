@@ -27,7 +27,7 @@ This recipe shows two related resilience patterns:
 ## Run locally
 
 ```bash
-cd examples/recipes/retry_and_idempotency
+cd examples/reliability/retry_and_idempotency
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

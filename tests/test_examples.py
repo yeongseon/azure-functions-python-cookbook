@@ -130,7 +130,7 @@ def _import_function_module(example_path: str, function_module: str) -> Any:
 
 
 class TestHelloHttpMinimal:
-    """Smoke tests for examples/http/hello_http_minimal."""
+    """Smoke tests for examples/apis-and-ingress/hello_http_minimal."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("apis-and-ingress/hello_http_minimal")
@@ -153,7 +153,7 @@ class TestHelloHttpMinimal:
 
 
 class TestHttpRoutingQueryBody:
-    """Smoke tests for examples/http/http_routing_query_body."""
+    """Smoke tests for examples/apis-and-ingress/http_routing_query_body."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("apis-and-ingress/http_routing_query_body")
@@ -227,7 +227,7 @@ class TestHttpRoutingQueryBody:
 
 
 class TestHttpAuthLevels:
-    """Smoke tests for examples/http/http_auth_levels."""
+    """Smoke tests for examples/apis-and-ingress/http_auth_levels."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("apis-and-ingress/http_auth_levels")
@@ -258,7 +258,7 @@ class TestHttpAuthLevels:
 
 
 class TestWebhookGithub:
-    """Smoke tests for examples/http/webhook_github."""
+    """Smoke tests for examples/apis-and-ingress/webhook_github."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("apis-and-ingress/webhook_github")
@@ -374,7 +374,7 @@ class TestWebhookGithub:
 
 
 class TestTimerCronJob:
-    """Smoke tests for examples/timer/timer_cron_job."""
+    """Smoke tests for examples/scheduled-and-background/timer_cron_job."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("scheduled-and-background/timer_cron_job")
@@ -395,7 +395,7 @@ class TestTimerCronJob:
 
 
 class TestQueueProducer:
-    """Smoke tests for examples/queue/queue_producer."""
+    """Smoke tests for examples/messaging-and-pubsub/queue_producer."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("messaging-and-pubsub/queue_producer")
@@ -422,7 +422,7 @@ class TestQueueProducer:
 
 
 class TestQueueConsumer:
-    """Smoke tests for examples/queue/queue_consumer."""
+    """Smoke tests for examples/messaging-and-pubsub/queue_consumer."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("messaging-and-pubsub/queue_consumer")
@@ -441,7 +441,7 @@ class TestQueueConsumer:
 
 
 class TestBlobUploadProcessor:
-    """Smoke tests for examples/blob/blob_upload_processor."""
+    """Smoke tests for examples/blob-and-file-triggers/blob_upload_processor."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("blob-and-file-triggers/blob_upload_processor")
@@ -468,7 +468,7 @@ class TestBlobUploadProcessor:
 
 
 class TestBlobEventgridTrigger:
-    """Smoke tests for examples/blob/blob_eventgrid_trigger."""
+    """Smoke tests for examples/blob-and-file-triggers/blob_eventgrid_trigger."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("blob-and-file-triggers/blob_eventgrid_trigger")
@@ -481,7 +481,7 @@ class TestBlobEventgridTrigger:
 
 
 class TestServicebusWorker:
-    """Smoke tests for examples/servicebus/servicebus_worker."""
+    """Smoke tests for examples/messaging-and-pubsub/servicebus_worker."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("messaging-and-pubsub/servicebus_worker")
@@ -503,7 +503,7 @@ class TestServicebusWorker:
 
 
 class TestEventhubConsumer:
-    """Smoke tests for examples/eventhub/eventhub_consumer."""
+    """Smoke tests for examples/streams-and-telemetry/eventhub_consumer."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("streams-and-telemetry/eventhub_consumer")
@@ -525,7 +525,7 @@ class TestEventhubConsumer:
 
 
 class TestChangeFeedProcessor:
-    """Smoke tests for examples/cosmosdb/change_feed_processor."""
+    """Smoke tests for examples/data-and-pipelines/change_feed_processor."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("data-and-pipelines/change_feed_processor")
@@ -547,7 +547,7 @@ class TestChangeFeedProcessor:
 
 
 class TestBlueprintModularApp:
-    """Smoke tests for examples/recipes/blueprint_modular_app."""
+    """Smoke tests for examples/runtime-and-ops/blueprint_modular_app."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("runtime-and-ops/blueprint_modular_app")
@@ -574,7 +574,7 @@ class TestBlueprintModularApp:
 
 
 class TestRetryAndIdempotency:
-    """Smoke tests for examples/recipes/retry_and_idempotency."""
+    """Smoke tests for examples/reliability/retry_and_idempotency."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("reliability/retry_and_idempotency")
@@ -587,7 +587,7 @@ class TestRetryAndIdempotency:
 
 
 class TestOutputBindingVsSdk:
-    """Smoke tests for examples/recipes/output_binding_vs_sdk."""
+    """Smoke tests for examples/runtime-and-ops/output_binding_vs_sdk."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("runtime-and-ops/output_binding_vs_sdk")
@@ -615,7 +615,7 @@ class TestOutputBindingVsSdk:
 
 
 class TestManagedIdentityStorage:
-    """Smoke tests for examples/recipes/managed_identity_storage."""
+    """Smoke tests for examples/security-and-tenancy/managed_identity_storage."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("security-and-tenancy/managed_identity_storage")
@@ -628,7 +628,7 @@ class TestManagedIdentityStorage:
 
 
 class TestManagedIdentityServicebus:
-    """Smoke tests for examples/recipes/managed_identity_servicebus."""
+    """Smoke tests for examples/security-and-tenancy/managed_identity_servicebus."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("security-and-tenancy/managed_identity_servicebus")
@@ -641,7 +641,7 @@ class TestManagedIdentityServicebus:
 
 
 class TestHostJsonTuning:
-    """Smoke tests for examples/recipes/host_json_tuning."""
+    """Smoke tests for examples/runtime-and-ops/host_json_tuning."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("runtime-and-ops/host_json_tuning")
@@ -654,7 +654,7 @@ class TestHostJsonTuning:
 
 
 class TestConcurrencyTuning:
-    """Smoke tests for examples/recipes/concurrency_tuning."""
+    """Smoke tests for examples/runtime-and-ops/concurrency_tuning."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("runtime-and-ops/concurrency_tuning")
@@ -667,7 +667,7 @@ class TestConcurrencyTuning:
 
 
 class TestDurableHelloSequence:
-    """Smoke tests for examples/durable/durable_hello_sequence."""
+    """Smoke tests for examples/orchestration-and-workflows/durable_hello_sequence."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("orchestration-and-workflows/durable_hello_sequence")
@@ -688,7 +688,7 @@ class TestDurableHelloSequence:
 
 
 class TestDurableFanOutFanIn:
-    """Smoke tests for examples/durable/durable_fan_out_fan_in."""
+    """Smoke tests for examples/orchestration-and-workflows/durable_fan_out_fan_in."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("orchestration-and-workflows/durable_fan_out_fan_in")
@@ -709,7 +709,7 @@ class TestDurableFanOutFanIn:
 
 
 class TestDurableHumanInteraction:
-    """Smoke tests for examples/durable/durable_human_interaction."""
+    """Smoke tests for examples/orchestration-and-workflows/durable_human_interaction."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("orchestration-and-workflows/durable_human_interaction")
@@ -722,7 +722,7 @@ class TestDurableHumanInteraction:
 
 
 class TestDurableEntityCounter:
-    """Smoke tests for examples/durable/durable_entity_counter."""
+    """Smoke tests for examples/orchestration-and-workflows/durable_entity_counter."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("orchestration-and-workflows/durable_entity_counter")
@@ -735,7 +735,7 @@ class TestDurableEntityCounter:
 
 
 class TestDurableRetryPattern:
-    """Smoke tests for examples/durable/durable_retry_pattern."""
+    """Smoke tests for examples/orchestration-and-workflows/durable_retry_pattern."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("orchestration-and-workflows/durable_retry_pattern")
@@ -748,7 +748,7 @@ class TestDurableRetryPattern:
 
 
 class TestDurableDeterminismGotchas:
-    """Smoke tests for examples/durable/durable_determinism_gotchas."""
+    """Smoke tests for examples/orchestration-and-workflows/durable_determinism_gotchas."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("orchestration-and-workflows/durable_determinism_gotchas")
@@ -769,7 +769,7 @@ class TestDurableDeterminismGotchas:
 
 
 class TestDurableUnitTesting:
-    """Smoke tests for examples/durable/durable_unit_testing."""
+    """Smoke tests for examples/orchestration-and-workflows/durable_unit_testing."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("orchestration-and-workflows/durable_unit_testing")
@@ -790,7 +790,7 @@ class TestDurableUnitTesting:
 
 
 class TestMcpServerExample:
-    """Smoke tests for examples/ai/mcp_server_example."""
+    """Smoke tests for examples/ai-and-agents/mcp_server_example."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("ai-and-agents/mcp_server_example")
@@ -975,7 +975,7 @@ class TestLocalRunAndDirectInvoke:
 
 
 class TestAuthEasyAuth:
-    """Smoke tests for examples/http/auth_easyauth."""
+    """Smoke tests for examples/apis-and-ingress/auth_easyauth."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("apis-and-ingress/auth_easyauth")
@@ -1101,7 +1101,7 @@ class TestAuthEasyAuth:
 
 
 class TestAuthJwtValidation:
-    """Smoke tests for examples/http/auth_jwt_validation."""
+    """Smoke tests for examples/apis-and-ingress/auth_jwt_validation."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("apis-and-ingress/auth_jwt_validation")
@@ -1173,7 +1173,7 @@ class TestAuthJwtValidation:
 
 
 class TestAuthMultitenant:
-    """Smoke tests for examples/http/auth_multitenant."""
+    """Smoke tests for examples/apis-and-ingress/auth_multitenant."""
 
     def test_module_loads(self) -> None:
         module = _load_example_module("apis-and-ingress/auth_multitenant")

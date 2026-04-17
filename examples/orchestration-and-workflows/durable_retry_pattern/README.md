@@ -17,7 +17,7 @@ Durable Functions orchestration retrying a flaky activity.
 ## Run Locally
 
 ```bash
-cd examples/durable/durable_retry_pattern
+cd examples/orchestration-and-workflows/durable_retry_pattern
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

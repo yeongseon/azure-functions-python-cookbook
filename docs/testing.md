@@ -41,7 +41,7 @@ make docs
 ### Hello HTTP Minimal
 
 ```bash
-cd examples/http/hello_http_minimal
+cd examples/apis-and-ingress/hello_http_minimal
 pip install -e .
 func start
 ```
@@ -56,7 +56,7 @@ curl "http://localhost:7071/api/hello?name=Azure"
 ### GitHub Webhook
 
 ```bash
-cd examples/http/webhook_github
+cd examples/apis-and-ingress/webhook_github
 pip install -e .
 func start
 ```
@@ -67,7 +67,7 @@ Expected behavior: unsigned or invalid signatures return `401`.
 ### Queue Consumer
 
 ```bash
-cd examples/queue/queue_consumer
+cd examples/messaging-and-pubsub/queue_consumer
 pip install -e .
 func start
 ```
@@ -78,7 +78,7 @@ Verify logs show dequeue count, JSON parsing, and task completion.
 ### Timer Cron Job
 
 ```bash
-cd examples/timer/timer_cron_job
+cd examples/scheduled-and-background/timer_cron_job
 pip install -e .
 func start
 ```

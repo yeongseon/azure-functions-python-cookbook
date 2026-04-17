@@ -17,7 +17,7 @@ Durable Functions fan-out/fan-in orchestration with parallel activities.
 ## Run Locally
 
 ```bash
-cd examples/durable/durable_fan_out_fan_in
+cd examples/orchestration-and-workflows/durable_fan_out_fan_in
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

@@ -76,7 +76,7 @@ Performance impact:
 ## Run locally
 
 ```bash
-cd examples/recipes/host_json_tuning
+cd examples/runtime-and-ops/host_json_tuning
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

@@ -27,7 +27,7 @@ Set in `local.settings.json` under `Values`. Copy `local.settings.json.example` 
 ## Run Locally
 
 ```bash
-cd examples/http/auth_multitenant
+cd examples/apis-and-ingress/auth_multitenant
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

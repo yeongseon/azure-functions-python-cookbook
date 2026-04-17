@@ -69,7 +69,7 @@ Each recipe follows this progression:
 2. **AI agent discoverability.** Tools like GitHub Copilot, Cursor, and Claude Code recommend
    libraries based on README, PRD, and example content. Curated recipes make the cookbook
    visible to AI agents searching for Azure Functions Python patterns.
-3. **Cookbook role.** This repository is entirely a cookbook — `recipes/` and `examples/` are
+3. **Cookbook role.** This repository is entirely a cookbook — `docs/patterns/` and `examples/` are
    the core deliverables. The bar for runnable, well-documented examples is higher here
    than in any other repository in the ecosystem.
 4. **Proven approach.** FastAPI, LangChain, SQLAlchemy, and Pandas all achieved early adoption
@@ -77,88 +77,90 @@ Each recipe follows this progression:
 
 ### Recipes Inventory
 
+The published cookbook currently contains **67** pattern pages under `docs/patterns/`.
+
 #### HTTP
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| Hello HTTP Minimal | `examples/http/hello_http_minimal` | Smallest possible HTTP trigger |
-| HTTP Routing, Query, and Body | `examples/http/http_routing_query_body` | Route params, query strings, JSON body |
-| HTTP Auth Levels | `examples/http/http_auth_levels` | Anonymous, Function, Admin auth |
-| GitHub Webhook | `examples/http/webhook_github` | HMAC-SHA256 webhook receiver |
+| Hello HTTP Minimal | `examples/apis-and-ingress/hello_http_minimal` | Smallest possible HTTP trigger |
+| HTTP Routing, Query, and Body | `examples/apis-and-ingress/http_routing_query_body` | Route params, query strings, JSON body |
+| HTTP Auth Levels | `examples/apis-and-ingress/http_auth_levels` | Anonymous, Function, Admin auth |
+| GitHub Webhook | `examples/apis-and-ingress/webhook_github` | HMAC-SHA256 webhook receiver |
 
 #### Timer
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| Timer Cron Job | `examples/timer/timer_cron_job` | NCRONTAB scheduled execution |
+| Timer Cron Job | `examples/scheduled-and-background/timer_cron_job` | NCRONTAB scheduled execution |
 
 #### Queue
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| Queue Producer | `examples/queue/queue_producer` | HTTP trigger with Queue output binding |
-| Queue Consumer | `examples/queue/queue_consumer` | Queue trigger message processing |
+| Queue Producer | `examples/messaging-and-pubsub/queue_producer` | HTTP trigger with Queue output binding |
+| Queue Consumer | `examples/messaging-and-pubsub/queue_consumer` | Queue trigger message processing |
 
 #### Blob
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| Blob Upload Processor | `examples/blob/blob_upload_processor` | Polling-based blob trigger |
-| Blob Event Grid Trigger | `examples/blob/blob_eventgrid_trigger` | Event Grid-based blob trigger |
+| Blob Upload Processor | `examples/blob-and-file-triggers/blob_upload_processor` | Polling-based blob trigger |
+| Blob Event Grid Trigger | `examples/blob-and-file-triggers/blob_eventgrid_trigger` | Event Grid-based blob trigger |
 
 #### Service Bus
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| Service Bus Worker | `examples/servicebus/servicebus_worker` | Service Bus queue trigger |
+| Service Bus Worker | `examples/messaging-and-pubsub/servicebus_worker` | Service Bus queue trigger |
 
 #### Event Hub
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| Event Hub Consumer | `examples/eventhub/eventhub_consumer` | Event Hub stream processing |
+| Event Hub Consumer | `examples/streams-and-telemetry/eventhub_consumer` | Event Hub stream processing |
 
 #### Cosmos DB
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| Change Feed Processor | `examples/cosmosdb/change_feed_processor` | Change feed trigger |
+| Change Feed Processor | `examples/data-and-pipelines/change_feed_processor` | Change feed trigger |
 
 #### Patterns
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| Blueprint Modular App | `examples/recipes/blueprint_modular_app` | Modular app with Blueprints |
-| Retry and Idempotency | `examples/recipes/retry_and_idempotency` | Runtime retry + deduplication |
-| Output Binding vs SDK | `examples/recipes/output_binding_vs_sdk` | Binding vs SDK client comparison |
-| Managed Identity (Storage) | `examples/recipes/managed_identity_storage` | Identity-based Storage connection |
-| Managed Identity (Service Bus) | `examples/recipes/managed_identity_servicebus` | Identity-based Service Bus connection |
-| host.json Tuning | `examples/recipes/host_json_tuning` | Configuration patterns |
-| Concurrency Tuning | `examples/recipes/concurrency_tuning` | Dynamic concurrency |
+| Blueprint Modular App | `examples/runtime-and-ops/blueprint_modular_app` | Modular app with Blueprints |
+| Retry and Idempotency | `examples/reliability/retry_and_idempotency` | Runtime retry + deduplication |
+| Output Binding vs SDK | `examples/runtime-and-ops/output_binding_vs_sdk` | Binding vs SDK client comparison |
+| Managed Identity (Storage) | `examples/security-and-tenancy/managed_identity_storage` | Identity-based Storage connection |
+| Managed Identity (Service Bus) | `examples/security-and-tenancy/managed_identity_servicebus` | Identity-based Service Bus connection |
+| host.json Tuning | `examples/runtime-and-ops/host_json_tuning` | Configuration patterns |
+| Concurrency Tuning | `examples/runtime-and-ops/concurrency_tuning` | Dynamic concurrency |
 
 #### Durable Functions
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| Hello Sequence | `examples/durable/durable_hello_sequence` | Activity chaining |
-| Fan-Out / Fan-In | `examples/durable/durable_fan_out_fan_in` | Parallel execution |
-| Human Interaction | `examples/durable/durable_human_interaction` | External events + timeout |
-| Entity Counter | `examples/durable/durable_entity_counter` | Durable entity state |
-| Retry Pattern | `examples/durable/durable_retry_pattern` | Activity retry with RetryOptions |
-| Determinism Gotchas | `examples/durable/durable_determinism_gotchas` | Orchestrator rules |
-| Unit Testing | `examples/durable/durable_unit_testing` | Mock-based testing |
+| Hello Sequence | `examples/orchestration-and-workflows/durable_hello_sequence` | Activity chaining |
+| Fan-Out / Fan-In | `examples/orchestration-and-workflows/durable_fan_out_fan_in` | Parallel execution |
+| Human Interaction | `examples/orchestration-and-workflows/durable_human_interaction` | External events + timeout |
+| Entity Counter | `examples/orchestration-and-workflows/durable_entity_counter` | Durable entity state |
+| Retry Pattern | `examples/orchestration-and-workflows/durable_retry_pattern` | Activity retry with RetryOptions |
+| Determinism Gotchas | `examples/orchestration-and-workflows/durable_determinism_gotchas` | Orchestrator rules |
+| Unit Testing | `examples/orchestration-and-workflows/durable_unit_testing` | Mock-based testing |
 
 #### AI
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| MCP Server | `examples/ai/mcp_server_example` | MCP server on Azure Functions |
+| MCP Server | `examples/ai-and-agents/mcp_server_example` | MCP server on Azure Functions |
 
 #### Local Development
 
 | Recipe | Example | Pattern |
 |---|---|---|
-| Local Run and Direct Invoke | `examples/local_run_and_direct_invoke` | func start vs direct invocation |
+| Local Run and Direct Invoke | `examples/guides/local_run_and_direct_invoke` | func start vs direct invocation |
 
-All recipes follow the `recipes/_template.md` format. New recipes must include runnable
+All pattern pages under `docs/patterns/` follow a shared documentation structure. New entries must include runnable
 code that works out of the box without external dependencies beyond the recipe's own requirements.

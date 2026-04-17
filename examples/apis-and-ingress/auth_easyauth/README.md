@@ -19,7 +19,7 @@ EasyAuth principal extraction with role-based access control for Azure Functions
 ## Run Locally
 
 ```bash
-cd examples/http/auth_easyauth
+cd examples/apis-and-ingress/auth_easyauth
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

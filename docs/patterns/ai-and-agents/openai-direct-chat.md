@@ -32,6 +32,9 @@ flowchart LR
     E --> A
 ```
 
+## Behavior
+The sequence below shows the runtime interaction between components.
+
 ```mermaid
 sequenceDiagram
     participant Client

@@ -20,7 +20,7 @@ Both endpoints accept `POST` JSON with an optional `task` field and enqueue to `
 ## Run locally
 
 ```bash
-cd examples/recipes/output_binding_vs_sdk
+cd examples/runtime-and-ops/output_binding_vs_sdk
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

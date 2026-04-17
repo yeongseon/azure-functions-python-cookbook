@@ -26,7 +26,7 @@ Set in `local.settings.json` under `Values`. Copy `local.settings.json.example` 
 ## Run Locally
 
 ```bash
-cd examples/cosmosdb/change_feed_processor
+cd examples/data-and-pipelines/change_feed_processor
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

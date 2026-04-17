@@ -11,7 +11,7 @@ This repository maintains practical Azure Functions Python recipes and scaffold-
 - Prefer reusable patterns over one-off demos.
 - Keep root planning documents in the repository root.
 - Keep user-facing documentation in `docs/`.
-- Keep recipe source material in `recipes/`.
+- Keep pattern source material in `docs/patterns/`.
 - Keep runnable sample code in `examples/`.
 
 ## Quality Bar

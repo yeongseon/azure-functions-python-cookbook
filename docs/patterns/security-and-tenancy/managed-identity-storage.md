@@ -1,6 +1,6 @@
 # Managed Identity Storage
 
-> **Trigger**: HTTP | **State**: stateless | **Guarantee**: at-most-once | **Difficulty**: intermediate
+> **Trigger**: Queue | **State**: stateless | **Guarantee**: at-least-once | **Difficulty**: intermediate
 
 ## Overview
 The `examples/security-and-tenancy/managed_identity_storage/` recipe demonstrates a queue trigger that uses

@@ -96,7 +96,9 @@ This keeps the integration matrix explicit:
 - **OpenAPI** for discoverable API metadata
 - **Logging** for per-thread observability
 
-## Agent Behavior
+## Behavior
+The diagram below shows the runtime interaction between components.
+
 ```mermaid
 stateDiagram-v2
     [*] --> ReceiveTurn

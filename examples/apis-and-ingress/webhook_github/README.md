@@ -26,7 +26,7 @@ Set in `local.settings.json` under `Values`. Copy `local.settings.json.example` 
 ## Run Locally
 
 ```bash
-cd examples/http/webhook_github
+cd examples/apis-and-ingress/webhook_github
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

@@ -26,7 +26,7 @@ Set in `local.settings.json` under `Values`. Copy `local.settings.json.example` 
 ## Run Locally
 
 ```bash
-cd examples/servicebus/servicebus_worker
+cd examples/messaging-and-pubsub/servicebus_worker
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

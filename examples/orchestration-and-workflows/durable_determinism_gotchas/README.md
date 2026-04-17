@@ -18,7 +18,7 @@ Durable Functions orchestrator showing deterministic coding patterns.
 ## Run Locally
 
 ```bash
-cd examples/durable/durable_determinism_gotchas
+cd examples/orchestration-and-workflows/durable_determinism_gotchas
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

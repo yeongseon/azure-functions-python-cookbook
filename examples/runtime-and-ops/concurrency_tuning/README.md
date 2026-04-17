@@ -35,7 +35,7 @@ settings when external systems need protection.
 ## Run locally
 
 ```bash
-cd examples/recipes/concurrency_tuning
+cd examples/runtime-and-ops/concurrency_tuning
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

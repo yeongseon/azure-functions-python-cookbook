@@ -26,7 +26,7 @@ Set in `local.settings.json` under `Values`. Copy `local.settings.json.example` 
 ## Run Locally
 
 ```bash
-cd examples/eventhub/eventhub_consumer
+cd examples/streams-and-telemetry/eventhub_consumer
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

@@ -28,6 +28,7 @@ nav:
           - Hello HTTP Minimal: patterns/apis-and-ingress/hello-http-minimal.md
           - HTTP Routing Query Body: patterns/apis-and-ingress/http-routing-query-body.md
           - HTTP Auth Levels: patterns/apis-and-ingress/http-auth-levels.md
+          - APIM Function Backend: patterns/apis-and-ingress/apim-function-backend.md
           - Webhook GitHub: patterns/apis-and-ingress/webhook-github.md
           - EasyAuth Claims Extraction: patterns/apis-and-ingress/auth-easyauth-claims.md
           - JWT Bearer Validation: patterns/apis-and-ingress/auth-jwt-validation.md
@@ -37,10 +38,14 @@ nav:
       - Scheduled & Background:
           - Overview: patterns/scheduled-and-background/index.md
           - Timer Cron Job: patterns/scheduled-and-background/timer-cron-job.md
+          - Durable Timer Reminder: patterns/scheduled-and-background/durable-timer-reminder.md
+          - Queue Scheduled Dispatch: patterns/scheduled-and-background/queue-scheduled-dispatch.md
       - Blob & File Triggers:
           - Overview: patterns/blob-and-file-triggers/index.md
           - Blob Upload Processor: patterns/blob-and-file-triggers/blob-upload-processor.md
           - Blob Event Grid Trigger: patterns/blob-and-file-triggers/blob-eventgrid-trigger.md
+          - Blob Thumbnail Generator: patterns/blob-and-file-triggers/blob-thumbnail-generator.md
+          - Blob CSV to Table: patterns/blob-and-file-triggers/blob-csv-to-table.md
       - Async APIs & Jobs:
           - Overview: patterns/async-apis-and-jobs/index.md
           - Async HTTP 202 Polling: patterns/async-apis-and-jobs/async-http-202-polling.md
@@ -51,6 +56,7 @@ nav:
           - Overview: patterns/messaging-and-pubsub/index.md
           - Queue Producer: patterns/messaging-and-pubsub/queue-producer.md
           - Queue Consumer: patterns/messaging-and-pubsub/queue-consumer.md
+          - Claim Check Pattern: patterns/messaging-and-pubsub/claim-check-pattern.md
           - Service Bus Worker: patterns/messaging-and-pubsub/servicebus-worker.md
           - Event Grid Event Router: patterns/messaging-and-pubsub/eventgrid-event-router.md
           - Service Bus Topic Fanout: patterns/messaging-and-pubsub/servicebus-topic-fanout.md
@@ -75,6 +81,7 @@ nav:
           - Durable Hello Sequence: patterns/orchestration-and-workflows/durable-hello-sequence.md
           - Durable Fan-Out Fan-In: patterns/orchestration-and-workflows/durable-fan-out-fan-in.md
           - Durable Human Interaction: patterns/orchestration-and-workflows/durable-human-interaction.md
+          - Durable Singleton Monitor: patterns/orchestration-and-workflows/durable-singleton-monitor.md
           - Durable Entity Counter: patterns/orchestration-and-workflows/durable-entity-counter.md
           - Durable Retry Pattern: patterns/orchestration-and-workflows/durable-retry-pattern.md
           - Durable Determinism Gotchas: patterns/orchestration-and-workflows/durable-determinism-gotchas.md
@@ -105,6 +112,8 @@ nav:
       - Realtime:
           - Overview: patterns/realtime/index.md
           - SignalR Notifications: patterns/realtime/signalr-notifications.md
+          - SignalR Group Chat: patterns/realtime/signalr-group-chat.md
+          - WebSocket Proxy: patterns/realtime/websocket-proxy.md
       - AI & Agents:
           - Overview: patterns/ai-and-agents/index.md
           - MCP Server Example: patterns/ai-and-agents/mcp-server-example.md

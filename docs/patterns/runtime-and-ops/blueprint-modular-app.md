@@ -4,8 +4,9 @@
 
 ## Overview
 The `examples/runtime-and-ops/blueprint_modular_app/` example demonstrates how to split a function app into
-multiple files using `func.Blueprint()`. `function_app.py` is reduced to composition logic and registers
-`bp_health.py` plus `bp_users.py`, keeping routing concerns isolated from app bootstrap code.
+an `app/` package using `func.Blueprint()`. `function_app.py` is reduced to composition logic and imports
+blueprints from `app.functions.health` and `app.functions.users`, while shared logic lives under
+`app.services` and logging setup lives under `app.core`.
 
 This modular approach becomes important as endpoint count grows. Teams can own separate blueprints,
 write focused tests, and avoid a single monolithic `function_app.py` file that becomes hard to review.
@@ -23,8 +24,10 @@ write focused tests, and avoid a single monolithic `function_app.py` file that b
 ## Architecture
 ```mermaid
 flowchart TD
-    A[function_app.py\nregister_blueprint()] --> B[bp_health.py\nGET /api/health]
-    A --> C[bp_users.py\nGET /api/users\nGET /api/users/{id}\nPOST /api/users]
+    A[function_app.py\nregister_functions()] --> B[app/functions/health.py\nGET /api/health]
+    A --> C[app/functions/users.py\nGET /api/users\nGET /api/users/{id}\nPOST /api/users]
+    B --> D[app/services/health_service.py]
+    C --> E[app/services/user_service.py]
 ```
 
 ## Prerequisites
@@ -37,8 +40,15 @@ flowchart TD
 ```text
 examples/runtime-and-ops/blueprint_modular_app/
 |-- function_app.py
-|-- bp_health.py
-|-- bp_users.py
+|-- app/
+|   |-- core/
+|   |   `-- logging.py
+|   |-- functions/
+|   |   |-- health.py
+|   |   `-- users.py
+|   `-- services/
+|       |-- health_service.py
+|       `-- user_service.py
 |-- host.json
 |-- local.settings.json.example
 |-- requirements.txt
@@ -46,59 +56,84 @@ examples/runtime-and-ops/blueprint_modular_app/
 ```
 
 ## Implementation
-The root file composes blueprints only. This keeps startup code explicit and easy to scan.
+The root file composes blueprints only. This keeps startup code explicit and leaves route and service
+logic inside the `app/` package.
 
 ```python
 import azure.functions as func
-from bp_health import bp as health_bp
-from bp_users import bp as users_bp
+
+from app.core.logging import configure_logging
+from app.functions.health import health_blueprint
+from app.functions.users import users_blueprint
+
+configure_logging()
 
 app = func.FunctionApp()
-app.register_blueprint(health_bp)
-app.register_blueprint(users_bp)
+app.register_functions(health_blueprint)
+app.register_functions(users_blueprint)
 ```
 
-`bp_health.py` owns a focused readiness endpoint and returns a stable JSON payload.
+`app/functions/health.py` owns the readiness endpoint and delegates payload creation to a service module.
 
 ```python
-bp = func.Blueprint()
+import json
 
-@bp.route(route="health", methods=["GET"])
+import azure.functions as func
+
+from app.services.health_service import get_health_payload
+
+health_blueprint = func.Blueprint()
+
+
+@health_blueprint.route(route="health", methods=["GET"])
 def get_health(req: func.HttpRequest) -> func.HttpResponse:
     del req
     return func.HttpResponse(
-        body='{"status": "healthy"}',
+        body=json.dumps(get_health_payload()),
         mimetype="application/json",
         status_code=200,
     )
 ```
 
-`bp_users.py` contains CRUD-like endpoints with validation and in-memory storage for simple local demos.
+`app/functions/users.py` contains the HTTP routes, while `app/services/user_service.py` owns the
+in-memory store used by the demo.
 
 ```python
-bp = func.Blueprint()
-_users: dict[str, dict[str, Any]] = {}
+import json
 
-@bp.route(route="users", methods=["POST"])
-def create_user(req: func.HttpRequest) -> func.HttpResponse:
+import azure.functions as func
+
+from app.services.user_service import create_user, get_user, list_users
+
+users_blueprint = func.Blueprint()
+
+
+@users_blueprint.route(route="users", methods=["POST"])
+def create_user_route(req: func.HttpRequest) -> func.HttpResponse:
     payload = req.get_json()
-    user = {"id": str(payload.get("id", "")).strip(), "name": str(payload.get("name", "")).strip()}
-    _users[user["id"]] = user
+    user_id = str(payload.get("id", "")).strip()
+    name = str(payload.get("name", "")).strip()
+    user = create_user(user_id=user_id, name=name)
     return func.HttpResponse(body=json.dumps(user), mimetype="application/json", status_code=201)
 ```
+
+The same module also exposes `GET /api/users` and `GET /api/users/{id}`.
 
 ## Behavior
 ```mermaid
 sequenceDiagram
     participant Client
     participant App as function_app.py
-    participant Health as bp_health.py
-    participant Users as bp_users.py
+    participant Health as app/functions/health.py
+    participant Users as app/functions/users.py
+    participant Services as app/services/*
 
     Client->>App: Request /api/health or /api/users
     App->>Health: Route health requests
+    Health->>Services: get_health_payload()
     Health-->>Client: Return health payload
     App->>Users: Route user requests
+    Users->>Services: list_users/get_user/create_user
     Users-->>Client: Return user list, item, or create result
 ```
 
@@ -119,7 +154,7 @@ GET  /api/users/missing -> 404 {"error": "user not found"}
 ```
 
 ## Production Considerations
-- Scaling: keep route modules stateless; replace in-memory dict with durable storage.
+- Scaling: keep route modules stateless; replace the in-memory service store with durable storage.
 - Retries: HTTP handlers should return deterministic status codes for client retry policies.
 - Idempotency: enforce idempotency keys for create operations when clients can retry POSTs.
 - Observability: add per-blueprint logging and correlation IDs for route-level telemetry.

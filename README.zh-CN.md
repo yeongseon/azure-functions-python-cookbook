@@ -114,24 +114,28 @@
 | --- | --- | --- |
 | Local Run and Direct Invoke | Beginner | func start vs direct Python invocation |
 
-每个食谱都位于 `recipes/` 目录下，对应的可运行项目在 `examples/` 中。
+每个模式页面都位于 `docs/patterns/` 目录下，对应的可运行项目在 `examples/` 中。
 
 ## Repository Layout
 
 ```text
-recipes/           精选食谱文档（31个食谱）
-examples/          按类别组织的可运行示例项目
-  http/            HTTP trigger examples
-  timer/           Timer trigger examples
-  queue/           Queue trigger examples
-  blob/            Blob trigger examples
-  servicebus/      Service Bus trigger examples
-  eventhub/        Event Hub trigger examples
-  cosmosdb/        Cosmos DB trigger examples
-  recipes/         Pattern and recipe examples
-  durable/         Durable Functions examples
-  ai/              AI integration examples
 docs/              发布的文档
+  patterns/        精选模式文档（67个食谱）
+examples/          按类别组织的可运行示例项目
+  apis-and-ingress/
+  scheduled-and-background/
+  blob-and-file-triggers/
+  async-apis-and-jobs/
+  messaging-and-pubsub/
+  streams-and-telemetry/
+  data-and-pipelines/
+  orchestration-and-workflows/
+  reliability/
+  security-and-tenancy/
+  runtime-and-ops/
+  realtime/
+  ai-and-agents/
+  guides/
 ```
 
 ## Development

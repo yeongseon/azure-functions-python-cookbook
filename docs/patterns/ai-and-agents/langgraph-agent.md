@@ -1,138 +1,173 @@
 # LangGraph Agent
 
-> **Trigger**: HTTP | **State**: stateful | **Guarantee**: at-most-once | **Difficulty**: advanced
+> **Trigger**: HTTP | **State**: stateless | **Guarantee**: at-most-once | **Difficulty**: advanced
 
 ## Overview
-This recipe deploys a LangGraph agent as Azure Functions HTTP endpoints using
-`azure-functions-langgraph-python`.
-You define a graph, register it with `LangGraphApp`, and get invoke, stream,
-and health endpoints automatically — no manual route wiring needed.
+This recipe shows how to keep a LangGraph graph alongside a regular Azure Functions
+HTTP app using `azure-functions-langgraph-python`.
+The example registers a compiled graph with `LangGraphApp`, but the public HTTP surface
+in the sample is a separate `func.FunctionApp` route at `/api/agent/invoke`.
 
-The example builds a minimal echo agent that mirrors user messages back.
-Replace the `chat` node with real LLM calls for production use.
+The example returns a minimal "Agent received" response and thread ID from that manual
+route. Replace the stubbed response with real graph execution or LLM calls for production use.
 
 ## When to Use
-- You have a LangGraph agent and want to serve it over HTTP on Azure Functions.
+- You want a standard Azure Functions HTTP endpoint that can live beside LangGraph registration.
 - You want serverless deployment without LangGraph Platform costs.
-- You need invoke and stream endpoints with minimal boilerplate.
+- You want request validation, OpenAPI metadata, and logging around an agent-style endpoint.
 
 ## When NOT to Use
-- You only need a simple stateless HTTP function without graph execution or streaming endpoints.
+- You only need a simple stateless HTTP function and do not need LangGraph in the project at all.
 - You require durable multi-step workflows better suited to Durable Functions orchestration.
-- You cannot externalize conversation state and checkpointing for multi-turn production workloads.
+- You require built-in streaming, health, or checkpoint-backed conversation endpoints from this sample as-is.
 
 ## Architecture
 ```mermaid
 flowchart TD
-    A[Client] -->|POST /api/graphs/echo_agent/invoke| B[LangGraphApp]
-    A -->|POST /api/graphs/echo_agent/stream| B
-    A -->|GET /api/health| B
-    B --> C[Registered StateGraph\nchat node]
-    C --> D[Graph response\nmessages or stream events]
+    A[Client] -->|POST /api/agent/invoke| B[func.FunctionApp route]
+    B --> C[Validation + OpenAPI + logging decorators]
+    C --> D[invoke_agent handler]
+    D --> E[JSON response\nresponse + thread_id]
+    F[Startup] --> G[build_graph()]
+    G --> H[LangGraphApp.register(graph)]
 ```
 
 ## Prerequisites
 - Python 3.10+
 - Azure Functions Core Tools v4
 - `langgraph` and `azure-functions-langgraph-python` packages
-- `typing_extensions` for `TypedDict`
+- Pydantic for request and response models
 
 ## Project Structure
 ```text
-my-agent/
-|- function_app.py
-|- host.json
-|- local.settings.json.example
-|- requirements.txt
-`- README.md
+examples/ai-and-agents/langgraph_agent/
+|-- function_app.py
+|-- host.json
+|-- local.settings.sample.json
+|-- requirements.txt
+`-- README.md
 ```
 
 ## Implementation
-The full agent fits in a single `function_app.py`.
+The sample keeps everything in a single `function_app.py`, but it does two separate things:
+
+1. Creates and optionally registers a LangGraph graph at startup.
+2. Exposes a manual HTTP endpoint with Azure Functions decorators.
 
 ```python
-from langgraph.graph import END, START, StateGraph
-from typing_extensions import TypedDict
-
 import azure.functions as func
-
 from azure_functions_langgraph import LangGraphApp
+from azure_functions_logging import setup_logging, with_context, get_logger
+from azure_functions_openapi import openapi
+from azure_functions_validation import validate_http
+from pydantic import BaseModel
+
+setup_logging(format="json")
+logger = get_logger(__name__)
+
+langgraph_app = LangGraphApp()
+app = func.FunctionApp(http_auth_level=func.AuthLevel.FUNCTION)
 
 
-# 1. Define your state
-class AgentState(TypedDict):
-    messages: list[dict[str, str]]
+class InvokeRequest(BaseModel):
+    message: str
+    thread_id: str | None = None
 
 
-# 2. Define your nodes
-def chat(state: AgentState) -> dict:
-    user_msg = state["messages"][-1]["content"]
-    return {
-        "messages": state["messages"]
-        + [{"role": "assistant", "content": f"Echo: {user_msg}"}]
-    }
+class InvokeResponse(BaseModel):
+    response: str
+    thread_id: str
 
 
-# 3. Build graph
-builder = StateGraph(AgentState)
-builder.add_node("chat", chat)
-builder.add_edge(START, "chat")
-builder.add_edge("chat", END)
-graph = builder.compile()
+def build_graph():
+    try:
+        from langgraph.graph import StateGraph, END
+        from typing import TypedDict
 
-# 4. Deploy
-app = LangGraphApp(auth_level=func.AuthLevel.ANONYMOUS)
-app.register(graph=graph, name="echo_agent")
-func_app = app.function_app
+        class AgentState(TypedDict):
+            message: str
+            response: str
+
+        def process_node(state: AgentState) -> AgentState:
+            logger.info("Processing message", extra={"message": state["message"]})
+            return {"response": f"Agent received: {state['message']}"}
+
+        graph = StateGraph(AgentState)
+        graph.add_node("process", process_node)
+        graph.set_entry_point("process")
+        graph.add_edge("process", END)
+        return graph.compile()
+    except ImportError:
+        logger.warning("langgraph not installed, using stub")
+        return None
+
+
+graph = build_graph()
+if graph:
+    langgraph_app.register(graph=graph)
+
+
+@app.route(route="agent/invoke", methods=["POST"])
+@with_context
+@openapi(
+    summary="Invoke LangGraph agent",
+    request_body=InvokeRequest,
+    response={200: InvokeResponse},
+    tags=["agent"],
+)
+@validate_http(body=InvokeRequest, response_model=InvokeResponse)
+def invoke_agent(req: func.HttpRequest, body: InvokeRequest) -> func.HttpResponse:
+    import uuid
+
+    thread_id = body.thread_id or str(uuid.uuid4())
+    logger.info("Invoking agent", extra={"thread_id": thread_id})
+    result = {"response": f"Agent received: {body.message}", "thread_id": thread_id}
+    return func.HttpResponse(
+        body=InvokeResponse(**result).model_dump_json(),
+        mimetype="application/json",
+    )
 ```
 
-`LangGraphApp` creates three endpoints per registered graph:
+In this example, the HTTP contract is fully manual. The registered graph is initialized at startup,
+but the sample route does not expose automatic `/graphs/...` invoke or stream endpoints.
 
-1. `POST /api/graphs/echo_agent/invoke` — synchronous execution
-2. `POST /api/graphs/echo_agent/stream` — buffered SSE responses
-3. `GET /api/health` — lists registered graphs
-
-Request format for invoke and stream:
+Request format for the documented endpoint:
 
 ```json
 {
-    "input": {
-        "messages": [{"role": "human", "content": "Hello!"}]
-    }
+    "message": "Hello!",
+    "thread_id": "conversation-1"
 }
 ```
+
+If `thread_id` is omitted, the handler generates a UUID before returning the response.
 
 ## Behavior
 ```mermaid
 sequenceDiagram
     participant Client
-    participant App as LangGraphApp
-    participant Graph as echo_agent graph
-    participant Store as Checkpointer or thread state
+    participant Route as /api/agent/invoke
+    participant Validation as validate_http
+    participant Handler as invoke_agent
 
-    Client->>App: POST invoke or stream with input/config
-    App->>Graph: Execute registered graph
-    Graph->>Store: Load or persist thread context when configured
-    Graph-->>App: Return updated messages
-    App-->>Client: JSON response or stream events
+    Client->>Route: POST {message, thread_id?}
+    Route->>Validation: Parse and validate body
+    Validation->>Handler: Invoke with typed model
+    Handler->>Handler: Generate thread_id if missing
+    Handler-->>Client: {response, thread_id}
 ```
 
-For conversation state, pass a `thread_id` via config:
+At startup, the module separately tries to build and register a graph:
 
-```json
-{
-    "input": {
-        "messages": [{"role": "human", "content": "Hello!"}]
-    },
-    "config": {
-        "configurable": {"thread_id": "conversation-1"}
-    }
-}
+```python
+graph = build_graph()
+if graph:
+    langgraph_app.register(graph=graph)
 ```
 
 ## Run Locally
 ```bash
-cd my-agent
+cd examples/ai-and-agents/langgraph_agent
 pip install -r requirements.txt
 func start
 ```
@@ -141,39 +176,27 @@ func start
 ```text
 Functions:
 
-    echo_agent_invoke: [POST] http://localhost:7071/api/graphs/echo_agent/invoke
-    echo_agent_stream: [POST] http://localhost:7071/api/graphs/echo_agent/stream
-    health: [GET] http://localhost:7071/api/health
-```
-
-Health check:
-
-```bash
-curl -s http://localhost:7071/api/health
-```
-
-```json
-{"status": "ok", "graphs": [{"name": "echo_agent", "description": null, "has_checkpointer": false}]}
+    invoke_agent: [POST] http://localhost:7071/api/agent/invoke
 ```
 
 Invoke the agent:
 
 ```bash
-curl -X POST http://localhost:7071/api/graphs/echo_agent/invoke \
+curl -X POST http://localhost:7071/api/agent/invoke \
   -H "Content-Type: application/json" \
-  -d '{"input": {"messages": [{"role": "human", "content": "Hello!"}]}}'
+  -d '{"message": "Hello!"}'
 ```
 
 ```json
-{"messages": [{"role": "human", "content": "Hello!"}, {"role": "assistant", "content": "Echo: Hello!"}]}
+{"response":"Agent received: Hello!","thread_id":"generated-or-supplied-thread-id"}
 ```
 
 ## Production Considerations
-- Authentication: set `auth_level=func.AuthLevel.FUNCTION` for production; the default `ANONYMOUS` is for local development only.
-- Scaling: Azure Functions scales per-instance; keep graph execution lightweight or offload heavy LLM calls asynchronously.
-- State: the echo example is stateless. For multi-turn conversations, compile the graph with a checkpointer (e.g. `AzureBlobCheckpointSaver`).
-- Observability: log thread IDs and graph names for tracing conversation flows.
-- Timeouts: Azure Functions HTTP triggers have a 230-second timeout; long-running graphs should use the stream endpoint.
+- Authentication: the sample sets `http_auth_level=func.AuthLevel.FUNCTION`; configure keys and client access accordingly.
+- Scaling: Azure Functions scales the HTTP route independently; keep request handlers lightweight.
+- State: the sample echoes input and returns a thread ID, but does not persist conversation state.
+- Observability: the example enables structured logging and adds request context around the route.
+- Evolution path: if you later wire the HTTP route to execute the compiled graph, add checkpointing and explicit timeout handling.
 
 ## Scaffold Starter
 ```bash

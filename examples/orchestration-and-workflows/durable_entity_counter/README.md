@@ -17,7 +17,7 @@ Durable Entity example managing counter state.
 ## Run Locally
 
 ```bash
-cd examples/durable/durable_entity_counter
+cd examples/orchestration-and-workflows/durable_entity_counter
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

@@ -17,7 +17,7 @@ Blob-triggered Azure Function configured for Event Grid source notifications.
 ## Run Locally
 
 ```bash
-cd examples/blob/blob_eventgrid_trigger
+cd examples/blob-and-file-triggers/blob_eventgrid_trigger
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .

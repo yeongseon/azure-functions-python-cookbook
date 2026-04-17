@@ -15,12 +15,12 @@ Azure Functions Python Cookbook is a content-first repository that helps develop
 
 The repository is organized into four layers:
 
-1. `recipes/`
-   - Source recipe documents (28 recipes)
+1. `docs/patterns/`
+   - Source pattern documents (67 recipes)
    - Architecture, use cases, pitfalls, and scaffold guidance
 2. `examples/`
    - Runnable or near-runnable sample projects
-   - Organized by category: http, timer, queue, blob, servicebus, eventhub, cosmosdb, recipes, durable, ai
+   - Organized by category: apis-and-ingress, scheduled-and-background, blob-and-file-triggers, async-apis-and-jobs, messaging-and-pubsub, streams-and-telemetry, data-and-pipelines, orchestration-and-workflows, reliability, security-and-tenancy, runtime-and-ops, realtime, ai-and-agents, guides
 3. `docs/`
    - Published documentation and navigation structure
    - Concept guides for cross-cutting topics
@@ -31,17 +31,19 @@ The repository is organized into four layers:
 
 | Category | Count | Description |
 | --- | --- | --- |
-| HTTP | 4 | Request/response patterns from minimal to webhook |
-| Timer | 1 | Scheduled execution with NCRONTAB |
-| Queue | 2 | Producer/consumer with Storage Queue |
-| Blob | 2 | Polling and Event Grid blob triggers |
-| Service Bus | 1 | Enterprise message queue processing |
-| Event Hub | 1 | High-throughput stream processing |
-| Cosmos DB | 1 | Change feed trigger |
-| Patterns | 7 | Cross-cutting: blueprints, retry, identity, tuning |
-| Durable | 7 | Orchestration, entities, testing |
-| AI | 1 | MCP server integration |
-| Local Dev | 1 | Development workflow |
+| APIs & Ingress | 9 | HTTP-first APIs, auth, webhooks, and edge request shaping |
+| Scheduled & Background | 1 | Scheduled execution with NCRONTAB |
+| Blob & File Triggers | 2 | Polling and Event Grid blob/file processing |
+| Async APIs & Jobs | 4 | Long-running request workflows and async completion patterns |
+| Messaging & Pub/Sub | 8 | Queue, Service Bus, and Event Grid messaging workloads |
+| Streams & Telemetry | 3 | Event Hub ingestion and replay patterns |
+| Data & Pipelines | 6 | Change feed, ETL, CQRS, and persistence-oriented flows |
+| Orchestration & Workflows | 9 | Durable orchestration, entities, sagas, and testing |
+| Reliability | 5 | Retry, outbox, poison handling, and throttling patterns |
+| Security & Tenancy | 4 | Identity-based connections, secrets, and tenant isolation |
+| Runtime & Ops | 6 | Blueprints, bindings vs SDKs, tuning, tracing, and cold start |
+| Realtime | 1 | SignalR-based notifications |
+| AI & Agents | 9 | MCP, RAG, agent, chat, and multimodal AI workloads |
 
 ## Future Extension Points
 

@@ -246,12 +246,12 @@ def _send_callback(callback_url: str, payload: dict[str, Any]) -> int:
 
 
 @app.route(route="tasks", methods=["POST"], auth_level=AUTH_LEVEL_ANONYMOUS)
-@validate_http(body=TaskCreateRequest)
 @app.queue_output(
     arg_name="task_queue",
     queue_name=TASK_QUEUE_NAME,
     connection="AzureWebJobsStorage",
 )
+@validate_http(body=TaskCreateRequest)
 def submit_task(
     req: HttpRequestProtocol,
     body: TaskCreateRequest,

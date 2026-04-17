@@ -6,7 +6,7 @@ This page explains how to use the cookbook effectively as a recipe catalog.
 
 Use the repository in this order:
 
-1. Pick a pattern in `recipes/`.
+1. Pick a pattern in `docs/patterns/`.
 2. Run the matching implementation in `examples/`.
 3. Adapt the sample for your own function app.
 4. Validate with tests, lint, and security checks.
@@ -17,19 +17,21 @@ Use the repository in this order:
 
 ## How recipes are organized
 
-Current recipes:
+Current published pattern pages (67 total):
 
-**HTTP** (7 recipes): hello-http-minimal, http-routing-query-body, http-auth-levels, webhook-github, auth-easyauth-claims, auth-jwt-validation, auth-multitenant
-**Timer** (1): timer-cron-job
-**Queue** (2): queue-producer, queue-consumer
-**Blob** (2): blob-upload-processor, blob-eventgrid-trigger
-**Service Bus** (1): servicebus-worker
-**Event Hub** (1): eventhub-consumer
-**Cosmos DB** (1): change-feed-processor
-**Patterns** (7): blueprint-modular-app, retry-and-idempotency, output-binding-vs-sdk, managed-identity-storage, managed-identity-servicebus, host-json-tuning, concurrency-tuning
-**Durable Functions** (7): durable-hello-sequence, durable-fan-out-fan-in, durable-human-interaction, durable-entity-counter, durable-retry-pattern, durable-determinism-gotchas, durable-unit-testing
-**AI** (1): mcp-server-example
-**Local Development** (1): local-run-and-direct-invoke
+- **APIs & Ingress** (9)
+- **Scheduled & Background** (1)
+- **Blob & File Triggers** (2)
+- **Async APIs & Jobs** (4)
+- **Messaging & Pub/Sub** (8)
+- **Streams & Telemetry** (3)
+- **Data & Pipelines** (6)
+- **Orchestration & Workflows** (9)
+- **Reliability** (5)
+- **Security & Tenancy** (4)
+- **Runtime & Ops** (6)
+- **Realtime** (1)
+- **AI & Agents** (9)
 
 Each recipe targets a specific trigger style and operational concern.
 
@@ -45,7 +47,7 @@ Each recipe targets a specific trigger style and operational concern.
 
 ## Recipe format contract
 
-New or updated recipe files should follow `recipes/_template.md`:
+New or updated pattern pages under `docs/patterns/` should follow the same section contract used by existing pattern pages:
 
 - Overview
 - When to Use
@@ -61,11 +63,11 @@ This consistent section contract keeps pages easy to scan and compare.
 
 Each recipe has a runnable app under `examples/`:
 
-- `recipes/hello-http-minimal.md` -> `examples/http/hello_http_minimal`
-- `recipes/http-routing-query-body.md` -> `examples/http/http_routing_query_body`
-- `recipes/webhook-github.md` -> `examples/http/webhook_github`
-- `recipes/queue-consumer.md` -> `examples/queue/queue_consumer`
-- `recipes/timer-cron-job.md` -> `examples/timer/timer_cron_job`
+- `docs/patterns/apis-and-ingress/hello-http-minimal.md` -> `examples/apis-and-ingress/hello_http_minimal`
+- `docs/patterns/apis-and-ingress/http-routing-query-body.md` -> `examples/apis-and-ingress/http_routing_query_body`
+- `docs/patterns/apis-and-ingress/webhook-github.md` -> `examples/apis-and-ingress/webhook_github`
+- `docs/patterns/messaging-and-pubsub/queue-consumer.md` -> `examples/messaging-and-pubsub/queue_consumer`
+- `docs/patterns/scheduled-and-background/timer-cron-job.md` -> `examples/scheduled-and-background/timer_cron_job`
 - ... and many more. See [Patterns Overview](patterns/index.md) for the full list.
 
 !!! tip
@@ -97,7 +99,7 @@ Each recipe has a runnable app under `examples/`:
 
 Recommended flow:
 
-1. Duplicate `recipes/_template.md` into a new recipe page.
+1. Copy a nearby page under `docs/patterns/<category>/` into a new pattern page and keep the section order consistent.
 2. Add a matching runnable project under `examples/`.
 3. Document local run steps and expected output.
 4. Include production constraints and failure behavior.

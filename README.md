@@ -115,24 +115,28 @@ This repository is content-first. It is not a CLI tool.
 | --- | --- | --- |
 | Local Run and Direct Invoke | Beginner | func start vs direct Python invocation |
 
-Each recipe lives under `recipes/` with a matching runnable project in `examples/`.
+Each pattern page lives under `docs/patterns/` with a matching runnable project in `examples/`.
 
 ## Repository Layout
 
 ```text
-recipes/           Curated recipe documents (31 recipes)
-examples/          Runnable example projects organized by category
-  http/            HTTP trigger examples
-  timer/           Timer trigger examples
-  queue/           Queue trigger examples
-  blob/            Blob trigger examples
-  servicebus/      Service Bus trigger examples
-  eventhub/        Event Hub trigger examples
-  cosmosdb/        Cosmos DB trigger examples
-  recipes/         Pattern and recipe examples
-  durable/         Durable Functions examples
-  ai/              AI integration examples
 docs/              Published documentation
+  patterns/        Curated pattern documents (67 recipes)
+examples/          Runnable example projects organized by category
+  apis-and-ingress/
+  scheduled-and-background/
+  blob-and-file-triggers/
+  async-apis-and-jobs/
+  messaging-and-pubsub/
+  streams-and-telemetry/
+  data-and-pipelines/
+  orchestration-and-workflows/
+  reliability/
+  security-and-tenancy/
+  runtime-and-ops/
+  realtime/
+  ai-and-agents/
+  guides/
 ```
 
 ## Development
