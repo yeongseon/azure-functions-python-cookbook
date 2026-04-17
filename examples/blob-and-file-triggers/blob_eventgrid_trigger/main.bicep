@@ -26,35 +26,6 @@ resource eventsContainer 'Microsoft.Storage/storageAccounts/blobServices/contain
   }
 }
 
-resource eventGridQueue 'Microsoft.Storage/storageAccounts/queueServices/queues@2023-01-01' = {
-  name: '${storage.name}/default/eventgrid-events'
-}
-
-resource eventGridTopic 'Microsoft.EventGrid/topics@2022-06-15' = {
-  name: '${baseName}-topic'
-  location: location
-  sku: {
-    name: 'Basic'
-  }
-  properties: {
-    inputSchema: 'EventGridSchema'
-    publicNetworkAccess: 'Enabled'
-  }
-}
-
-resource eventGridSubscription 'Microsoft.EventGrid/topics/eventSubscriptions@2022-06-15' = {
-  name: '${eventGridTopic.name}/${baseName}-subscription'
-  properties: {
-    destination: {
-      endpointType: 'StorageQueue'
-      properties: {
-        resourceId: storage.id
-        queueName: 'eventgrid-events'
-      }
-    }
-  }
-}
-
 resource plan 'Microsoft.Web/serverfarms@2023-01-01' = {
   name: '${baseName}-plan'
   location: location

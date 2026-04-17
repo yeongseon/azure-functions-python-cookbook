@@ -53,13 +53,23 @@ resource "azurerm_service_plan" "plan" {
 }
 
 resource "azurerm_cognitive_account" "openai" {
-  name                = "${var.base_name}-openai"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  kind                = "OpenAI"
-  sku_name            = "S0"
+  name                  = "${var.base_name}-openai"
+  resource_group_name   = var.resource_group_name
+  location              = var.location
+  kind                  = "OpenAI"
+  sku_name              = "S0"
   custom_subdomain_name = "${var.base_name}-openai"
 }
+
+resource "azurerm_search_service" "search" {
+  name                = "${var.base_name}-search"
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  sku                 = "basic"
+  replica_count       = 1
+  partition_count     = 1
+}
+
 resource "azurerm_linux_function_app" "function_app" {
   name                       = local.function_app_name
   resource_group_name        = var.resource_group_name
@@ -76,13 +86,16 @@ resource "azurerm_linux_function_app" "function_app" {
   }
 
   app_settings = {
-    FUNCTIONS_EXTENSION_VERSION    = "~4"
-    FUNCTIONS_WORKER_RUNTIME       = "python"
-    SCM_DO_BUILD_DURING_DEPLOYMENT = "1"
-    AzureWebJobsStorage            = azurerm_storage_account.storage.primary_connection_string
-    AZURE_OPENAI_ENDPOINT            = "https://${var.base_name}-openai.openai.azure.com/"
-    AZURE_OPENAI_API_KEY             = "replace-me"
-    AZURE_OPENAI_CHAT_DEPLOYMENT     = "gpt-4o-mini"
+    FUNCTIONS_EXTENSION_VERSION     = "~4"
+    FUNCTIONS_WORKER_RUNTIME        = "python"
+    SCM_DO_BUILD_DURING_DEPLOYMENT  = "1"
+    AzureWebJobsStorage             = azurerm_storage_account.storage.primary_connection_string
+    AZURE_OPENAI_ENDPOINT           = "https://${var.base_name}-openai.openai.azure.com/"
+    AZURE_OPENAI_API_KEY            = "replace-me"
+    AZURE_OPENAI_CHAT_DEPLOYMENT    = "gpt-4o-mini"
     AZURE_OPENAI_EMBEDDING_DEPLOYMENT = "text-embedding-3-small"
+    AI_SEARCH_ENDPOINT              = "https://${var.base_name}-search.search.windows.net"
+    AI_SEARCH_INDEX                 = "knowledge-index"
+    AI_SEARCH_API_KEY               = "replace-me"
   }
 }

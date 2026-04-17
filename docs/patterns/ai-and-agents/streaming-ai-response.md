@@ -1,20 +1,19 @@
 # Streaming AI Response
 
-> **Trigger**: HTTP | **State**: stateless | **Guarantee**: streamed response | **Difficulty**: intermediate | **Showcase**: SSE from Azure OpenAI
+> **Trigger**: HTTP | **State**: stateless | **Guarantee**: buffered SSE | **Difficulty**: intermediate | **Showcase**: SSE from Azure OpenAI
 
 ## Overview
-This recipe exposes an HTTP endpoint that returns a Server-Sent Events (SSE)
-stream produced from Azure OpenAI streaming chat completions.
+This recipe exposes an HTTP endpoint that returns a buffered Server-Sent Events
+(SSE) response produced from Azure OpenAI streaming chat completions.
 
 It keeps the route in the normal cookbook HTTP shape with
 `@with_context`, `@openapi`, and `@validate_http`, and uses
 `azure-functions-logging` so each streamed request can be correlated in logs.
-This is a good next step after the basic direct-chat pattern when clients need
-incremental tokens instead of waiting for the full answer.
+This is useful when clients need SSE-formatted output from Azure OpenAI.
 
 ## When to Use
-- You want faster perceived latency by returning model output incrementally.
-- Your frontend already supports EventSource or SSE parsing.
+- You want SSE-formatted output from Azure OpenAI chat completions.
+- Your client can parse SSE-formatted text responses.
 - You want a simple streaming wrapper over Azure OpenAI without a full agent stack.
 
 ## When NOT to Use
@@ -45,6 +44,22 @@ sequenceDiagram
         Function-->>Client: data: {"delta":"..."}
     end
     Function-->>Client: event: done
+```
+
+## Prerequisites
+- Python 3.10+
+- Azure Functions Core Tools v4
+- `openai` SDK
+- Azure OpenAI resource with a chat deployment
+
+## Project Structure
+```text
+examples/ai-and-agents/streaming_ai_response/
+|- function_app.py
+|- host.json
+|- local.settings.json.example
+|- requirements.txt
+`- README.md
 ```
 
 ## Implementation
@@ -114,10 +129,10 @@ data: {"status": "completed"}
 ```
 
 ## Production Considerations
-- Verify your hosting plan and HTTP stack support the streaming behavior you need.
+- Note that this example buffers the full response before returning it. For true token-by-token streaming, verify your hosting plan supports HTTP streaming.
 - Add timeouts and client disconnect handling around long model responses.
 - Record request IDs, deployment names, and stream completion status with `azure-functions-logging`.
-- Avoid buffering excessively large responses in memory before emitting them.
+- Consider chunked responses for very large outputs if your hosting plan supports HTTP streaming.
 
 ## Related Links
 - [Azure OpenAI chat completions how-to](https://learn.microsoft.com/en-us/azure/ai-foundry/openai/how-to/chatgpt)

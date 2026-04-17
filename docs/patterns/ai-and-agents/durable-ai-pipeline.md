@@ -53,6 +53,23 @@ sequenceDiagram
     Generate-->>Orchestrator: final answer
 ```
 
+## Prerequisites
+- Python 3.10+
+- Azure Functions Core Tools v4
+- `azure-functions-durable` extension
+- `openai` SDK
+- Azure OpenAI resource and Azure AI Search index
+
+## Project Structure
+```text
+examples/ai-and-agents/durable_ai_pipeline/
+|- function_app.py
+|- host.json
+|- local.settings.json.example
+|- requirements.txt
+`- README.md
+```
+
 ## Implementation
 The example project is `examples/ai-and-agents/durable_ai_pipeline/`.
 

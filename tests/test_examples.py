@@ -1585,11 +1585,117 @@ class TestOpenaiDirectChat:
         module = _load_example_module("ai-and-agents/openai_direct_chat")
         assert hasattr(module, "app")
 
+    def test_complete_chat_fallback_returns_expected_response(self) -> None:
+        module = _load_example_module("ai-and-agents/openai_direct_chat")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        api_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        try:
+            result = module._complete_chat("test message", "system prompt")
+            assert result == (
+                "Fallback response: Azure Functions can call Azure OpenAI from an HTTP "
+                "trigger and return the generated answer as JSON."
+            )
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if api_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = api_key_backup
+
+    def test_complete_chat_fallback_is_deterministic(self) -> None:
+        module = _load_example_module("ai-and-agents/openai_direct_chat")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        api_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        try:
+            first = module._complete_chat("first prompt", "system prompt")
+            second = module._complete_chat("second prompt", "different prompt")
+            assert first == second
+            assert "Azure Functions" in first
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if api_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = api_key_backup
+
 
 class TestDurableAiPipeline:
     def test_module_loads(self) -> None:
         module = _load_example_module("ai-and-agents/durable_ai_pipeline")
         assert hasattr(module, "app")
+
+    def test_openai_and_search_clients_return_none_without_env_vars(self) -> None:
+        module = _load_example_module("ai-and-agents/durable_ai_pipeline")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        openai_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        search_endpoint_backup = os.environ.pop("AI_SEARCH_ENDPOINT", None)
+        search_key_backup = os.environ.pop("AI_SEARCH_KEY", None)
+        search_index_backup = os.environ.pop("AI_SEARCH_INDEX", None)
+        try:
+            assert module._openai_client() is None
+            assert module._search_client() is None
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if openai_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = openai_key_backup
+            if search_endpoint_backup is not None:
+                os.environ["AI_SEARCH_ENDPOINT"] = search_endpoint_backup
+            if search_key_backup is not None:
+                os.environ["AI_SEARCH_KEY"] = search_key_backup
+            if search_index_backup is not None:
+                os.environ["AI_SEARCH_INDEX"] = search_index_backup
+
+    def test_embed_query_fallback_returns_mock_vector(self) -> None:
+        module = _load_example_module("ai-and-agents/durable_ai_pipeline")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        openai_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        try:
+            result = module.embed_query({"question": "What is Azure Functions?"})
+            assert result == [0.12, 0.34, 0.56]
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if openai_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = openai_key_backup
+
+    def test_search_documents_fallback_returns_mock_results(self) -> None:
+        module = _load_example_module("ai-and-agents/durable_ai_pipeline")
+        search_endpoint_backup = os.environ.pop("AI_SEARCH_ENDPOINT", None)
+        search_key_backup = os.environ.pop("AI_SEARCH_KEY", None)
+        search_index_backup = os.environ.pop("AI_SEARCH_INDEX", None)
+        try:
+            result = module.search_documents({"vector": [0.12, 0.34, 0.56], "top_k": 3})
+            assert len(result) == 1
+            assert result[0]["id"] == "doc-1"
+            assert "Azure Functions" in result[0]["title"]
+            assert result[0]["score"] == 0.91
+        finally:
+            if search_endpoint_backup is not None:
+                os.environ["AI_SEARCH_ENDPOINT"] = search_endpoint_backup
+            if search_key_backup is not None:
+                os.environ["AI_SEARCH_KEY"] = search_key_backup
+            if search_index_backup is not None:
+                os.environ["AI_SEARCH_INDEX"] = search_index_backup
+
+    def test_generate_answer_fallback_returns_expected_text(self) -> None:
+        module = _load_example_module("ai-and-agents/durable_ai_pipeline")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        openai_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        try:
+            result = module.generate_answer(
+                {
+                    "question": "How does Azure Functions scale?",
+                    "documents": [
+                        {"content": "Azure Functions automatically scales based on demand."}
+                    ],
+                }
+            )
+            assert result.startswith("Fallback durable answer:")
+            assert "scales automatically based on demand" in result
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if openai_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = openai_key_backup
 
 
 class TestStreamingAiResponse:
@@ -1597,14 +1703,160 @@ class TestStreamingAiResponse:
         module = _load_example_module("ai-and-agents/streaming_ai_response")
         assert hasattr(module, "app")
 
+    def test_stream_frames_fallback_contains_message_and_data_lines(self) -> None:
+        module = _load_example_module("ai-and-agents/streaming_ai_response")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        api_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        try:
+            result = module._stream_frames("test message", "system prompt")
+            assert "data: " in result
+            assert "test message" in result
+            assert '{"delta": "Azure Functions "}' in result
+            assert '{"delta": "can stream Azure OpenAI output "}' in result
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if api_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = api_key_backup
+
+    def test_stream_frames_fallback_includes_done_event(self) -> None:
+        module = _load_example_module("ai-and-agents/streaming_ai_response")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        api_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        try:
+            result = module._stream_frames("test message", "system prompt")
+            assert "event: done\n" in result
+            assert 'data: {"status": "completed"}' in result
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if api_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = api_key_backup
+
 
 class TestAiImageGeneration:
     def test_module_loads(self) -> None:
         module = _load_example_module("ai-and-agents/ai_image_generation")
         assert hasattr(module, "app")
 
+    def test_generate_image_fallback_returns_example_image(self) -> None:
+        module = _load_example_module("ai-and-agents/ai_image_generation")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        api_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        deployment_backup = os.environ.pop("AZURE_OPENAI_IMAGE_DEPLOYMENT", None)
+        try:
+            result = module._generate_image("draw a function app", "1024x1024")
+            assert result.image_url == (
+                "https://example.blob.core.windows.net/generated/fallback-image.png"
+            )
+            assert result.revised_prompt == "draw a function app"
+            assert result.deployment == "dall-e-3"
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if api_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = api_key_backup
+            if deployment_backup is not None:
+                os.environ["AZURE_OPENAI_IMAGE_DEPLOYMENT"] = deployment_backup
+
+    def test_generate_image_fallback_honors_deployment_env(self) -> None:
+        module = _load_example_module("ai-and-agents/ai_image_generation")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        api_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        deployment_backup = os.environ.get("AZURE_OPENAI_IMAGE_DEPLOYMENT")
+        os.environ["AZURE_OPENAI_IMAGE_DEPLOYMENT"] = "image-test-deployment"
+        try:
+            result = module._generate_image("draw a queue", "1792x1024")
+            assert result.deployment == "image-test-deployment"
+            assert result.revised_prompt == "draw a queue"
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if api_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = api_key_backup
+            if deployment_backup is None:
+                os.environ.pop("AZURE_OPENAI_IMAGE_DEPLOYMENT", None)
+            else:
+                os.environ["AZURE_OPENAI_IMAGE_DEPLOYMENT"] = deployment_backup
+
 
 class TestEmbeddingVectorSearch:
     def test_module_loads(self) -> None:
         module = _load_example_module("ai-and-agents/embedding_vector_search")
         assert hasattr(module, "app")
+
+    def test_openai_and_search_clients_return_none_without_env_vars(self) -> None:
+        module = _load_example_module("ai-and-agents/embedding_vector_search")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        openai_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        search_endpoint_backup = os.environ.pop("AI_SEARCH_ENDPOINT", None)
+        search_key_backup = os.environ.pop("AI_SEARCH_KEY", None)
+        search_index_backup = os.environ.pop("AI_SEARCH_INDEX", None)
+        try:
+            assert module._openai_client() is None
+            assert module._search_client() is None
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if openai_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = openai_key_backup
+            if search_endpoint_backup is not None:
+                os.environ["AI_SEARCH_ENDPOINT"] = search_endpoint_backup
+            if search_key_backup is not None:
+                os.environ["AI_SEARCH_KEY"] = search_key_backup
+            if search_index_backup is not None:
+                os.environ["AI_SEARCH_INDEX"] = search_index_backup
+
+    def test_vector_search_fallback_returns_mock_search_result(self) -> None:
+        module = _load_example_module("ai-and-agents/embedding_vector_search")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        openai_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        search_endpoint_backup = os.environ.pop("AI_SEARCH_ENDPOINT", None)
+        search_key_backup = os.environ.pop("AI_SEARCH_KEY", None)
+        search_index_backup = os.environ.pop("AI_SEARCH_INDEX", None)
+        try:
+            result = module._vector_search("azure functions scaling", 5)
+            assert len(result) == 1
+            assert result[0].id == "doc-1"
+            assert result[0].title == "Azure Functions overview"
+            assert "scales based on demand" in result[0].content
+            assert result[0].score == 0.92
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if openai_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = openai_key_backup
+            if search_endpoint_backup is not None:
+                os.environ["AI_SEARCH_ENDPOINT"] = search_endpoint_backup
+            if search_key_backup is not None:
+                os.environ["AI_SEARCH_KEY"] = search_key_backup
+            if search_index_backup is not None:
+                os.environ["AI_SEARCH_INDEX"] = search_index_backup
+
+    def test_vector_search_fallback_returns_search_result_models(self) -> None:
+        module = _load_example_module("ai-and-agents/embedding_vector_search")
+        endpoint_backup = os.environ.pop("AZURE_OPENAI_ENDPOINT", None)
+        openai_key_backup = os.environ.pop("AZURE_OPENAI_KEY", None)
+        search_endpoint_backup = os.environ.pop("AI_SEARCH_ENDPOINT", None)
+        search_key_backup = os.environ.pop("AI_SEARCH_KEY", None)
+        search_index_backup = os.environ.pop("AI_SEARCH_INDEX", None)
+        try:
+            result = module._vector_search("test query", 1)
+            assert isinstance(result[0], module.SearchResult)
+            assert result[0].model_dump() == {
+                "id": "doc-1",
+                "title": "Azure Functions overview",
+                "content": "Azure Functions automatically scales based on demand.",
+                "score": 0.92,
+            }
+        finally:
+            if endpoint_backup is not None:
+                os.environ["AZURE_OPENAI_ENDPOINT"] = endpoint_backup
+            if openai_key_backup is not None:
+                os.environ["AZURE_OPENAI_KEY"] = openai_key_backup
+            if search_endpoint_backup is not None:
+                os.environ["AI_SEARCH_ENDPOINT"] = search_endpoint_backup
+            if search_key_backup is not None:
+                os.environ["AI_SEARCH_KEY"] = search_key_backup
+            if search_index_backup is not None:
+                os.environ["AI_SEARCH_INDEX"] = search_index_backup

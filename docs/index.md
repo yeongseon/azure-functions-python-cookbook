@@ -15,9 +15,9 @@ gap by pairing clear pattern narratives with runnable examples.
 
 ## What you get
 
-- **67 patterns** across 14 categories covering APIs, messaging, orchestration, AI, and more
+- **67 patterns** across 13 categories covering APIs, messaging, orchestration, AI, and more
 - **67 runnable example projects** under `examples/`, organized by category
-- **Bicep and Terraform IaC templates** for every recipe
+- **Bicep and Terraform IaC templates** for most recipes
 - Production considerations in every pattern
 - Mermaid architecture and behavior diagrams
 - Integration with the Azure Functions Python DX Toolkit
@@ -77,15 +77,24 @@ gap by pairing clear pattern narratives with runnable examples.
 - [Retry Pattern](patterns/orchestration-and-workflows/durable-retry-pattern.md) — activity-level retry strategies
 - [Determinism Gotchas](patterns/orchestration-and-workflows/durable-determinism-gotchas.md) — pitfalls to avoid
 - [Unit Testing](patterns/orchestration-and-workflows/durable-unit-testing.md) — test orchestrations without a host
+- [Saga Compensation](patterns/orchestration-and-workflows/saga-compensation.md) — compensating transactions
+- [Sub-Orchestration](patterns/orchestration-and-workflows/sub-orchestration.md) — nested orchestrations
+- [Async Job Lifecycle](patterns/orchestration-and-workflows/async-job-lifecycle.md) — durable job management
 
 ### Reliability
 
 - [Retry and Idempotency](patterns/reliability/retry-and-idempotency.md) — safe retries and deduplication
+- [Circuit Breaker](patterns/reliability/circuit-breaker.md) — fault isolation
+- [Outbox Pattern](patterns/reliability/outbox-pattern.md) — reliable messaging
+- [Poison Message Handling](patterns/reliability/poison-message-handling.md) — dead letter processing
+- [Rate Limiting Throttle](patterns/reliability/rate-limiting-throttle.md) — request throttling
 
 ### Security & Tenancy
 
 - [Managed Identity (Storage)](patterns/security-and-tenancy/managed-identity-storage.md) — keyless storage access
 - [Managed Identity (Service Bus)](patterns/security-and-tenancy/managed-identity-servicebus.md) — keyless bus access
+- [Secretless Key Vault](patterns/security-and-tenancy/secretless-keyvault.md) — keyless secrets access
+- [Tenant Isolation](patterns/security-and-tenancy/tenant-isolation.md) — multi-tenant data separation
 
 ### Runtime & Ops
 
@@ -93,6 +102,8 @@ gap by pairing clear pattern narratives with runnable examples.
 - [Output Binding vs SDK](patterns/runtime-and-ops/output-binding-vs-sdk.md) — when to use bindings vs direct calls
 - [host.json Tuning](patterns/runtime-and-ops/host-json-tuning.md) — concurrency and retry knobs
 - [Concurrency Tuning](patterns/runtime-and-ops/concurrency-tuning.md) — worker process and thread settings
+- [Observability Tracing](patterns/runtime-and-ops/observability-tracing.md) — distributed tracing
+- [Cold Start Mitigation](patterns/runtime-and-ops/cold-start-mitigation.md) — warm-up strategies
 
 ### Data & Pipelines
 

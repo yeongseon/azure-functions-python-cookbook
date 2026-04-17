@@ -14,7 +14,7 @@ import azure.functions as func
 from pydantic import BaseModel, Field
 
 try:
-    from azure_functions_logging import get_logger, setup_logging
+    from azure_functions_logging import get_logger, setup_logging, with_context
 except ImportError:
 
     def setup_logging(*args: Any, **kwargs: Any) -> None:
@@ -22,6 +22,9 @@ except ImportError:
 
     def get_logger(name: str) -> logging.Logger:
         return logging.getLogger(name)
+
+    def with_context(function: Any) -> Any:
+        return function
 
 
 try:
@@ -165,6 +168,7 @@ def _json_response(model: BaseModel, *, status_code: int = 200) -> func.HttpResp
 
 
 @app.route(route="pipeline/start", methods=["POST"])
+@with_context
 @openapi(
     summary="Start durable AI pipeline",
     description="Starts a durable workflow that embeds, searches, and generates an answer.",
@@ -177,7 +181,6 @@ def _json_response(model: BaseModel, *, status_code: int = 200) -> func.HttpResp
 async def start_pipeline(
     req: func.HttpRequest, body: PipelineRequest, client: Any
 ) -> func.HttpResponse:
-    del req
     instance_id = f"pipeline-{uuid.uuid4()}"
     if hasattr(client, "start_new"):
         maybe_instance_id = client.start_new(
@@ -188,8 +191,16 @@ async def start_pipeline(
             instance_id = await maybe_instance_id
         else:
             instance_id = maybe_instance_id
-        status_uri = f"http://localhost:7071/runtime/webhooks/durabletask/instances/{instance_id}"
+
+    if hasattr(client, "create_check_status_response"):
+        check_status = client.create_check_status_response(req, instance_id)
+        import json as _json
+
+        management_payload = _json.loads(check_status.get_body().decode("utf-8"))
+        status_uri = management_payload.get("statusQueryGetUri", "")
     else:
+        import json as _json
+
         status_uri = f"http://localhost:7071/runtime/webhooks/durabletask/instances/{instance_id}"
 
     logger.info("Started durable AI pipeline", extra={"instance_id": instance_id})

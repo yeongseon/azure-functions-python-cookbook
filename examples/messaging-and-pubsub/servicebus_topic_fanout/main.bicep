@@ -40,11 +40,6 @@ resource analyticsSub 'Microsoft.ServiceBus/namespaces/topics/subscriptions@2022
   properties: {}
 }
 
-resource serviceBusAuth 'Microsoft.ServiceBus/namespaces/AuthorizationRules@2022-10-01-preview' = {
-  name: '${serviceBus.name}/RootManageSharedAccessKey'
-  properties: { rights: ['Listen', 'Send', 'Manage'] }
-}
-
 resource plan 'Microsoft.Web/serverfarms@2023-01-01' = {
   name: '${baseName}-plan'
   location: location
@@ -55,16 +50,17 @@ resource plan 'Microsoft.Web/serverfarms@2023-01-01' = {
 resource functionApp 'Microsoft.Web/sites@2023-01-01' = {
   name: functionAppName
   location: location
-  kind: 'functionapp'
+  kind: 'functionapp,linux'
+  httpsOnly: true
   properties: {
     serverFarmId: plan.id
     siteConfig: {
-      pythonVersion: '3.11'
+      linuxFxVersion: 'Python|3.11'
       appSettings: [
         { name: 'FUNCTIONS_EXTENSION_VERSION', value: '~4' }
         { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'python' }
         { name: 'AzureWebJobsStorage', value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}' }
-        { name: 'ServiceBusConnection', value: listKeys(serviceBusAuth.id, serviceBusAuth.apiVersion).primaryConnectionString }
+        { name: 'ServiceBusConnection', value: listKeys(resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', serviceBus.name, 'RootManageSharedAccessKey'), '2022-10-01-preview').primaryConnectionString }
         { name: 'SCM_DO_BUILD_DURING_DEPLOYMENT', value: '1' }
       ]
     }

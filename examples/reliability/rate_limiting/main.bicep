@@ -1,6 +1,7 @@
 @description('Base name for all resources')
-param baseName string = 'ragknowledgeapi'
+param baseName string = 'ratelimiting'
 
+@description('Azure region')
 param location string = resourceGroup().location
 
 var uniqueSuffix = toLower(uniqueString(resourceGroup().id, baseName))
@@ -26,24 +27,17 @@ resource plan 'Microsoft.Web/serverfarms@2023-01-01' = {
   properties: {}
 }
 
-resource openai 'Microsoft.CognitiveServices/accounts@2023-05-01' = {
-  name: '${baseName}-openai'
+resource redis 'Microsoft.Cache/redis@2023-08-01' = {
+  name: '${baseName}-redis'
   location: location
-  kind: 'OpenAI'
-  sku: { name: 'S0' }
   properties: {
-    publicNetworkAccess: 'Enabled'
+    enableNonSslPort: false
+    minimumTlsVersion: '1.2'
   }
-}
-
-resource aiSearch 'Microsoft.Search/searchServices@2023-11-01' = {
-  name: '${baseName}-search'
-  location: location
-  sku: { name: 'basic' }
-  properties: {
-    replicaCount: 1
-    partitionCount: 1
-    hostingMode: 'default'
+  sku: {
+    name: 'Basic'
+    family: 'C'
+    capacity: 0
   }
 }
 
@@ -62,13 +56,9 @@ resource functionApp 'Microsoft.Web/sites@2023-01-01' = {
         { name: 'FUNCTIONS_WORKER_RUNTIME', value: 'python' }
         { name: 'AzureWebJobsStorage', value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}' }
         { name: 'SCM_DO_BUILD_DURING_DEPLOYMENT', value: '1' }
-        { name: 'AZURE_OPENAI_ENDPOINT', value: 'https://${baseName}-openai.openai.azure.com/' }
-        { name: 'AZURE_OPENAI_API_KEY', value: 'replace-me' }
-        { name: 'AZURE_OPENAI_CHAT_DEPLOYMENT', value: 'gpt-4o-mini' }
-        { name: 'AZURE_OPENAI_EMBEDDING_DEPLOYMENT', value: 'text-embedding-3-small' }
-        { name: 'AI_SEARCH_ENDPOINT', value: 'https://${baseName}-search.search.windows.net' }
-        { name: 'AI_SEARCH_INDEX', value: 'knowledge-index' }
-        { name: 'AI_SEARCH_API_KEY', value: 'replace-me' }
+        { name: 'RATE_LIMIT_CAPACITY', value: '5' }
+        { name: 'RATE_LIMIT_REFILL_PER_SECOND', value: '1' }
+        { name: 'REDIS_URL', value: 'rediss://:${listKeys(redis.id, redis.apiVersion).primaryKey}@${redis.properties.hostName}:6380' }
       ]
     }
   }

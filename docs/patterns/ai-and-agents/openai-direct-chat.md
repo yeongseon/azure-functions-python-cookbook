@@ -44,6 +44,22 @@ sequenceDiagram
     Function-->>Client: 200 JSON response
 ```
 
+## Prerequisites
+- Python 3.10+
+- Azure Functions Core Tools v4
+- `openai` SDK
+- Azure OpenAI resource with a chat deployment
+
+## Project Structure
+```text
+examples/ai-and-agents/openai_direct_chat/
+|- function_app.py
+|- host.json
+|- local.settings.json.example
+|- requirements.txt
+`- README.md
+```
+
 ## Implementation
 The example project is `examples/ai-and-agents/openai_direct_chat/`.
 

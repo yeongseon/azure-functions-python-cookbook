@@ -1,6 +1,7 @@
 @description('Base name for all resources')
-param baseName string = 'ragknowledgeapi'
+param baseName string = 'durableaipipeline'
 
+@description('Azure region')
 param location string = resourceGroup().location
 
 var uniqueSuffix = toLower(uniqueString(resourceGroup().id, baseName))
@@ -63,12 +64,13 @@ resource functionApp 'Microsoft.Web/sites@2023-01-01' = {
         { name: 'AzureWebJobsStorage', value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}' }
         { name: 'SCM_DO_BUILD_DURING_DEPLOYMENT', value: '1' }
         { name: 'AZURE_OPENAI_ENDPOINT', value: 'https://${baseName}-openai.openai.azure.com/' }
-        { name: 'AZURE_OPENAI_API_KEY', value: 'replace-me' }
+        { name: 'AZURE_OPENAI_KEY', value: 'replace-me' }
         { name: 'AZURE_OPENAI_CHAT_DEPLOYMENT', value: 'gpt-4o-mini' }
         { name: 'AZURE_OPENAI_EMBEDDING_DEPLOYMENT', value: 'text-embedding-3-small' }
+        { name: 'AZURE_OPENAI_API_VERSION', value: '2024-02-01' }
         { name: 'AI_SEARCH_ENDPOINT', value: 'https://${baseName}-search.search.windows.net' }
+        { name: 'AI_SEARCH_KEY', value: 'replace-me' }
         { name: 'AI_SEARCH_INDEX', value: 'knowledge-index' }
-        { name: 'AI_SEARCH_API_KEY', value: 'replace-me' }
       ]
     }
   }

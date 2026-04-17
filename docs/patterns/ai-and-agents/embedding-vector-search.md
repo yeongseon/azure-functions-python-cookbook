@@ -48,6 +48,23 @@ sequenceDiagram
     Function-->>Client: 200 JSON response
 ```
 
+## Prerequisites
+- Python 3.10+
+- Azure Functions Core Tools v4
+- `openai` SDK
+- `azure-search-documents` SDK
+- Azure OpenAI resource and Azure AI Search index
+
+## Project Structure
+```text
+examples/ai-and-agents/embedding_vector_search/
+|- function_app.py
+|- host.json
+|- local.settings.json.example
+|- requirements.txt
+`- README.md
+```
+
 ## Implementation
 The example project is `examples/ai-and-agents/embedding_vector_search/`.
 

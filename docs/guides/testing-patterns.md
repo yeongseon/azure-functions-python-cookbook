@@ -79,7 +79,7 @@ from app.functions.greet import greet
 def test_greet_with_query_param() -> None:
     req = func.HttpRequest(
         method="GET",
-        url="/api/greet",
+        url="/api/hello",
         body=b"",
         headers={},
         params={"name": "Alice"},
@@ -93,7 +93,7 @@ def test_greet_with_query_param() -> None:
 def test_greet_missing_name_returns_400() -> None:
     req = func.HttpRequest(
         method="GET",
-        url="/api/greet",
+        url="/api/hello",
         body=b"",
         headers={},
     )
@@ -282,7 +282,7 @@ def func_host() -> Generator[str, None, None]:
     # Wait for the host to be ready
     for _ in range(30):
         try:
-            httpx.get(f"{BASE_URL}/api/greet?name=ping", timeout=2)
+            httpx.get(f"{BASE_URL}/api/hello?name=ping", timeout=2)
             break
         except httpx.ConnectError:
             time.sleep(1)
@@ -294,24 +294,24 @@ def func_host() -> Generator[str, None, None]:
 ### HTTP integration tests
 
 ```python
-# tests/integration/test_greet_integration.py
+# tests/integration/test_hello_integration.py
 import httpx
 
 
-def test_greet_query_param(func_host: str) -> None:
-    resp = httpx.get(f"{func_host}/api/greet", params={"name": "Alice"})
+def test_hello_query_param(func_host: str) -> None:
+    resp = httpx.get(f"{func_host}/api/hello", params={"name": "Alice"})
     assert resp.status_code == 200
     assert resp.json()["greeting"] == "Hello, Alice!"
 
 
-def test_greet_post_body(func_host: str) -> None:
-    resp = httpx.post(f"{func_host}/api/greet", json={"name": "Bob"})
+def test_hello_post_body(func_host: str) -> None:
+    resp = httpx.post(f"{func_host}/api/hello", json={"name": "Bob"})
     assert resp.status_code == 200
     assert resp.json()["greeting"] == "Hello, Bob!"
 
 
-def test_greet_missing_name(func_host: str) -> None:
-    resp = httpx.get(f"{func_host}/api/greet")
+def test_hello_missing_name(func_host: str) -> None:
+    resp = httpx.get(f"{func_host}/api/hello")
     assert resp.status_code == 400
 ```
 
@@ -427,7 +427,7 @@ import httpx
 def test_greet_deployed(e2e_base_url: str, e2e_function_key: str) -> None:
     headers = {"x-functions-key": e2e_function_key} if e2e_function_key else {}
     resp = httpx.get(
-        f"{e2e_base_url}/api/greet",
+        f"{e2e_base_url}/api/hello",
         params={"name": "E2E"},
         headers=headers,
         timeout=30,
@@ -439,7 +439,7 @@ def test_greet_deployed(e2e_base_url: str, e2e_function_key: str) -> None:
 def test_greet_deployed_missing_param(e2e_base_url: str, e2e_function_key: str) -> None:
     headers = {"x-functions-key": e2e_function_key} if e2e_function_key else {}
     resp = httpx.get(
-        f"{e2e_base_url}/api/greet",
+        f"{e2e_base_url}/api/hello",
         headers=headers,
         timeout=30,
     )

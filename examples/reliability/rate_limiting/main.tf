@@ -13,11 +13,9 @@ provider "azurerm" {
   features {}
 }
 
-data "azurerm_client_config" "current" {}
-
 variable "base_name" {
   type    = string
-  default = "secretlesskeyvault"
+  default = "ratelimiting"
 }
 
 variable "location" {
@@ -54,31 +52,14 @@ resource "azurerm_service_plan" "plan" {
   sku_name            = "Y1"
 }
 
-resource "azurerm_user_assigned_identity" "identity" {
-  name                = "${var.base_name}-id"
-  resource_group_name = var.resource_group_name
+resource "azurerm_redis_cache" "redis" {
+  name                = "${var.base_name}-redis"
   location            = var.location
-}
-
-resource "azurerm_key_vault" "kv" {
-  name                      = "${var.base_name}-kv"
-  resource_group_name       = var.resource_group_name
-  location                  = var.location
-  tenant_id                 = data.azurerm_client_config.current.tenant_id
-  sku_name                  = "standard"
-  enable_rbac_authorization = true
-}
-
-resource "azurerm_key_vault_secret" "api_key" {
-  name         = "demo-api-key"
-  value        = "replace-me"
-  key_vault_id = azurerm_key_vault.kv.id
-}
-
-resource "azurerm_role_assignment" "kv_secrets_user" {
-  scope                = azurerm_key_vault.kv.id
-  role_definition_name = "Key Vault Secrets User"
-  principal_id         = azurerm_user_assigned_identity.identity.principal_id
+  resource_group_name = var.resource_group_name
+  capacity            = 0
+  family              = "C"
+  sku_name            = "Basic"
+  minimum_tls_version = "1.2"
 }
 
 resource "azurerm_linux_function_app" "function_app" {
@@ -89,11 +70,6 @@ resource "azurerm_linux_function_app" "function_app" {
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
   https_only                 = true
-
-  identity {
-    type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.identity.id]
-  }
 
   site_config {
     application_stack {
@@ -106,8 +82,8 @@ resource "azurerm_linux_function_app" "function_app" {
     FUNCTIONS_WORKER_RUNTIME       = "python"
     SCM_DO_BUILD_DURING_DEPLOYMENT = "1"
     AzureWebJobsStorage            = azurerm_storage_account.storage.primary_connection_string
-    UPSTREAM_API_KEY               = "@Microsoft.KeyVault(SecretUri=https://${var.base_name}-kv.vault.azure.net/secrets/demo-api-key/)"
-    UPSTREAM_SECRET_NAME           = "demo-api-key"
-    UPSTREAM_APP_NAME              = "sample-upstream"
+    RATE_LIMIT_CAPACITY            = "5"
+    RATE_LIMIT_REFILL_PER_SECOND   = "1"
+    REDIS_URL                      = "rediss://:${azurerm_redis_cache.redis.primary_access_key}@${azurerm_redis_cache.redis.hostname}:${azurerm_redis_cache.redis.ssl_port}"
   }
 }
