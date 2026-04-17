@@ -1,8 +1,8 @@
 # Azure Functions Python Cookbook
 
-[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://github.com/yeongseon/azure-functions-python-cookbook)
-[![CI](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/ci-smoke.yml/badge.svg)](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/ci-smoke.yml)
-[![Docs](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/docs.yml/badge.svg)](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/docs.yml)
+[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://github.com/yeongseon/azure-functions-cookbook-python)
+[![CI](https://github.com/yeongseon/azure-functions-cookbook-python/actions/workflows/ci-smoke.yml/badge.svg)](https://github.com/yeongseon/azure-functions-cookbook-python/actions/workflows/ci-smoke.yml)
+[![Docs](https://github.com/yeongseon/azure-functions-cookbook-python/actions/workflows/docs.yml/badge.svg)](https://github.com/yeongseon/azure-functions-cookbook-python/actions/workflows/docs.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 他の言語: [English](README.md) | [한국어](README.ko.md) | [简体中文](README.zh-CN.md)
@@ -137,8 +137,8 @@ docs/              公開ドキュメント
 ## Development
 
 ```bash
-git clone https://github.com/yeongseon/azure-functions-python-cookbook.git
-cd azure-functions-python-cookbook
+git clone https://github.com/yeongseon/azure-functions-cookbook-python.git
+cd azure-functions-cookbook-python
 make install
 make check-all
 make docs
@@ -154,11 +154,11 @@ make docs
 
 これらのコンパニオンパッケージは**オプションのアクセラレーター**です — クックブックは単独で完全に動作します。
 プロジェクトが成長し、追加のインフラが必要になったときに使用してください：
-- [azure-functions-validation](https://github.com/yeongseon/azure-functions-validation) — リクエストとレスポンスのバリデーション
-- [azure-functions-openapi](https://github.com/yeongseon/azure-functions-openapi) — OpenAPI と Swagger UI
-- [azure-functions-logging](https://github.com/yeongseon/azure-functions-logging) — 構造化ロギング
-- [azure-functions-doctor](https://github.com/yeongseon/azure-functions-doctor) — 診断 CLI
-- [azure-functions-scaffold](https://github.com/yeongseon/azure-functions-scaffold) — プロジェクトスキャフォールディング
+- [azure-functions-validation-python](https://github.com/yeongseon/azure-functions-validation-python) — リクエストとレスポンスのバリデーション
+- [azure-functions-openapi-python](https://github.com/yeongseon/azure-functions-openapi-python) — OpenAPI と Swagger UI
+- [azure-functions-logging-python](https://github.com/yeongseon/azure-functions-logging-python) — 構造化ロギング
+- [azure-functions-doctor-python](https://github.com/yeongseon/azure-functions-doctor-python) — 診断 CLI
+- [azure-functions-scaffold-python](https://github.com/yeongseon/azure-functions-scaffold-python) — プロジェクトスキャフォールディング
 
 ## Disclaimer
 

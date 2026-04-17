@@ -8,7 +8,7 @@ This recipe exposes an HTTP endpoint that returns a buffered Server-Sent Events
 
 It keeps the route in the normal cookbook HTTP shape with
 `@with_context`, `@openapi`, and `@validate_http`, and uses
-`azure-functions-logging` so each streamed request can be correlated in logs.
+`azure-functions-logging-python` so each streamed request can be correlated in logs.
 This is useful when clients need SSE-formatted output from Azure OpenAI.
 
 ## When to Use
@@ -65,7 +65,7 @@ examples/ai-and-agents/streaming_ai_response/
 ## Implementation
 The example project is `examples/ai-and-agents/streaming_ai_response/`.
 
-`function_app.py` configures `azure-functions-logging`, validates the request
+`function_app.py` configures `azure-functions-logging-python`, validates the request
 body, and converts Azure OpenAI streaming chunks into SSE frames with the
 `text/event-stream` content type.
 
@@ -91,7 +91,7 @@ for event in client.chat.completions.create(..., stream=True):
         frames.append(f"data: {json.dumps({'delta': delta})}\n\n")
 ```
 
-`azure-functions-logging` is useful here because streaming failures often happen
+`azure-functions-logging-python` is useful here because streaming failures often happen
 mid-response and need request-level correlation data in logs.
 
 ## Run Locally
@@ -131,7 +131,7 @@ data: {"status": "completed"}
 ## Production Considerations
 - Note that this example buffers the full response before returning it. For true token-by-token streaming, verify your hosting plan supports HTTP streaming.
 - Add timeouts and client disconnect handling around long model responses.
-- Record request IDs, deployment names, and stream completion status with `azure-functions-logging`.
+- Record request IDs, deployment names, and stream completion status with `azure-functions-logging-python`.
 - Consider chunked responses for very large outputs if your hosting plan supports HTTP streaming.
 
 ## Related Links

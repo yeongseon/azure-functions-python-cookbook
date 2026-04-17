@@ -13,9 +13,9 @@ graph TD
     DEV(["👨‍💻 Developer"])
 
     subgraph Ecosystem["Azure Functions Python Ecosystem"]
-        CB["📚 azure-functions-python-cookbook\nRecipe catalog & examples"]
-        SC["🔧 azure-functions-scaffold\nafs new · afs add"]
-        VAL["✅ azure-functions-validation\n@validate_http decorator"]
+        CB["📚 azure-functions-cookbook-python\nRecipe catalog & examples"]
+        SC["🔧 azure-functions-scaffold-python\nafs new · afs add"]
+        VAL["✅ azure-functions-validation-python\n@validate_http decorator"]
     end
 
     PROJ["🗂️ Generated Project\nfunction_app.py\napp/functions/\ntests/"]
@@ -73,7 +73,7 @@ Each recipe maps to exactly one example. This one-to-one mapping keeps documenta
 
 ```mermaid
 flowchart TD
-    subgraph Cookbook["azure-functions-python-cookbook"]
+    subgraph Cookbook["azure-functions-cookbook-python"]
         R["recipes/\n*.md"]
         D["docs/\n*.md"]
         E["examples/\n*/"]

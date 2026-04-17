@@ -1,5 +1,5 @@
 # pyright: reportMissingImports=false, reportUnknownMemberType=false, reportUnknownArgumentType=false
-"""Tests for the public API surface of azure-functions-python-cookbook."""
+"""Tests for the public API surface of azure-functions-cookbook-python."""
 
 from pathlib import Path
 import sys

@@ -1,14 +1,14 @@
-# azure-functions-python-cookbook
+# azure-functions-cookbook-python
 
 > Practical recipes and examples for Azure Functions Python v2.
 
 ## Package Info
 
-- Repository: https://github.com/yeongseon/azure-functions-python-cookbook
+- Repository: https://github.com/yeongseon/azure-functions-cookbook-python
 - Version: 0.1.2
 - Python: >=3.10, <3.15
 - License: MIT
-- Docs: https://yeongseon.github.io/azure-functions-python-cookbook/
+- Docs: https://yeongseon.github.io/azure-functions-cookbook-python/
 
 ## What It Provides
 
@@ -44,8 +44,8 @@ provide a runtime API library.
 ## Quick Start
 
 ```bash
-git clone https://github.com/yeongseon/azure-functions-python-cookbook.git
-cd azure-functions-python-cookbook
+git clone https://github.com/yeongseon/azure-functions-cookbook-python.git
+cd azure-functions-cookbook-python
 make install
 make check-all
 ```
@@ -55,7 +55,7 @@ make check-all
 - Product requirements: `PRD.md`
 - Design principles: `DESIGN.md`
 - Contributing guide: `CONTRIBUTING.md`
-- Published docs: https://yeongseon.github.io/azure-functions-python-cookbook/
+- Published docs: https://yeongseon.github.io/azure-functions-cookbook-python/
 
 ## Ecosystem
 
@@ -63,12 +63,12 @@ Part of **Azure Functions Python DX Toolkit**:
 
 | Package | Role |
 | --- | --- |
-| [azure-functions-openapi](https://github.com/yeongseon/azure-functions-openapi) | OpenAPI spec generation and Swagger UI |
-| [azure-functions-validation](https://github.com/yeongseon/azure-functions-validation) | Request/response validation and serialization |
-| [azure-functions-db](https://github.com/yeongseon/azure-functions-db) | Database bindings for SQL, PostgreSQL, MySQL, SQLite, and Cosmos DB |
-| [azure-functions-langgraph](https://github.com/yeongseon/azure-functions-langgraph) | LangGraph deployment adapter for Azure Functions |
-| [azure-functions-scaffold](https://github.com/yeongseon/azure-functions-scaffold) | Project scaffolding CLI |
-| [azure-functions-logging](https://github.com/yeongseon/azure-functions-logging) | Structured logging and observability |
-| [azure-functions-doctor](https://github.com/yeongseon/azure-functions-doctor) | Pre-deploy diagnostic CLI |
-| [azure-functions-durable-graph](https://github.com/yeongseon/azure-functions-durable-graph) | Manifest-first graph runtime with Durable Functions *(experimental)* |
-| **azure-functions-python-cookbook** | Recipes and examples |
+| [azure-functions-openapi-python](https://github.com/yeongseon/azure-functions-openapi-python) | OpenAPI spec generation and Swagger UI |
+| [azure-functions-validation-python](https://github.com/yeongseon/azure-functions-validation-python) | Request/response validation and serialization |
+| [azure-functions-db-python](https://github.com/yeongseon/azure-functions-db-python) | Database bindings for SQL, PostgreSQL, MySQL, SQLite, and Cosmos DB |
+| [azure-functions-langgraph-python](https://github.com/yeongseon/azure-functions-langgraph-python) | LangGraph deployment adapter for Azure Functions |
+| [azure-functions-scaffold-python](https://github.com/yeongseon/azure-functions-scaffold-python) | Project scaffolding CLI |
+| [azure-functions-logging-python](https://github.com/yeongseon/azure-functions-logging-python) | Structured logging and observability |
+| [azure-functions-doctor-python](https://github.com/yeongseon/azure-functions-doctor-python) | Pre-deploy diagnostic CLI |
+| [azure-functions-durable-graph-python](https://github.com/yeongseon/azure-functions-durable-graph-python) | Manifest-first graph runtime with Durable Functions *(experimental)* |
+| **azure-functions-cookbook-python** | Recipes and examples |

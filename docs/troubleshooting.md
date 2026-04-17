@@ -31,7 +31,7 @@ Install Azure Functions Core Tools v4 and restart your terminal.
 
 - Activate your virtual environment.
 - Reinstall dependencies with `pip install -r requirements.txt`.
-- For OpenAPI example, ensure `azure-functions-openapi` is installed.
+- For OpenAPI example, ensure `azure-functions-openapi-python` is installed.
 
 ## HTTP recipe issues
 
@@ -54,7 +54,7 @@ Examples:
 
 - Verify endpoint path: `http://localhost:7071/api/docs`
 - Verify JSON endpoint: `http://localhost:7071/api/openapi.json`
-- Verify `azure-functions-openapi` dependency is installed.
+- Verify `azure-functions-openapi-python` dependency is installed.
 
 ## GitHub webhook issues
 

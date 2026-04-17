@@ -9,7 +9,7 @@ receiver, which makes this pattern a strong fit for workflows such as per-custom
 or account-level event sequencing.
 
 This recipe uses a queue trigger with `is_sessions_enabled=True`, extracts the `session_id` from each
-`ServiceBusMessage`, and emits structured logs through `azure-functions-logging` so operators can trace ordered work
+`ServiceBusMessage`, and emits structured logs through `azure-functions-logging-python` so operators can trace ordered work
 per session.
 
 ## When to Use

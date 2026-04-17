@@ -4,14 +4,14 @@ Transactional outbox sample for Azure Functions Python where:
 
 - `POST /api/outbox/orders` stores the order document and an outbox event in one Cosmos DB transactional batch
 - a Cosmos DB change feed trigger relays only the outbox documents
-- `azure-functions-db` records relay audit rows in SQLite while structured logs show the broker handoff
+- `azure-functions-db-python` records relay audit rows in SQLite while structured logs show the broker handoff
 
 ## Prerequisites
 
 - Python 3.10+
 - [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
 - Azure Cosmos DB account or emulator with database `outboxdb` and containers `orders` and `leases`
-- SQLite CLI, or another `azure-functions-db` compatible database
+- SQLite CLI, or another `azure-functions-db-python` compatible database
 
 ## Files
 

@@ -9,7 +9,7 @@ generation and returns the resulting image URL.
 The sample uses the `openai` Python SDK against an Azure endpoint and keeps the
 Function app small enough to show the core pattern clearly. As with the other
 cookbook HTTP recipes, it calls out `@with_context`, `@openapi`, and
-`@validate_http`, and uses `azure-functions-logging` for structured telemetry.
+`@validate_http`, and uses `azure-functions-logging-python` for structured telemetry.
 
 ## When to Use
 - You want a serverless API that turns text prompts into generated images.
@@ -63,7 +63,7 @@ examples/ai-and-agents/ai_image_generation/
 The example project is `examples/ai-and-agents/ai_image_generation/`.
 
 `function_app.py` defines typed request and response models, configures
-`azure-functions-logging`, and creates an Azure OpenAI client with
+`azure-functions-logging-python`, and creates an Azure OpenAI client with
 `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_KEY`, and
 `AZURE_OPENAI_IMAGE_DEPLOYMENT`.
 
@@ -128,7 +128,7 @@ Example response:
 ## Production Considerations
 - Add authentication, prompt moderation, and request quotas before exposing the API broadly.
 - Consider storing generated images in Blob Storage instead of returning provider URLs directly.
-- Track prompt size, image size, latency, and deployment name with `azure-functions-logging`.
+- Track prompt size, image size, latency, and deployment name with `azure-functions-logging-python`.
 - Protect API keys with managed identity and Key Vault-backed configuration.
 
 ## Related Links

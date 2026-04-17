@@ -22,7 +22,7 @@ If you discover a security issue in this repository or its example code, please 
 
 The preferred way to report a vulnerability is through a GitHub Security Advisory. This provides a private, secure environment for us to discuss and resolve the issue.
 
-Report here: https://github.com/yeongseon/azure-functions-python-cookbook/security/advisories/new
+Report here: https://github.com/yeongseon/azure-functions-cookbook-python/security/advisories/new
 
 ### Alternative Reporting Method
 

@@ -82,7 +82,7 @@ sequenceDiagram
 - Azure Functions Core Tools v4
 - Durable Functions extension bundle enabled in `host.json`
 - Storage connection for Durable Functions (`AzureWebJobsStorage`)
-- `azure-functions`, `azure-functions-durable`, `azure-functions-validation`, `azure-functions-openapi`, and `azure-functions-logging`
+- `azure-functions`, `azure-functions-durable`, `azure-functions-validation-python`, `azure-functions-openapi-python`, and `azure-functions-logging-python`
 
 ## Project Structure
 ```text

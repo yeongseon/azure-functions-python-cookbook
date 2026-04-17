@@ -5,8 +5,8 @@ This recipe demonstrates practical cold-start mitigation for Azure Functions Pyt
 - lazy imports so the worker starts with less work
 - module-level connection caching with a reusable `requests.Session()`
 - a warmup trigger that preloads the same dependency path used by the HTTP route
-- structured logs via `azure-functions-logging`
-- deployment diagnostics guidance via `azure-functions-doctor`
+- structured logs via `azure-functions-logging-python`
+- deployment diagnostics guidance via `azure-functions-doctor-python`
 
 ## Prerequisites
 
@@ -70,7 +70,7 @@ outbound request.
 
 ## Diagnostics
 
-Use [`azure-functions-doctor`](https://github.com/yeongseon/azure-functions-doctor) before deployment to validate app
+Use [`azure-functions-doctor-python`](https://github.com/yeongseon/azure-functions-doctor-python) before deployment to validate app
 settings, storage connectivity, and extension health when you are investigating cold-start regressions:
 
 ```bash

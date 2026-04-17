@@ -7,7 +7,7 @@ The `examples/data-and-pipelines/etl_enrichment/` sample shows an Extract-Transf
 with an enrichment step in the middle. A blob-triggered Azure Function reads raw JSON records,
 normalizes core fields, enriches each record with reference data such as region metadata or
 geocoding-like lookups, and then writes the enriched rows to a database through
-`azure-functions-db`.
+`azure-functions-db-python`.
 
 This pattern is useful when source data arrives incomplete and must be joined with external
 context before it becomes analytically useful. The enrichment logic stays deterministic and
@@ -56,7 +56,7 @@ sequenceDiagram
 - Azure Functions Core Tools v4
 - Azurite or an Azure Storage account for the blob trigger
 - A database reachable through `DB_URL`
-- `azure-functions-db` and `azure-functions-logging`
+- `azure-functions-db-python` and `azure-functions-logging-python`
 
 ## Project Structure
 ```text

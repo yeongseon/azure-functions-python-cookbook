@@ -7,7 +7,7 @@ Blob-triggered Azure Function that validates uploaded CSV or JSON files, transfo
 - Python 3.10+
 - [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local)
 - [Azurite](https://learn.microsoft.com/azure/storage/common/storage-use-azurite) for local blob storage
-- A database reachable through the `DB_URL` consumed by `azure-functions-db`
+- A database reachable through the `DB_URL` consumed by `azure-functions-db-python`
 
 ## Environment Variables
 
@@ -23,8 +23,8 @@ Copy `local.settings.json.example` to `local.settings.json` and fill in the valu
 - `@app.blob_trigger(..., source=func.BlobSource.EVENT_GRID)` for Event Grid-backed blob activation
 - Validation for required `id`, `category`, and `amount` fields in CSV and JSON payloads
 - Record normalization plus summary generation before persistence
-- Structured logging with `azure-functions-logging`
-- Database output binding with `azure-functions-db`
+- Structured logging with `azure-functions-logging-python`
+- Database output binding with `azure-functions-db-python`
 
 ## Run Locally
 

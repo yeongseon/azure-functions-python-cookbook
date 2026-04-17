@@ -1,13 +1,13 @@
 # Scaffold Quick Start
 
 ## Overview
-`azure-functions-scaffold` (alias: `afs`) generates production-ready Azure Functions
+`azure-functions-scaffold-python` (alias: `afs`) generates production-ready Azure Functions
 Python v2 projects in one command.
 It creates the full project layout — `function_app.py`, `host.json`, service modules,
 schemas, tests, and tooling config — so you can start writing business logic immediately.
 
-Optional flags wire in toolkit packages like `azure-functions-openapi`,
-`azure-functions-validation`, and `azure-functions-db` at generation time.
+Optional flags wire in toolkit packages like `azure-functions-openapi-python`,
+`azure-functions-validation-python`, and `azure-functions-db-python` at generation time.
 
 ## When to Use
 - You are starting a new Azure Functions project and want a proven layout.
@@ -44,7 +44,7 @@ flowchart TD
 | servicebus | `afs new my-bus --template servicebus` | Enterprise messaging |
 | langgraph | `afs new my-agent --template langgraph` | LangGraph AI agent deployment |
 
-`afs` is short for `azure-functions-scaffold`. Both work interchangeably.
+`afs` is short for `azure-functions-scaffold-python`. Both work interchangeably.
 
 ## Profiles
 

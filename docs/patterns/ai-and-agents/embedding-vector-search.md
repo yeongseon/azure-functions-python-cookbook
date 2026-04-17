@@ -9,7 +9,7 @@ documents.
 
 It uses the `openai` SDK for embeddings, the Azure AI Search Python SDK for
 vector search, and the cookbook's standard `@with_context`, `@openapi`, and
-`@validate_http` decorator stack. `azure-functions-logging` provides structured
+`@validate_http` decorator stack. `azure-functions-logging-python` provides structured
 telemetry around embedding and retrieval operations.
 
 ## When to Use
@@ -68,7 +68,7 @@ examples/ai-and-agents/embedding_vector_search/
 ## Implementation
 The example project is `examples/ai-and-agents/embedding_vector_search/`.
 
-`function_app.py` validates the input body, configures `azure-functions-logging`,
+`function_app.py` validates the input body, configures `azure-functions-logging-python`,
 and initializes both Azure OpenAI and Azure AI Search clients from environment
 variables such as `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_KEY`,
 `AZURE_OPENAI_EMBEDDING_DEPLOYMENT`, `AI_SEARCH_ENDPOINT`, `AI_SEARCH_KEY`, and
@@ -145,7 +145,7 @@ Example response:
 ## Production Considerations
 - Make sure your Azure AI Search index schema and vector dimensions match the embedding model.
 - Add filtering and semantic ranking if raw vector similarity is not enough.
-- Log query length, match count, and latency with `azure-functions-logging`.
+- Log query length, match count, and latency with `azure-functions-logging-python`.
 - Use managed identity or secretless configuration for Azure OpenAI and Azure AI Search.
 
 ## Related Links

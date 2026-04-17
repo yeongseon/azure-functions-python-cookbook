@@ -109,11 +109,11 @@ See [Contributing Guidelines](contributing.md) for review standards.
 
 The cookbook is designed to work with companion projects:
 
-- `azure-functions-scaffold` for generating starter projects
-- `azure-functions-validation` for request/response validation helpers
-- `azure-functions-openapi` for contract generation and Swagger UI
-- `azure-functions-logging` for structured logs
-- `azure-functions-doctor` for local environment checks
+- `azure-functions-scaffold-python` for generating starter projects
+- `azure-functions-validation-python` for request/response validation helpers
+- `azure-functions-openapi-python` for contract generation and Swagger UI
+- `azure-functions-logging-python` for structured logs
+- `azure-functions-doctor-python` for local environment checks
 
 Use recipes as the architecture baseline, then apply ecosystem tooling
 incrementally as your app matures.

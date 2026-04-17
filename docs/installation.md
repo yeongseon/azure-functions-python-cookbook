@@ -5,7 +5,7 @@ You do not install it as a package to use an API. Instead, you clone the
 repository, read a recipe, and run one of the matching example projects.
 
 !!! info "Cookbook vs library"
-    `azure-functions-python-cookbook` is not a runtime dependency.
+    `azure-functions-cookbook-python` is not a runtime dependency.
     It is a recipe collection with runnable reference apps under `examples/`.
 
 ## Prerequisites
@@ -19,8 +19,8 @@ repository, read a recipe, and run one of the matching example projects.
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/yeongseon/azure-functions-python-cookbook.git
-cd azure-functions-python-cookbook
+git clone https://github.com/yeongseon/azure-functions-cookbook-python.git
+cd azure-functions-cookbook-python
 ```
 
 ## Create a Virtual Environment
@@ -74,7 +74,7 @@ azurite --queuePort 10001
 ## Project Structure Overview
 
 ```text
-azure-functions-python-cookbook/
+azure-functions-cookbook-python/
   docs/
     foundations/         Core concepts (execution model, triggers & bindings)
     patterns/           Pattern deep-dives organized by category

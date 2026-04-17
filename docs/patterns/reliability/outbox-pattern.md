@@ -60,7 +60,7 @@ sequenceDiagram
 - Python 3.10+
 - Azure Functions Core Tools v4
 - Azure Cosmos DB account or emulator with database `outboxdb` and containers `orders` and `leases`
-- SQLite CLI, or another database supported by `azure-functions-db`, for relay audit storage
+- SQLite CLI, or another database supported by `azure-functions-db-python`, for relay audit storage
 
 ## Project Structure
 ```text
@@ -90,7 +90,7 @@ container.execute_item_batch(batch_operations=operations, partition_key=partitio
 ```
 
 The relay function listens to the Cosmos DB change feed, filters for `type == "outbox"`, publishes
-the event to a broker boundary, and records dispatch metadata with `azure-functions-db`. The sample
+the event to a broker boundary, and records dispatch metadata with `azure-functions-db-python`. The sample
 uses structured logging to make the relay path visible during local runs.
 
 ```python

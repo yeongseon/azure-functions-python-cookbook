@@ -7,7 +7,7 @@ The `examples/async-apis-and-jobs/async_http_polling/` project implements the cl
 The initial HTTP request validates input, starts a durable orchestration, and returns immediately with `statusQueryGetUri` so the client can poll for completion.
 
 This pattern is useful when work may take seconds or minutes and you do not want the caller to hold an open connection.
-The example also shows how to layer `azure-functions-validation`, `azure-functions-openapi`, and `azure-functions-logging` onto the HTTP starter without adding custom polling infrastructure.
+The example also shows how to layer `azure-functions-validation-python`, `azure-functions-openapi-python`, and `azure-functions-logging-python` onto the HTTP starter without adding custom polling infrastructure.
 
 ## When to Use
 - You need a clean HTTP contract for long-running work.

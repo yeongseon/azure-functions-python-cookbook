@@ -14,9 +14,9 @@ It keeps aggregation, response shaping, and observability at the ingress layer w
 backend systems focused on domain-specific responsibilities.
 
 ## Integration Matrix
-- Validation: `azure-functions-validation`
-- OpenAPI: `azure-functions-openapi`
-- Logging: `azure-functions-logging`
+- Validation: `azure-functions-validation-python`
+- OpenAPI: `azure-functions-openapi-python`
+- Logging: `azure-functions-logging-python`
 
 ## When to Use
 - You want one client-friendly endpoint instead of several chatty backend calls.
@@ -68,8 +68,8 @@ sequenceDiagram
 ## Prerequisites
 - Python 3.10+
 - Azure Functions Core Tools v4
-- Packages from `requirements.txt`, including `azure-functions`, `azure-functions-validation`,
-  `azure-functions-openapi`, `azure-functions-logging`, and `requests`
+- Packages from `requirements.txt`, including `azure-functions`, `azure-functions-validation-python`,
+  `azure-functions-openapi-python`, `azure-functions-logging-python`, and `requests`
 - Network access to the configured backend URLs, which default to `https://httpbin.org`
 
 ## Implementation

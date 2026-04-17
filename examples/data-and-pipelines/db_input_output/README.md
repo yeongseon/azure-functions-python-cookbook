@@ -1,7 +1,7 @@
 # DB Input and Output Example
 
-Demonstrates `azure-functions-db` input/output bindings with SQLAlchemy-backed storage,
-combined with `azure-functions-validation` and `azure-functions-openapi`.
+Demonstrates `azure-functions-db-python` input/output bindings with SQLAlchemy-backed storage,
+combined with `azure-functions-validation-python` and `azure-functions-openapi-python`.
 
 ## Run
 

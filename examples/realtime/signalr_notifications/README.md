@@ -13,7 +13,7 @@ Azure Functions app with a SignalR negotiate endpoint and an Event Grid-triggere
 
 - HTTP negotiate endpoint using the SignalR connection info input binding
 - Event Grid trigger using the SignalR output binding to push hub messages
-- Structured logging with `azure-functions-logging` and local fallbacks
+- Structured logging with `azure-functions-logging-python` and local fallbacks
 - A simple `notificationReceived` contract for connected clients
 
 ## Run Locally

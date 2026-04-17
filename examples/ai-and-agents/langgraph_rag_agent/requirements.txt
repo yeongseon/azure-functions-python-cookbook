@@ -1,8 +1,8 @@
 azure-functions
-azure-functions-knowledge
-azure-functions-langgraph
-azure-functions-logging
-azure-functions-openapi
-azure-functions-validation
+azure-functions-knowledge-python
+azure-functions-langgraph-python
+azure-functions-logging-python
+azure-functions-openapi-python
+azure-functions-validation-python
 langgraph>=0.2.0
 pydantic>=2.0

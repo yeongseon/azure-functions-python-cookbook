@@ -1,6 +1,6 @@
 # Release Process
 
-This document outlines the steps to release a new version of **azure-functions-python-cookbook** to PyPI and update the changelog using the existing Makefile and Hatch-based workflows.
+This document outlines the steps to release a new version of **azure-functions-cookbook-python** to PyPI and update the changelog using the existing Makefile and Hatch-based workflows.
 
 ---
 
@@ -95,7 +95,7 @@ make publish-test
 To install from TestPyPI:
 
 ```bash
-pip install --index-url https://test.pypi.org/simple/ azure-functions-python-cookbook
+pip install --index-url https://test.pypi.org/simple/ azure-functions-cookbook-python
 ```
 
 ---
@@ -115,7 +115,7 @@ pip install --index-url https://test.pypi.org/simple/ azure-functions-python-coo
 
 ## Related
 
-- [CHANGELOG.md](https://github.com/yeongseon/azure-functions-python-cookbook/blob/main/CHANGELOG.md)
+- [CHANGELOG.md](https://github.com/yeongseon/azure-functions-cookbook-python/blob/main/CHANGELOG.md)
 - [Development Guide](development.md)
 - [Contributing](contributing.md)
 - [PyPI Publishing with Hatch](https://hatch.pypa.io/latest/publishing/)

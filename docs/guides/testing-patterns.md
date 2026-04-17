@@ -344,7 +344,7 @@ Set `AzureWebJobsStorage` in `local.settings.json` to the Azurite connection str
 
 ### Structured log output in integration tests
 
-Reference the `azure-functions-logging` pattern to emit structured JSON logs that are parseable by pytest's output capture.
+Reference the `azure-functions-logging-python` pattern to emit structured JSON logs that are parseable by pytest's output capture.
 
 ```python
 # app/core/logging.py

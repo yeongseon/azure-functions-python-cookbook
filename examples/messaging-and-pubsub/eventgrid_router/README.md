@@ -11,7 +11,7 @@ Event Grid-triggered Azure Function that routes events to different handlers usi
 ## What It Demonstrates
 
 - `@app.event_grid_trigger(...)` in the Python v2 programming model
-- Structured logging with `azure-functions-logging` and local fallbacks
+- Structured logging with `azure-functions-logging-python` and local fallbacks
 - Route selection for `Microsoft.Storage.BlobCreated` and custom `Contoso.Items.ItemArchived` events
 - Fallback handling for unmatched events
 

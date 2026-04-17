@@ -1,6 +1,6 @@
 # API Reference
 
-`azure-functions-python-cookbook` is a **content-first cookbook**, not a runtime library. There is no public Python API to import or install as a dependency.
+`azure-functions-cookbook-python` is a **content-first cookbook**, not a runtime library. There is no public Python API to import or install as a dependency.
 
 ## What this project provides
 

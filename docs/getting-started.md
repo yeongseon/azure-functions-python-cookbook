@@ -10,8 +10,8 @@ Azure Functions examples locally.
 ## 1) Clone and set up the environment
 
 ```bash
-git clone https://github.com/yeongseon/azure-functions-python-cookbook.git
-cd azure-functions-python-cookbook
+git clone https://github.com/yeongseon/azure-functions-cookbook-python.git
+cd azure-functions-cookbook-python
 python -m venv .venv
 source .venv/bin/activate
 ```

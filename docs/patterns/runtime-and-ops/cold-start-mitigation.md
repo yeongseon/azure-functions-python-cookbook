@@ -12,8 +12,8 @@ This recipe shows how to reduce that first-hit latency with four practical techn
 - reuse outbound clients with **module-level connection caching** instead of rebuilding them on every request
 
 The matching example in `examples/runtime-and-ops/cold_start_mitigation/` combines an HTTP trigger, a warmup trigger,
-structured logging via `azure-functions-logging`, and a simple outbound session cache. It also points to
-`azure-functions-doctor` for deployment diagnostics.
+structured logging via `azure-functions-logging-python`, and a simple outbound session cache. It also points to
+`azure-functions-doctor-python` for deployment diagnostics.
 
 ## When to Use
 - You have bursty traffic and the first request after idle is noticeably slower.
@@ -143,7 +143,7 @@ curl -i "http://localhost:7071/api/cold-start-demo?ping=0"
 - Warmup triggers run during scale-out, not before every single cold start scenario.
 - Keep warmup work small and deterministic; preload only the dependencies that materially improve latency.
 - Module-level caches are per worker process and can disappear whenever the host recycles.
-- Pair latency tuning with `azure-functions-doctor` checks so storage, app settings, and extension issues do not masquerade as cold-start problems.
+- Pair latency tuning with `azure-functions-doctor-python` checks so storage, app settings, and extension issues do not masquerade as cold-start problems.
 
 ## Related Links
 - [Premium plan](https://learn.microsoft.com/en-us/azure/azure-functions/functions-premium-plan)

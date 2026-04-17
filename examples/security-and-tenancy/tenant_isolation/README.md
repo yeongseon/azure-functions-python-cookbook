@@ -1,14 +1,14 @@
 # tenant_isolation
 
 HTTP recipe for resolving tenant context from `X-Tenant-ID` or a bearer token claim,
-then querying a tenant-specific database with `azure-functions-db`.
+then querying a tenant-specific database with `azure-functions-db-python`.
 
 ## Integrations
 
-- `azure-functions-db`
-- `azure-functions-validation`
-- `azure-functions-openapi`
-- `azure-functions-logging`
+- `azure-functions-db-python`
+- `azure-functions-validation-python`
+- `azure-functions-openapi-python`
+- `azure-functions-logging-python`
 
 ## Environment Variables
 

@@ -21,8 +21,8 @@ Before contributing, ensure you have the following tools and knowledge:
 Follow these steps to set up your local development environment:
 
 ```bash
-git clone https://github.com/yeongseon/azure-functions-python-cookbook.git
-cd azure-functions-python-cookbook
+git clone https://github.com/yeongseon/azure-functions-cookbook-python.git
+cd azure-functions-cookbook-python
 make install
 ```
 

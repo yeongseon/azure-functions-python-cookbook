@@ -1,6 +1,6 @@
 # Configuration
 
-`azure-functions-python-cookbook` is a documentation and example project, not a library. There is no runtime configuration API.
+`azure-functions-cookbook-python` is a documentation and example project, not a library. There is no runtime configuration API.
 
 For configuring the tools used in recipe examples, refer to the relevant Azure documentation:
 

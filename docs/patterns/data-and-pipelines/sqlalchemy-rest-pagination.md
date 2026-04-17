@@ -4,7 +4,7 @@
 
 ## Overview
 This recipe demonstrates a REST API built on Azure Functions Python v2 with a SQLAlchemy ORM model,
-page-based pagination, and `azure-functions-db` connection management.
+page-based pagination, and `azure-functions-db-python` connection management.
 
 The sample exposes `POST /items` to create rows and `GET /items` to return paginated results.
 It uses SQLAlchemy for the `Item` entity and `LIMIT`/`OFFSET` pagination, while still aligning with
@@ -58,12 +58,12 @@ sequenceDiagram
 - Python 3.10+
 - Azure Functions Core Tools v4
 - A SQLAlchemy-compatible database URL in `DB_URL`
-- Packages from `requirements.txt`, including `azure-functions-db`, `azure-functions-validation`, `azure-functions-openapi`, `azure-functions-logging`, and `sqlalchemy`
+- Packages from `requirements.txt`, including `azure-functions-db-python`, `azure-functions-validation-python`, `azure-functions-openapi-python`, `azure-functions-logging-python`, and `sqlalchemy`
 
 ## Implementation
 The example in `examples/data-and-pipelines/sqlalchemy_rest_pagination/` keeps the recipe compact:
 
-- **db**: `EngineProvider` from `azure-functions-db` shares engine lifecycle and connection configuration.
+- **db**: `EngineProvider` from `azure-functions-db-python` shares engine lifecycle and connection configuration.
 - **validation**: `@validate_http` validates `page`, `page_size`, and POST bodies.
 - **openapi**: `@openapi` documents both endpoints.
 - **logging**: `setup_logging()` and structured `logger.info()` calls capture request behavior.

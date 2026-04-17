@@ -6,7 +6,7 @@
 The `examples/data-and-pipelines/file_processing_pipeline/` sample shows a multi-stage blob processing
 pipeline where an uploaded CSV or JSON file triggers validation, transformation, and persistence to a
 database. The function uses Event Grid-backed blob notifications for low-latency activation,
-`azure-functions-logging` for structured telemetry, and `azure-functions-db` to write the processed
+`azure-functions-logging-python` for structured telemetry, and `azure-functions-db-python` to write the processed
 result to a downstream table.
 
 This recipe is a strong fit for ingestion workflows where files arrive asynchronously and need a clear,
@@ -31,9 +31,9 @@ flowchart LR
     blob --> trigger[Blob Trigger<br/>source=Event Grid]
     trigger --> validate[Validate schema and values]
     validate --> transform[Transform into normalized records]
-    transform --> persist[Persist with azure-functions-db]
+    transform --> persist[Persist with azure-functions-db-python]
     persist --> db[(Application DB)]
-    trigger -. telemetry .-> logging[azure-functions-logging]
+    trigger -. telemetry .-> logging[azure-functions-logging-python]
 ```
 
 ## Behavior
@@ -95,7 +95,7 @@ Set these values in `local.settings.json` when running locally:
 |----------|---------|---------|
 | `AzureWebJobsStorage` | Storage account used by the blob trigger | `UseDevelopmentStorage=true` |
 | `FUNCTIONS_WORKER_RUNTIME` | Azure Functions language worker | `python` |
-| `DB_URL` | Connection string or URL consumed by `azure-functions-db` | `postgresql://postgres:postgres@localhost:5432/appdb` |
+| `DB_URL` | Connection string or URL consumed by `azure-functions-db-python` | `postgresql://postgres:postgres@localhost:5432/appdb` |
 
 Use an `incoming` blob container for uploaded files such as `orders.csv` or `orders.json`.
 

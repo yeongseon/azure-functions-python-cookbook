@@ -108,7 +108,7 @@ gap by pairing clear pattern narratives with runnable examples.
 ### Data & Pipelines
 
 - [Change Feed Processor](patterns/data-and-pipelines/change-feed-processor.md) — Cosmos DB downstream sync
-- [DB Input and Output](patterns/data-and-pipelines/db-input-output.md) — database CRUD with azure-functions-db
+- [DB Input and Output](patterns/data-and-pipelines/db-input-output.md) — database CRUD with azure-functions-db-python
 - [File Processing Pipeline](patterns/data-and-pipelines/file-processing-pipeline.md)
 - [CQRS Read Projection](patterns/data-and-pipelines/cqrs-read-projection.md)
 - [SQLAlchemy REST Pagination](patterns/data-and-pipelines/sqlalchemy-rest-pagination.md)
@@ -139,8 +139,8 @@ gap by pairing clear pattern narratives with runnable examples.
 ## Quick start
 
 ```bash
-git clone https://github.com/yeongseon/azure-functions-python-cookbook.git
-cd azure-functions-python-cookbook
+git clone https://github.com/yeongseon/azure-functions-cookbook-python.git
+cd azure-functions-cookbook-python
 python -m venv .venv
 source .venv/bin/activate
 ```
@@ -182,14 +182,14 @@ examples/         Runnable Azure Functions app implementations
 
 These companion projects are **optional accelerators** — the cookbook works independently without them:
 
-- [`azure-functions-scaffold`](https://github.com/yeongseon/azure-functions-scaffold) — project bootstrap from known templates
-- [`azure-functions-validation`](https://github.com/yeongseon/azure-functions-validation) — request/response validation helpers
-- [`azure-functions-openapi`](https://github.com/yeongseon/azure-functions-openapi) — generated API contracts and Swagger UI
-- [`azure-functions-logging`](https://github.com/yeongseon/azure-functions-logging) — structured telemetry and diagnostics
-- [`azure-functions-doctor`](https://github.com/yeongseon/azure-functions-doctor) — local environment diagnosis
-- [`azure-functions-db`](https://github.com/yeongseon/azure-functions-db) — database integration helpers
-- [`azure-functions-knowledge`](https://github.com/yeongseon/azure-functions-knowledge) — RAG knowledge base
-- [`azure-functions-langgraph`](https://github.com/yeongseon/azure-functions-langgraph) — LangGraph agent deployment
+- [`azure-functions-scaffold-python`](https://github.com/yeongseon/azure-functions-scaffold-python) — project bootstrap from known templates
+- [`azure-functions-validation-python`](https://github.com/yeongseon/azure-functions-validation-python) — request/response validation helpers
+- [`azure-functions-openapi-python`](https://github.com/yeongseon/azure-functions-openapi-python) — generated API contracts and Swagger UI
+- [`azure-functions-logging-python`](https://github.com/yeongseon/azure-functions-logging-python) — structured telemetry and diagnostics
+- [`azure-functions-doctor-python`](https://github.com/yeongseon/azure-functions-doctor-python) — local environment diagnosis
+- [`azure-functions-db-python`](https://github.com/yeongseon/azure-functions-db-python) — database integration helpers
+- [`azure-functions-knowledge-python`](https://github.com/yeongseon/azure-functions-knowledge-python) — RAG knowledge base
+- [`azure-functions-langgraph-python`](https://github.com/yeongseon/azure-functions-langgraph-python) — LangGraph agent deployment
 
 ## Contributing and quality
 

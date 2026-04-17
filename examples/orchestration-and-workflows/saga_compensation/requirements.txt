@@ -1,4 +1,4 @@
 azure-functions
 azure-functions-durable
-azure-functions-logging
-azure-functions-db
+azure-functions-logging-python
+azure-functions-db-python

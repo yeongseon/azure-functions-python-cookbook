@@ -1,6 +1,6 @@
 azure-functions
-azure-functions-validation
-azure-functions-openapi
-azure-functions-logging
+azure-functions-validation-python
+azure-functions-openapi-python
+azure-functions-logging-python
 requests
 pydantic

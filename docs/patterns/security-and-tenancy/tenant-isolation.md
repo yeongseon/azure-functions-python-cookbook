@@ -62,10 +62,10 @@ sequenceDiagram
 
 - Python 3.10+
 - Azure Functions Core Tools v4
-- `azure-functions-db`
-- `azure-functions-validation`
-- `azure-functions-openapi`
-- `azure-functions-logging`
+- `azure-functions-db-python`
+- `azure-functions-validation-python`
+- `azure-functions-openapi-python`
+- `azure-functions-logging-python`
 - One database per tenant with a compatible `invoices` table
 
 ## Project Structure
@@ -86,7 +86,7 @@ The tenant resolver follows a simple precedence order:
 1. Use `X-Tenant-ID` when an upstream gateway already resolved the tenant.
 2. Otherwise inspect the bearer token payload and read `tid` or `tenant_id`.
 3. Convert the tenant ID into a tenant-specific app setting name such as `TENANT_TENANT_A_DB_URL`.
-4. Pass that database URL into `azure-functions-db` so the injected reader targets the correct store.
+4. Pass that database URL into `azure-functions-db-python` so the injected reader targets the correct store.
 
 ```python
 def resolve_tenant_id(req: func.HttpRequest) -> str:

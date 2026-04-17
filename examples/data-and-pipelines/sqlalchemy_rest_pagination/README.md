@@ -2,11 +2,11 @@
 
 HTTP API example that combines:
 
-- `azure-functions-db` for shared engine management
+- `azure-functions-db-python` for shared engine management
 - SQLAlchemy ORM for the `Item` model and paginated queries
-- `azure-functions-validation` for request/query validation
-- `azure-functions-openapi` for API documentation metadata
-- `azure-functions-logging` for structured logs
+- `azure-functions-validation-python` for request/query validation
+- `azure-functions-openapi-python` for API documentation metadata
+- `azure-functions-logging-python` for structured logs
 
 ## Files
 

@@ -93,7 +93,7 @@ def cold_start_demo(req: func.HttpRequest) -> func.HttpResponse:
             "Use Premium plan for pre-warmed instances on latency-sensitive workloads.",
             "Keep imports lazy so startup work stays small.",
             "Cache outbound clients at module scope per worker.",
-            "Run azure-functions-doctor before deployment when diagnosing cold-start regressions.",
+            "Run azure-functions-doctor-python before deployment when diagnosing cold-start regressions.",
         ],
     }
 

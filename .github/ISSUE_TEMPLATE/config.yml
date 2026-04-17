@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://yeongseon.github.io/azure-functions-python-cookbook/
+    url: https://yeongseon.github.io/azure-functions-cookbook-python/
     about: Read the cookbook documentation

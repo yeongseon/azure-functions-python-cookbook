@@ -2,11 +2,11 @@
 
 This example shows how to combine:
 
-- `azure-functions-langgraph` for LangGraph hosting
-- `azure-functions-knowledge` for retrieval
-- `azure-functions-validation` for typed request handling
-- `azure-functions-openapi` for API metadata
-- `azure-functions-logging` for structured logs
+- `azure-functions-langgraph-python` for LangGraph hosting
+- `azure-functions-knowledge-python` for retrieval
+- `azure-functions-validation-python` for typed request handling
+- `azure-functions-openapi-python` for API metadata
+- `azure-functions-logging-python` for structured logs
 
 The sample exposes a stateful `POST /api/chat` endpoint. Each request includes a
 user message and optional `thread_id`. The agent decides whether to call the
@@ -72,7 +72,7 @@ curl -X POST http://localhost:7071/api/chat \
 ## Notes
 
 - If the toolkit packages are unavailable, the sample falls back to local stubs so the file remains readable and compilable.
-- If `azure-functions-knowledge` is not configured, the example returns mock citations to keep the integration path obvious.
+- If `azure-functions-knowledge-python` is not configured, the example returns mock citations to keep the integration path obvious.
 - Replace the heuristic route logic with an LLM-backed planner when you wire real AI endpoints.
 
 ## Learn More

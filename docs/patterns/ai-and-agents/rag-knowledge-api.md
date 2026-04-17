@@ -4,7 +4,7 @@
 
 ## Overview
 This recipe builds a Retrieval-Augmented Generation (RAG) API on Azure Functions
-using `azure-functions-knowledge`.
+using `azure-functions-knowledge-python`.
 
 The function app exposes two HTTP endpoints:
 
@@ -12,8 +12,8 @@ The function app exposes two HTTP endpoints:
   synthesize an answer.
 - `POST /api/ingest` — submit new documents to the knowledge base for indexing.
 
-The example also layers in `azure-functions-validation`,
-`azure-functions-openapi`, and `azure-functions-logging` so the API has schema
+The example also layers in `azure-functions-validation-python`,
+`azure-functions-openapi-python`, and `azure-functions-logging-python` so the API has schema
 validation, generated contracts, and structured telemetry.
 
 ## When to Use
@@ -29,10 +29,10 @@ validation, generated contracts, and structured telemetry.
 ## Integration Matrix
 | Toolkit | Role in this recipe |
 | --- | --- |
-| `azure-functions-knowledge` | Embedding, vector search, context assembly, and answer generation |
-| `azure-functions-validation` | Validates `/ask` and `/ingest` request bodies and response models |
-| `azure-functions-openapi` | Describes the API contract for client discovery and testing |
-| `azure-functions-logging` | Adds structured logs for question, retrieval, and ingestion activity |
+| `azure-functions-knowledge-python` | Embedding, vector search, context assembly, and answer generation |
+| `azure-functions-validation-python` | Validates `/ask` and `/ingest` request bodies and response models |
+| `azure-functions-openapi-python` | Describes the API contract for client discovery and testing |
+| `azure-functions-logging-python` | Adds structured logs for question, retrieval, and ingestion activity |
 
 ## Architecture
 ```mermaid
@@ -52,10 +52,10 @@ flowchart LR
 ## Prerequisites
 - Python 3.10+
 - Azure Functions Core Tools v4
-- `azure-functions-knowledge`
-- `azure-functions-validation`
-- `azure-functions-openapi`
-- `azure-functions-logging`
+- `azure-functions-knowledge-python`
+- `azure-functions-validation-python`
+- `azure-functions-openapi-python`
+- `azure-functions-logging-python`
 - Azure AI Search and an LLM/embedding endpoint configured via environment variables
 
 ## Project Structure

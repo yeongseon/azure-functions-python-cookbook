@@ -15,7 +15,7 @@ Every project is a self-contained function app ready for `func start`.
 | `apis-and-ingress/auth_jwt_validation` | JWT Bearer token validation with claim-based access control |
 | `apis-and-ingress/auth_multitenant` | Multi-tenant access control with tenant allowlist |
 | `apis-and-ingress/bff_facade_api` | BFF facade pattern for backend-for-frontend |
-| `apis-and-ingress/full_stack_crud_api` | Full-stack CRUD with azure-functions-db toolkit |
+| `apis-and-ingress/full_stack_crud_api` | Full-stack CRUD with azure-functions-db-python toolkit |
 
 ## Async APIs & Jobs
 
@@ -98,7 +98,7 @@ Every project is a self-contained function app ready for `func start`.
 | Example | Description |
 | --- | --- |
 | `data-and-pipelines/change_feed_processor` | Cosmos DB change feed trigger |
-| `data-and-pipelines/db_input_output` | Database CRUD with azure-functions-db |
+| `data-and-pipelines/db_input_output` | Database CRUD with azure-functions-db-python |
 | `data-and-pipelines/file_processing_pipeline` | Blob-triggered file pipeline |
 | `data-and-pipelines/cqrs_read_projection` | CQRS read-side projection |
 | `data-and-pipelines/sqlalchemy_rest_pagination` | SQLAlchemy REST with pagination |
@@ -115,7 +115,7 @@ Every project is a self-contained function app ready for `func start`.
 | Example | Description |
 | --- | --- |
 | `ai-and-agents/mcp_server_example` | MCP server on Azure Functions |
-| `ai-and-agents/langgraph_agent` | LangGraph RAG agent with azure-functions-langgraph |
+| `ai-and-agents/langgraph_agent` | LangGraph RAG agent with azure-functions-langgraph-python |
 | `ai-and-agents/rag_knowledge_api` | RAG knowledge base API |
 | `ai-and-agents/langgraph_rag_agent` | LangGraph RAG agent |
 

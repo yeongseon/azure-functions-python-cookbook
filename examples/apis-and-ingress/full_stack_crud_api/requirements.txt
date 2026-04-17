@@ -1,7 +1,7 @@
 azure-functions
-azure-functions-db
-azure-functions-logging
-azure-functions-openapi
-azure-functions-validation
+azure-functions-db-python
+azure-functions-logging-python
+azure-functions-openapi-python
+azure-functions-validation-python
 sqlalchemy
 pydantic>=2.0

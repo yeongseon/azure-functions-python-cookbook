@@ -22,7 +22,7 @@ Copy `local.settings.json.example` to `local.settings.json` before running local
 
 - `service_bus_queue_trigger` with `is_sessions_enabled=True`
 - Accessing `session_id` from `ServiceBusMessage`
-- Structured logging with `azure-functions-logging`
+- Structured logging with `azure-functions-logging-python`
 - Ordered processing within each customer session
 
 ## Run Locally

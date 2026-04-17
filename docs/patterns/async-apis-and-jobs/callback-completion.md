@@ -10,8 +10,8 @@ This pattern is useful when callers want push-based completion notifications ins
 The example keeps the Functions app stateless while combining request validation and structured logging without adding OpenAPI metadata.
 
 ## Integration Matrix
-- Validation: `azure-functions-validation`
-- Logging: `azure-functions-logging`
+- Validation: `azure-functions-validation-python`
+- Logging: `azure-functions-logging-python`
 - OpenAPI: not used
 
 ## When to Use

@@ -8,8 +8,8 @@ that sends a prompt to Azure OpenAI and returns the model response.
 
 The sample uses the `openai` Python SDK with an Azure endpoint and keeps the
 function surface area simple enough for first-time AI integrations. It also uses
-`azure-functions-validation`, `azure-functions-openapi`, and
-`azure-functions-logging`, so the route follows the cookbook's standard
+`azure-functions-validation-python`, `azure-functions-openapi-python`, and
+`azure-functions-logging-python`, so the route follows the cookbook's standard
 `@with_context`, `@openapi`, and `@validate_http` decorator stack.
 
 ## When to Use
@@ -64,7 +64,7 @@ examples/ai-and-agents/openai_direct_chat/
 The example project is `examples/ai-and-agents/openai_direct_chat/`.
 
 `function_app.py` defines typed request and response models, configures
-`azure-functions-logging`, and creates an Azure OpenAI client from environment
+`azure-functions-logging-python`, and creates an Azure OpenAI client from environment
 variables such as `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_KEY`, and
 `AZURE_OPENAI_CHAT_DEPLOYMENT`.
 
@@ -99,7 +99,7 @@ completion = client.chat.completions.create(
 ```
 
 The response returns the generated answer plus the deployment name so operators
-can correlate requests with logs from `azure-functions-logging`.
+can correlate requests with logs from `azure-functions-logging-python`.
 
 ## Run Locally
 ```bash
@@ -136,7 +136,7 @@ Example response:
 ## Production Considerations
 - Protect the route with `FUNCTION` or stronger auth before deployment.
 - Apply content filtering, rate limiting, and prompt guardrails for public-facing APIs.
-- Log latency, deployment name, and token usage with `azure-functions-logging`.
+- Log latency, deployment name, and token usage with `azure-functions-logging-python`.
 - Move API keys to managed identity plus Azure Key Vault where possible.
 
 ## Related Links

@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## Purpose
-`azure-functions-python-cookbook` provides practical recipes and examples for Azure Functions Python v2 applications.
+`azure-functions-cookbook-python` provides practical recipes and examples for Azure Functions Python v2 applications.
 
 ## Read First
 - `README.md`

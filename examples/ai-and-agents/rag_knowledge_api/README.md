@@ -1,8 +1,8 @@
 # RAG Knowledge API Example
 
-Demonstrates a minimal RAG API built with `azure-functions-knowledge`,
-`azure-functions-validation`, `azure-functions-openapi`, and
-`azure-functions-logging`.
+Demonstrates a minimal RAG API built with `azure-functions-knowledge-python`,
+`azure-functions-validation-python`, `azure-functions-openapi-python`, and
+`azure-functions-logging-python`.
 
 ## Endpoints
 - `POST /api/ask` — retrieve knowledge chunks and generate a grounded answer
@@ -16,7 +16,7 @@ cp local.settings.json.example local.settings.json
 func start
 ```
 
-If `azure-functions-knowledge` is not installed yet, the sample falls back to an
+If `azure-functions-knowledge-python` is not installed yet, the sample falls back to an
 in-memory stub so you can still inspect the endpoint shape locally.
 
 ## Example Requests

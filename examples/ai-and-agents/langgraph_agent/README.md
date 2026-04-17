@@ -1,7 +1,7 @@
 # LangGraph Agent Example
 
-Demonstrates `azure-functions-langgraph` adapter with `azure-functions-logging`,
-`azure-functions-validation`, and `azure-functions-openapi`.
+Demonstrates `azure-functions-langgraph-python` adapter with `azure-functions-logging-python`,
+`azure-functions-validation-python`, and `azure-functions-openapi-python`.
 
 ## Run
 

@@ -137,7 +137,7 @@ class _FallbackKnowledgeClient:
 
 def _create_knowledge_client() -> Any:
     if KnowledgeClient is None:
-        logger.warning("azure-functions-knowledge not installed; using fallback client")
+        logger.warning("azure-functions-knowledge-python not installed; using fallback client")
         return _FallbackKnowledgeClient()
 
     return KnowledgeClient(

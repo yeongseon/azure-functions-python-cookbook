@@ -71,7 +71,7 @@ sequenceDiagram
 - Python 3.10+
 - Azure Functions Core Tools v4
 - Azure Cosmos DB account or emulator
-- A read-model database reachable through `azure-functions-db` (the sample uses SQLite)
+- A read-model database reachable through `azure-functions-db-python` (the sample uses SQLite)
 - Azure Storage emulator or account for Functions runtime state
 
 ## Implementation

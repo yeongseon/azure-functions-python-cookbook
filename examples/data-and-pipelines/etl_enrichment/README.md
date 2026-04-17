@@ -14,7 +14,7 @@ Blob-triggered ETL example that reads raw JSON customer records, enriches them w
 | Variable | Purpose | Example |
 |----------|---------|---------|
 | `AzureWebJobsStorage` | Storage account for the blob trigger | `UseDevelopmentStorage=true` |
-| `DB_URL` | Destination database URL used by `azure-functions-db` | `postgresql://postgres:postgres@localhost:5432/appdb` |
+| `DB_URL` | Destination database URL used by `azure-functions-db-python` | `postgresql://postgres:postgres@localhost:5432/appdb` |
 
 Copy `local.settings.json.example` to `local.settings.json` and fill in the values.
 
@@ -23,8 +23,8 @@ Copy `local.settings.json.example` to `local.settings.json` and fill in the valu
 - Blob-triggered ETL with `@app.blob_trigger`
 - JSON extraction and field normalization
 - Deterministic enrichment using reference lookups
-- Structured logging with `azure-functions-logging`
-- Database output binding with `azure-functions-db`
+- Structured logging with `azure-functions-logging-python`
+- Database output binding with `azure-functions-db-python`
 
 ## Run Locally
 

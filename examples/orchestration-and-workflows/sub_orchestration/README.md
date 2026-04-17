@@ -12,7 +12,7 @@ Durable Functions parent orchestration delegating work to two child sub-orchestr
 
 - HTTP starter endpoint: `POST /api/start-sub-orchestration`
 - Parent orchestrator calling `customer_sync_sub_orchestrator` and `inventory_sync_sub_orchestrator`
-- Activity-level structured logging with `azure-functions-logging`
+- Activity-level structured logging with `azure-functions-logging-python`
 - Final parent result that aggregates both child workflow outputs
 
 ## Run Locally

@@ -13,7 +13,7 @@ HTTP + Queue example that accepts work at `/api/tasks` and sends an HTTP callbac
 
 - HTTP-triggered task submission at `/api/tasks`
 - Request validation with `@validate_http`
-- Structured logging with `azure-functions-logging`
+- Structured logging with `azure-functions-logging-python`
 - Queue-triggered background processing
 - HTTP `POST` callback delivery to the caller's `callback_url`
 

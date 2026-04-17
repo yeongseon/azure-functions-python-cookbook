@@ -10,7 +10,7 @@ answer from the retrieved context.
 The HTTP starter remains a normal cookbook-style route with
 `@with_context`, `@openapi`, and `@validate_http`, while the orchestrator and
 activities handle the long-running AI workflow. The sample also wires in
-`azure-functions-logging` so each step can emit structured telemetry.
+`azure-functions-logging-python` so each step can emit structured telemetry.
 
 ## When to Use
 - You need reliable multi-step AI work that should survive retries and restarts.
@@ -74,7 +74,7 @@ examples/ai-and-agents/durable_ai_pipeline/
 The example project is `examples/ai-and-agents/durable_ai_pipeline/`.
 
 `function_app.py` creates a Durable Functions app, configures
-`azure-functions-logging`, and defines one HTTP starter plus three durable
+`azure-functions-logging-python`, and defines one HTTP starter plus three durable
 activities. The starter route uses the same cookbook decorator stack used by the
 HTTP AI recipes:
 
@@ -140,7 +140,7 @@ Example response:
 - Use Durable Functions when the AI pipeline can exceed normal HTTP execution windows.
 - Tune retries independently for embedding, retrieval, and generation activities.
 - Keep prompts and large search payloads out of orchestration state when possible.
-- Use `azure-functions-logging` to capture instance IDs, activity latency, and failures.
+- Use `azure-functions-logging-python` to capture instance IDs, activity latency, and failures.
 - Prefer managed identity for Azure OpenAI and Azure AI Search in production.
 
 ## Related Links

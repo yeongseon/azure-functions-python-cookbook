@@ -100,7 +100,7 @@ Durable Functions patterns](patterns/orchestration-and-workflows/index.md) for t
 
 ## Is OpenAPI support built into Azure Functions Python?
 
-OpenAPI is available through the companion `azure-functions-openapi`
+OpenAPI is available through the companion `azure-functions-openapi-python`
 ecosystem package for Azure Functions Python projects.
 
 ## How do I test queue and timer recipes quickly?
@@ -122,14 +122,14 @@ See [Troubleshooting](troubleshooting.md) for a full checklist.
 
 ## What ecosystem projects are related?
 
-- `azure-functions-scaffold`
-- `azure-functions-validation`
-- `azure-functions-openapi`
-- `azure-functions-logging`
-- `azure-functions-doctor`
-- `azure-functions-db`
-- `azure-functions-knowledge`
-- `azure-functions-langgraph`
+- `azure-functions-scaffold-python`
+- `azure-functions-validation-python`
+- `azure-functions-openapi-python`
+- `azure-functions-logging-python`
+- `azure-functions-doctor-python`
+- `azure-functions-db-python`
+- `azure-functions-knowledge-python`
+- `azure-functions-langgraph-python`
 
 They complement this cookbook; they do not replace recipe guidance.
 

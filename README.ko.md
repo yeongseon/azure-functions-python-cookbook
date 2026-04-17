@@ -1,8 +1,8 @@
 # Azure Functions Python Cookbook
 
-[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://github.com/yeongseon/azure-functions-python-cookbook)
-[![CI](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/ci-smoke.yml/badge.svg)](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/ci-smoke.yml)
-[![Docs](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/docs.yml/badge.svg)](https://github.com/yeongseon/azure-functions-python-cookbook/actions/workflows/docs.yml)
+[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://github.com/yeongseon/azure-functions-cookbook-python)
+[![CI](https://github.com/yeongseon/azure-functions-cookbook-python/actions/workflows/ci-smoke.yml/badge.svg)](https://github.com/yeongseon/azure-functions-cookbook-python/actions/workflows/ci-smoke.yml)
+[![Docs](https://github.com/yeongseon/azure-functions-cookbook-python/actions/workflows/docs.yml/badge.svg)](https://github.com/yeongseon/azure-functions-cookbook-python/actions/workflows/docs.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 다른 언어: [English](README.md) | [日本語](README.ja.md) | [简体中文](README.zh-CN.md)
@@ -137,8 +137,8 @@ docs/              게시된 문서
 ## Development
 
 ```bash
-git clone https://github.com/yeongseon/azure-functions-python-cookbook.git
-cd azure-functions-python-cookbook
+git clone https://github.com/yeongseon/azure-functions-cookbook-python.git
+cd azure-functions-cookbook-python
 make install
 make check-all
 make docs
@@ -154,11 +154,11 @@ make docs
 
 이 컴패니언 패키지는 **선택적 가속기**입니다 — 쿡북은 독립적으로 완전히 동작합니다.
 프로젝트가 성장하여 추가 인프라가 필요할 때 사용하세요:
-- [azure-functions-validation](https://github.com/yeongseon/azure-functions-validation) — 요청 및 응답 검증
-- [azure-functions-openapi](https://github.com/yeongseon/azure-functions-openapi) — OpenAPI 및 Swagger UI
-- [azure-functions-logging](https://github.com/yeongseon/azure-functions-logging) — 구조화된 로깅
-- [azure-functions-doctor](https://github.com/yeongseon/azure-functions-doctor) — 진단 CLI
-- [azure-functions-scaffold](https://github.com/yeongseon/azure-functions-scaffold) — 프로젝트 스캐폴딩
+- [azure-functions-validation-python](https://github.com/yeongseon/azure-functions-validation-python) — 요청 및 응답 검증
+- [azure-functions-openapi-python](https://github.com/yeongseon/azure-functions-openapi-python) — OpenAPI 및 Swagger UI
+- [azure-functions-logging-python](https://github.com/yeongseon/azure-functions-logging-python) — 구조화된 로깅
+- [azure-functions-doctor-python](https://github.com/yeongseon/azure-functions-doctor-python) — 진단 CLI
+- [azure-functions-scaffold-python](https://github.com/yeongseon/azure-functions-scaffold-python) — 프로젝트 스캐폴딩
 
 ## Disclaimer
 

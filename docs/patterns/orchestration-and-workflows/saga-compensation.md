@@ -110,8 +110,8 @@ def saga_compensation_orchestrator(context: df.DurableOrchestrationContext):
         return {"status": "compensated", "compensations": compensation_results}
 ```
 
-The sample also wires in `azure-functions-logging` for structured logs and includes `DB_URL`
-configuration plus `azure-functions-db` dependency so saga audit handling is ready to expand into
+The sample also wires in `azure-functions-logging-python` for structured logs and includes `DB_URL`
+configuration plus `azure-functions-db-python` dependency so saga audit handling is ready to expand into
 binding-backed persistence.
 
 ## Project Structure

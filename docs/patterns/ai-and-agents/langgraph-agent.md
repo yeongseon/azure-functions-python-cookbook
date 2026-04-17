@@ -4,7 +4,7 @@
 
 ## Overview
 This recipe deploys a LangGraph agent as Azure Functions HTTP endpoints using
-`azure-functions-langgraph`.
+`azure-functions-langgraph-python`.
 You define a graph, register it with `LangGraphApp`, and get invoke, stream,
 and health endpoints automatically — no manual route wiring needed.
 
@@ -34,7 +34,7 @@ flowchart TD
 ## Prerequisites
 - Python 3.10+
 - Azure Functions Core Tools v4
-- `langgraph` and `azure-functions-langgraph` packages
+- `langgraph` and `azure-functions-langgraph-python` packages
 - `typing_extensions` for `TypedDict`
 
 ## Project Structure

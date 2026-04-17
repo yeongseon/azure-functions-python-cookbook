@@ -7,7 +7,7 @@ The `examples/async-apis-and-jobs/queue_backed_job/` project accepts a job over 
 A queue-triggered worker processes the message later and updates the job record so clients can poll for status without holding the original request open.
 
 This is the lightweight version of an async job API when Durable Functions would be unnecessary.
-It pairs well with `azure-functions-validation`, `azure-functions-openapi`, and structured logging on the front-door HTTP function.
+It pairs well with `azure-functions-validation-python`, `azure-functions-openapi-python`, and structured logging on the front-door HTTP function.
 
 ## When to Use
 - You need to return quickly from an HTTP API while background work continues.

@@ -67,7 +67,7 @@ sequenceDiagram
 - Python 3.10+
 - Azure Functions Core Tools v4
 - Durable storage configured in local settings
-- `azure-functions`, `azure-functions-durable`, and `azure-functions-logging` installed
+- `azure-functions`, `azure-functions-durable`, and `azure-functions-logging-python` installed
 
 ## Project Structure
 ```text
@@ -115,7 +115,7 @@ def customer_sync_sub_orchestrator(context: df.DurableOrchestrationContext):
 ```
 
 Logging belongs in the starter and activities, not inside orchestrator replay paths.
-This example uses `azure-functions-logging` for structured application logs while the durable
+This example uses `azure-functions-logging-python` for structured application logs while the durable
 runtime manages orchestration history separately.
 
 ## Run Locally

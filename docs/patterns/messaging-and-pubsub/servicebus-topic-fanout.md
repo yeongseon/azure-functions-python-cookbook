@@ -73,7 +73,7 @@ fan-out branches. The integration matrix for this recipe needs only the `logging
 ```text
 requirements.txt
 |-- azure-functions
-`-- azure-functions-logging
+`-- azure-functions-logging-python
 ```
 
 ## Project Structure

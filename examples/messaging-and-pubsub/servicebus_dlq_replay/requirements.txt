@@ -1,3 +1,3 @@
 azure-functions
-azure-functions-logging
+azure-functions-logging-python
 azure-servicebus

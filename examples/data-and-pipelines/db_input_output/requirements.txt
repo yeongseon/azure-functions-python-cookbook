@@ -1,6 +1,6 @@
 azure-functions
-azure-functions-db
-azure-functions-validation
-azure-functions-openapi
-azure-functions-logging
+azure-functions-db-python
+azure-functions-validation-python
+azure-functions-openapi-python
+azure-functions-logging-python
 pydantic>=2.0

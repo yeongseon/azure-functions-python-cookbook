@@ -4,12 +4,12 @@ Showcase HTTP API that wires the Azure Functions Python DX Toolkit together arou
 
 ## Toolkit Coverage
 
-- `azure-functions-db` for shared SQLAlchemy engine/session management
-- `azure-functions-validation` for query/body validation and response shaping
-- `azure-functions-openapi` for endpoint metadata
-- `azure-functions-logging` for structured telemetry
-- `azure-functions-doctor` as the recommended environment and dependency health check before deploy
-- `azure-functions-scaffold` as the fastest way to generate the starting project skeleton this example builds on
+- `azure-functions-db-python` for shared SQLAlchemy engine/session management
+- `azure-functions-validation-python` for query/body validation and response shaping
+- `azure-functions-openapi-python` for endpoint metadata
+- `azure-functions-logging-python` for structured telemetry
+- `azure-functions-doctor-python` as the recommended environment and dependency health check before deploy
+- `azure-functions-scaffold-python` as the fastest way to generate the starting project skeleton this example builds on
 
 ## Files
 
@@ -64,5 +64,5 @@ curl -X DELETE http://localhost:7071/api/items/1 -i
 
 ## Adjacent Toolkit Workflow
 
-- Run `azure-functions-doctor` before deployment to catch missing settings, packaging issues, and runtime mismatches.
-- Use `azure-functions-scaffold` when you want to generate a new Azure Functions project and then apply this CRUD recipe pattern.
+- Run `azure-functions-doctor-python` before deployment to catch missing settings, packaging issues, and runtime mismatches.
+- Use `azure-functions-scaffold-python` when you want to generate a new Azure Functions project and then apply this CRUD recipe pattern.

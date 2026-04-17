@@ -1,5 +1,5 @@
 [project]
-name = "azure-functions-python-cookbook"
+name = "azure-functions-cookbook-python"
 description = "Practical recipes and examples for Azure Functions Python"
 keywords = ["azure-functions", "azure", "python", "v2", "cookbook", "recipes", "examples", "serverless"]
 authors = [{ name = "Yeongseon Choe", email = "yeongseon.choe@gmail.com" }]
@@ -26,7 +26,7 @@ dependencies = []
 dev = [
     "azure-functions",
     "azure-functions-durable",
-    "azure-functions-openapi",
+    "azure-functions-openapi-python",
     "azure-identity",
     "azure-storage-blob",
     "azure-storage-queue",
@@ -50,10 +50,10 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://yeongseon.github.io/azure-functions-python-cookbook/"
-Documentation = "https://yeongseon.github.io/azure-functions-python-cookbook/"
-Repository = "https://github.com/yeongseon/azure-functions-python-cookbook"
-Issues = "https://github.com/yeongseon/azure-functions-python-cookbook/issues"
+Homepage = "https://yeongseon.github.io/azure-functions-cookbook-python/"
+Documentation = "https://yeongseon.github.io/azure-functions-cookbook-python/"
+Repository = "https://github.com/yeongseon/azure-functions-cookbook-python"
+Issues = "https://github.com/yeongseon/azure-functions-cookbook-python/issues"
 
 [build-system]
 requires = ["hatchling"]

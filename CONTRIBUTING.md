@@ -1,6 +1,6 @@
 # Contributing Guide
 
-We welcome contributions to the `azure-functions-python-cookbook` project.
+We welcome contributions to the `azure-functions-cookbook-python` project.
 
 ## Branch Strategy
 

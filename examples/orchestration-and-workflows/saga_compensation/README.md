@@ -13,7 +13,7 @@ Durable Functions saga orchestration that compensates previously completed steps
 - HTTP starter endpoint: `POST /api/start-saga-compensation`
 - Sequential orchestration for inventory reservation, payment capture, and confirmation delivery
 - Compensation flow that refunds payment and releases inventory when a later step fails
-- Structured logging via `azure-functions-logging` and DB-ready audit metadata via `azure-functions-db`
+- Structured logging via `azure-functions-logging-python` and DB-ready audit metadata via `azure-functions-db-python`
 
 ## Run Locally
 

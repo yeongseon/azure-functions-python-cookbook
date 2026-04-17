@@ -4,13 +4,13 @@
 
 ## Overview
 This recipe demonstrates declarative database read and write operations using
-`azure-functions-db` input and output bindings.
+`azure-functions-db-python` input and output bindings.
 The input binding injects query results directly into your handler.
 The output binding accepts data via a `DbOut` helper — call `.set()` to write rows.
 
 Both patterns avoid manual driver setup.
 You declare the connection URL, table, and query in decorators,
-and `azure-functions-db` handles engine creation, execution, and cleanup.
+and `azure-functions-db-python` handles engine creation, execution, and cleanup.
 
 ## When to Use
 - You need CRUD endpoints backed by PostgreSQL, MySQL, or SQL Server.
@@ -36,7 +36,7 @@ flowchart TD
 ## Prerequisites
 - Python 3.10+
 - Azure Functions Core Tools v4
-- `azure-functions-db[postgres]` (or `[mysql]`, `[mssql]`)
+- `azure-functions-db-python[postgres]` (or `[mysql]`, `[mssql]`)
 - A running database with an `items` table
 - `DB_URL` app setting with a SQLAlchemy connection string
 
@@ -164,7 +164,7 @@ POST /api/items {"name": "Gadget", "price": 19.99}
 - Retries: clients should retry on transient 5xx errors; writes should be idempotent (use upsert with `action="upsert"` and `conflict_columns`).
 - Idempotency: accept client-supplied IDs or use natural keys to prevent duplicate inserts on retry.
 - Observability: log request correlation IDs alongside query parameters and row counts.
-- Connection pooling: `azure-functions-db` creates engines lazily; use `EngineProvider` when sharing connections across bindings.
+- Connection pooling: `azure-functions-db-python` creates engines lazily; use `EngineProvider` when sharing connections across bindings.
 
 ## Scaffold Starter
 ```bash

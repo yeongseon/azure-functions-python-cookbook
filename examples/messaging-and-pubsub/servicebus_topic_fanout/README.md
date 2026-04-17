@@ -22,7 +22,7 @@ Copy `local.settings.json.example` to `local.settings.json` before running local
 
 - Multiple `service_bus_topic_trigger` functions bound to one topic
 - Fan-out delivery into `email`, `inventory`, and `analytics` subscriptions
-- Structured logging with `azure-functions-logging`
+- Structured logging with `azure-functions-logging-python`
 
 ## Run Locally
 
