@@ -63,6 +63,7 @@ build-backend = "hatchling.build"
 sources = ["src"]
 
 [tool.hatch.build.targets.wheel]
+packages = ["src/azure_functions_python_cookbook"]
 
 [tool.hatch.build.targets.sdist]
 include = [
